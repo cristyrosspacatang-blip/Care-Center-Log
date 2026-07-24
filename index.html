@@ -33,10 +33,6 @@
         .print-only {
             display: none;
         }
-        .calendar-day-active {
-            background-color: #e0e7ff;
-            border-color: #6366f1;
-        }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 font-sans antialiased">
@@ -102,14 +98,14 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold leading-tight">Care Center Counseling Management System</h1>
-                    <p class="text-xs text-indigo-200">Individual Counseling Log, HEEADDSSS Testing & Planner</p>
+                    <p class="text-xs text-indigo-200">Individual Counseling Log, Planner & HEEADDSSS Testing</p>
                 </div>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-                <button onclick="switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Calendar & Daily Planner
+                <button onclick="switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Calendar & Planner
                 </button>
-                <button onclick="switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
+                <button onclick="switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i> New Counseling Log
                 </button>
                 <button onclick="switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
@@ -128,70 +124,67 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- TAB 0: CALENDAR & DAILY PLANNER (NEW FEATURE) -->
-        <section id="tab-planner" class="space-y-6 hidden">
+        <!-- TAB 0: CALENDAR & DAILY PLANNER (HOME) -->
+        <section id="tab-planner" class="space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <!-- Left 2 Columns: Calendar with Appointments -->
+                <!-- Left 2 Cols: Monthly Appointments Calendar -->
                 <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                    <div class="flex items-center justify-between border-b pb-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-2">
                         <div class="flex items-center gap-2">
-                            <i data-lucide="calendar-days" class="w-5 h-5 text-indigo-600"></i>
-                            <h2 class="text-lg font-bold text-slate-800" id="calendarMonthYear">Month Year</h2>
+                            <i data-lucide="calendar-check" class="w-5 h-5 text-indigo-600"></i>
+                            <h2 class="text-lg font-bold text-slate-800" id="calendarMonthTitle">Appointments & Follow-up Calendar</h2>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <button onclick="changePlannerMonth(-1)" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-50 text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <button onclick="prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
                             </button>
-                            <button onclick="changePlannerMonth(1)" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-50 text-slate-600">
+                            <button onclick="nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Calendar Grid Header -->
-                    <div class="grid grid-cols-7 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-500 uppercase pb-2">
                         <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
                     </div>
-
-                    <!-- Calendar Days Grid -->
-                    <div id="calendarGrid" class="grid grid-cols-7 gap-2">
-                        <!-- Dynamically filled -->
-                    </div>
-
-                    <div class="pt-2 flex flex-wrap items-center gap-4 text-xs text-slate-500 border-t">
-                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Scheduled Follow-up Appointment</span>
-                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block"></span> Custom To-Do Item</span>
+                    <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 min-h-[320px]">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
-                <!-- Right Column: Daily Planner & To-Do List -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-5 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="border-b pb-3 flex items-center justify-between">
-                            <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
-                                <i data-lucide="check-square" class="w-5 h-5 text-indigo-600"></i> Daily Planner / To-Do List
-                            </h3>
-                            <span class="text-xs bg-indigo-100 text-indigo-800 font-bold px-2.5 py-0.5 rounded-full" id="selectedDateLabel">Today</span>
+                <!-- Right 1 Col: Counselor Daily To-Do Planner -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 flex flex-col">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <div class="flex items-center gap-2 text-indigo-800">
+                            <i data-lucide="list-todo" class="w-5 h-5 text-indigo-600"></i>
+                            <h3 class="font-bold text-base">Counselor Daily To-Do Planner</h3>
                         </div>
-
-                        <!-- Add To-Do Item Form -->
-                        <form onsubmit="handleAddTodo(event)" class="flex gap-2">
-                            <input type="text" id="todoInput" required placeholder="Add new task or counseling note..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
-                            <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-                                <i data-lucide="plus" class="w-4 h-4"></i> Add
-                            </button>
-                        </form>
-
-                        <!-- To-Do & Appointment List for Selected Day -->
-                        <div id="dailyPlannerItems" class="space-y-2 max-h-96 overflow-y-auto pr-1">
-                            <!-- Populated dynamically -->
-                        </div>
+                        <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" id="todoCountTag">0 Tasks</span>
                     </div>
 
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-500 flex items-center gap-2">
-                        <i data-lucide="info" class="w-4 h-4 text-indigo-600 flex-shrink-0"></i>
-                        <span>Follow-up dates set during counseling sessions automatically sync to this calendar.</span>
+                    <!-- Add Todo Form -->
+                    <form onsubmit="handleAddTodo(event)" class="flex gap-2">
+                        <input type="text" id="newTodoInput" required placeholder="Add new counselor task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
+                        <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add
+                        </button>
+                    </form>
+
+                    <!-- To-Do List Items -->
+                    <div id="todoListContainer" class="space-y-2 flex-1 overflow-y-auto max-h-[280px] pt-1">
+                        <!-- Rendered dynamically -->
+                    </div>
+
+                    <!-- Selected Day Appointments List -->
+                    <div class="border-t pt-3 space-y-2">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-1">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i> Linked Appointments on Selected Day
+                        </h4>
+                        <div id="selectedDayAppointments" class="text-xs space-y-1.5 max-h-[140px] overflow-y-auto">
+                            <p class="text-slate-400 italic">Click a date on the calendar to view follow-up sessions.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -199,7 +192,7 @@
         </section>
 
         <!-- TAB 1: NEW COUNSELING LOG FORM -->
-        <section id="tab-new-log" class="space-y-6">
+        <section id="tab-new-log" class="space-y-6 hidden">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
                 <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
                     <div class="flex items-center gap-2">
@@ -275,7 +268,7 @@
                                 </select>
                             </div>
 
-                            <!-- SESSION TIMESLOT: Time Started and Time Ended -->
+                            <!-- SESSION TIMESLOT -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Started</label>
                                 <input type="time" id="timeStarted" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
@@ -326,13 +319,13 @@
                                 <textarea id="actionPlan" required rows="3" placeholder="Agreed action steps..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
 
-                            <!-- NEW FIELD: COUNSELOR'S REFLECTION BOX -->
-                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
+                            <!-- NEW: COUNSELOR'S REFLECTION BOX -->
+                            <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
                                 <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1.5">
-                                    <i data-lucide="lightbulb" class="w-4 h-4 text-indigo-600"></i> Counselor's Personal Reflection & Insights
+                                    <i data-lucide="brain" class="w-4 h-4 text-indigo-600"></i> Counselor's Personal Reflection & Clinical Notes
                                 </label>
-                                <p class="text-xs text-slate-500 mb-2">Self-reflection on counseling dynamic, progress, feelings, or therapeutic intuition.</p>
-                                <textarea id="counselorReflection" rows="3" placeholder="Record counselor reflections, insights, or thoughts for personal reference..." class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
+                                <p class="text-xs text-slate-500 mb-2">Write your personal professional reflections, observations, or self-evaluations regarding this session.</p>
+                                <textarea id="counselorReflection" rows="3" placeholder="Counselor's personal notes/reflections on the session dynamics..." class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
                             </div>
                         </div>
                     </div>
@@ -453,7 +446,7 @@
                         </div>
                     </div>
 
-                    <!-- QUESTIONNAIRE TABLE (12 Tagalog Questions) -->
+                    <!-- QUESTIONNAIRE TABLE -->
                     <div class="space-y-4">
                         <div class="flex justify-between items-center border-b pb-2">
                             <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide">
@@ -1012,13 +1005,13 @@
 
     </main>
 
-    <!-- LOG DETAILS & MULTI-SESSION LINKED TIMELINE PRINT MODAL -->
+    <!-- LOG DETAILS & PRINT MODAL (MULTI-PAGE LINKED SESSIONS SUPPORT) -->
     <div id="viewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full my-8 overflow-hidden print-card">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full my-8 overflow-hidden print-card max-h-[90vh] flex flex-col">
             
-            <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center no-print">
+            <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center no-print flex-shrink-0">
                 <h3 class="font-bold text-lg flex items-center gap-2" id="modalTitle">
-                    <i data-lucide="file-check" class="w-5 h-5 text-emerald-400"></i> Learner Case File Preview
+                    <i data-lucide="file-check" class="w-5 h-5 text-emerald-400"></i> Learner Record Preview
                 </h3>
                 <button onclick="closeModal()" class="text-slate-400 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
@@ -1026,19 +1019,19 @@
             </div>
 
             <!-- Printable Form Content -->
-            <div id="modalPrintArea" class="p-8 space-y-6 text-slate-800">
+            <div id="modalPrintArea" class="p-8 space-y-6 text-slate-800 overflow-y-auto flex-1">
                 <div class="text-center border-b pb-4">
                     <h2 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">CARE CENTER COUNSELING OFFICE</h2>
-                    <p class="text-xs text-slate-500" id="modalHeaderSubtitle">Official Learner Cumulative Counseling Record</p>
+                    <p class="text-xs text-slate-500" id="modalHeaderSubtitle">Official Cumulative Individual Counseling Case History Sheet</p>
                 </div>
 
-                <!-- Record Body with Linked Follow-up Pages -->
+                <!-- Record Body -->
                 <div id="modalBody" class="space-y-6 text-sm">
                     <!-- Populated dynamically -->
                 </div>
 
                 <!-- Signatures -->
-                <div class="pt-8 grid grid-cols-2 gap-8 text-center text-xs border-t">
+                <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
                     <div>
                         <div class="border-b border-slate-400 mb-1"></div>
                         <p class="font-semibold text-slate-700" id="printCounselorName">Guidance Counselor</p>
@@ -1052,12 +1045,12 @@
                 </div>
             </div>
 
-            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print">
+            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print flex-shrink-0">
                 <button onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
-                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 flex items-center gap-2 shadow">
-                    <i data-lucide="printer" class="w-4 h-4"></i> Print Case File
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 flex items-center gap-2 shadow">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Print Full Multi-Session Case History
                 </button>
             </div>
         </div>
@@ -1108,7 +1101,7 @@
         // Storage Keys
         const STORAGE_KEY = 'care_center_counseling_logs';
         const HEEADDSSS_STORAGE_KEY = 'care_center_heeaddsss_logs';
-        const PLANNER_STORAGE_KEY = 'care_center_planner_todos';
+        const TODO_STORAGE_KEY = 'care_center_counselor_todos';
 
         // Questions List Transcribed from Image
         const HEEADDSSS_QUESTIONS = [
@@ -1126,9 +1119,10 @@
             "12. Gusto mo bang mag pa counsel o komunsulta para matulungan ka?"
         ];
 
-        // Global State for Calendar
-        let currentPlannerDate = new Date();
-        let selectedDayFormatted = new Date().toISOString().split('T')[0];
+        // Calendar State Variables
+        let currentCalendarYear = new Date().getFullYear();
+        let currentCalendarMonth = new Date().getMonth();
+        let selectedCalendarDateStr = new Date().toISOString().split('T')[0];
 
         // Chart Instances
         let reasonsChartInstance = null;
@@ -1145,11 +1139,11 @@
             document.getElementById('reportMonth').value = `${year}-${month}`;
 
             lucide.createIcons();
+            renderCalendar();
+            renderTodoList();
             loadLogs();
             loadHeeaddsssRecords();
             updateHeeaddsssRiskScore();
-            renderCalendar();
-            renderDailyPlanner(selectedDayFormatted);
         });
 
         // Tab Switching Logic
@@ -1185,7 +1179,6 @@
                 tabPlanner.classList.remove('hidden');
                 btnPlanner.className = activeStyle;
                 renderCalendar();
-                renderDailyPlanner(selectedDayFormatted);
             } else if (tab === 'new-log') {
                 tabNew.classList.remove('hidden');
                 btnNew.className = activeStyle;
@@ -1202,6 +1195,171 @@
                 btnReports.className = activeStyle;
                 generateReport();
             }
+        }
+
+        // ================= CALENDAR & DAILY PLANNER LOGIC =================
+        function prevCalendarMonth() {
+            currentCalendarMonth--;
+            if (currentCalendarMonth < 0) {
+                currentCalendarMonth = 11;
+                currentCalendarYear--;
+            }
+            renderCalendar();
+        }
+
+        function nextCalendarMonth() {
+            currentCalendarMonth++;
+            if (currentCalendarMonth > 11) {
+                currentCalendarMonth = 0;
+                currentCalendarYear++;
+            }
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1).getDay();
+            const totalDays = new Date(currentCalendarYear, currentCalendarMonth + 1, 0).getDate();
+            const monthName = new Date(currentCalendarYear, currentCalendarMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+            
+            document.getElementById('calendarMonthTitle').innerText = `${monthName}`;
+
+            const grid = document.getElementById('calendarDaysGrid');
+            grid.innerHTML = '';
+
+            // Get all follow up appointments
+            const allCounseling = getStoredLogs();
+            const followUps = allCounseling.filter(l => l.followUpRequired === 'Yes' && l.followUpDate);
+
+            // Empty padding cells before Day 1
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = "bg-slate-50 border border-slate-100 rounded-lg h-16 sm:h-20 opacity-40";
+                grid.appendChild(emptyCell);
+            }
+
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            for (let day = 1; day <= totalDays; day++) {
+                const dayMonth = String(currentCalendarMonth + 1).padStart(2, '0');
+                const dayFormatted = String(day).padStart(2, '0');
+                const dateStr = `${currentCalendarYear}-${dayMonth}-${dayFormatted}`;
+
+                const dayAppointments = followUps.filter(l => l.followUpDate === dateStr);
+
+                const isToday = todayStr === dateStr;
+                const isSelected = selectedCalendarDateStr === dateStr;
+
+                const dayCell = document.createElement('div');
+                dayCell.onclick = () => selectCalendarDate(dateStr);
+
+                let borderClasses = "border border-slate-200";
+                if (isSelected) borderClasses = "border-2 border-indigo-600 bg-indigo-50/50";
+                else if (isToday) borderClasses = "border-2 border-emerald-500 bg-emerald-50/30";
+
+                dayCell.className = `p-1 sm:p-2 rounded-lg h-16 sm:h-20 flex flex-col justify-between cursor-pointer transition hover:border-indigo-400 bg-white ${borderClasses}`;
+
+                const badge = dayAppointments.length > 0 
+                    ? `<span class="mt-1 inline-block text-[9px] sm:text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded truncate" title="${dayAppointments.length} follow-up(s)">${dayAppointments.length} Appt</span>` 
+                    : '';
+
+                dayCell.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold ${isToday ? 'text-emerald-700 font-extrabold' : 'text-slate-700'}">${day}</span>
+                        ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
+                    </div>
+                    ${badge}
+                `;
+
+                grid.appendChild(dayCell);
+            }
+
+            displaySelectedDayAppointments(selectedCalendarDateStr);
+        }
+
+        function selectCalendarDate(dateStr) {
+            selectedCalendarDateStr = dateStr;
+            renderCalendar();
+        }
+
+        function displaySelectedDayAppointments(dateStr) {
+            const container = document.getElementById('selectedDayAppointments');
+            const allCounseling = getStoredLogs();
+            const appointments = allCounseling.filter(l => l.followUpRequired === 'Yes' && l.followUpDate === dateStr);
+
+            if (appointments.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 italic">No scheduled follow-up appointments on ${dateStr}.</p>`;
+                return;
+            }
+
+            container.innerHTML = appointments.map(a => `
+                <div class="p-2 bg-amber-50 border border-amber-200 rounded-lg flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-amber-900 text-xs">${escapeHtml(a.learnerName)}</p>
+                        <p class="text-[10px] text-amber-700">${escapeHtml(a.gradeSection)} @ ${a.followUpTime || 'Time not set'}</p>
+                    </div>
+                    <button onclick="viewLearnerCaseHistory('${escapeHtml(a.learnerName)}')" class="px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded text-[10px] font-bold">
+                        View Log
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // To-Do Planner Logic
+        function getStoredTodos() {
+            const data = localStorage.getItem(TODO_STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function handleAddTodo(e) {
+            e.preventDefault();
+            const input = document.getElementById('newTodoInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const todos = getStoredTodos();
+            todos.unshift({ id: 'TODO-' + Date.now(), text: text, done: false });
+            localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+            input.value = '';
+            renderTodoList();
+            showToast('Task added to daily planner.');
+        }
+
+        function toggleTodoDone(id) {
+            let todos = getStoredTodos();
+            todos = todos.map(t => t.id === id ? { ...t, done: !t.done } : t);
+            localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+            renderTodoList();
+        }
+
+        function deleteTodo(id) {
+            let todos = getStoredTodos().filter(t => t.id !== id);
+            localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+            renderTodoList();
+        }
+
+        function renderTodoList() {
+            const container = document.getElementById('todoListContainer');
+            const todos = getStoredTodos();
+            document.getElementById('todoCountTag').innerText = `${todos.length} Task(s)`;
+
+            if (todos.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-4 text-center">No daily tasks yet. Add a task above!</p>`;
+                return;
+            }
+
+            container.innerHTML = todos.map(t => `
+                <div class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTodoDone('${t.id}')" class="rounded text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-xs ${t.done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'} truncate">${escapeHtml(t.text)}</span>
+                    </div>
+                    <button onclick="deleteTodo('${t.id}')" class="text-slate-400 hover:text-red-500 transition">
+                        <i data-lucide="trash" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
         }
 
         // HEEADDSSS Sub-tab switching
@@ -1223,175 +1381,6 @@
                 btnForm.className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
                 loadHeeaddsssRecords();
             }
-        }
-
-        // CALENDAR & DAILY PLANNER FUNCTIONS
-        function changePlannerMonth(delta) {
-            currentPlannerDate.setMonth(currentPlannerDate.getMonth() + delta);
-            renderCalendar();
-        }
-
-        function renderCalendar() {
-            const year = currentPlannerDate.getFullYear();
-            const month = currentPlannerDate.getMonth();
-            
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            document.getElementById('calendarMonthYear').innerText = `${monthNames[month]} ${year}`;
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            // Fetch Follow-up Appointments from Counseling Logs
-            const logs = getStoredLogs();
-            const apptDates = new Set();
-            logs.forEach(l => {
-                if (l.followUpRequired === 'Yes' && l.followUpDate) {
-                    apptDates.add(l.followUpDate);
-                }
-            });
-
-            // Fetch Custom To-Dos
-            const todos = getStoredTodos();
-            const todoDates = new Set(todos.map(t => t.date));
-
-            const grid = document.getElementById('calendarGrid');
-            grid.innerHTML = '';
-
-            // Empty cells before month start
-            for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = "h-16 sm:h-20 bg-slate-50 border border-slate-100 rounded-lg opacity-40";
-                grid.appendChild(emptyCell);
-            }
-
-            // Fill actual days
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayStr = String(day).padStart(2, '0');
-                const monthStr = String(month + 1).padStart(2, '0');
-                const dateISO = `${year}-${monthStr}-${dayStr}`;
-
-                const dayCell = document.createElement('div');
-                const isSelected = dateISO === selectedDayFormatted;
-                dayCell.className = `h-16 sm:h-20 p-2 border rounded-lg cursor-pointer transition flex flex-col justify-between ${isSelected ? 'calendar-day-active shadow-sm font-bold' : 'bg-white hover:bg-slate-50 border-slate-200'}`;
-                
-                dayCell.onclick = () => {
-                    selectedDayFormatted = dateISO;
-                    renderCalendar();
-                    renderDailyPlanner(dateISO);
-                };
-
-                const hasAppt = apptDates.has(dateISO);
-                const hasTodo = todoDates.has(dateISO);
-
-                let indicatorsHtml = '<div class="flex gap-1">';
-                if (hasAppt) indicatorsHtml += '<span class="w-2 h-2 rounded-full bg-amber-500 inline-block" title="Scheduled Appointment"></span>';
-                if (hasTodo) indicatorsHtml += '<span class="w-2 h-2 rounded-full bg-indigo-600 inline-block" title="Custom Task"></span>';
-                indicatorsHtml += '</div>';
-
-                dayCell.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-slate-700 font-bold">${day}</span>
-                        ${indicatorsHtml}
-                    </div>
-                `;
-                grid.appendChild(dayCell);
-            }
-
-            lucide.createIcons();
-        }
-
-        function getStoredTodos() {
-            const data = localStorage.getItem(PLANNER_STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        }
-
-        function handleAddTodo(e) {
-            e.preventDefault();
-            const input = document.getElementById('todoInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const todos = getStoredTodos();
-            todos.unshift({
-                id: 'TODO-' + Date.now(),
-                date: selectedDayFormatted,
-                text: text,
-                completed: false
-            });
-            localStorage.setItem(PLANNER_STORAGE_KEY, JSON.stringify(todos));
-            input.value = '';
-            renderCalendar();
-            renderDailyPlanner(selectedDayFormatted);
-        }
-
-        function toggleTodoComplete(id) {
-            let todos = getStoredTodos();
-            todos = todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
-            localStorage.setItem(PLANNER_STORAGE_KEY, JSON.stringify(todos));
-            renderDailyPlanner(selectedDayFormatted);
-        }
-
-        function deleteTodo(id) {
-            let todos = getStoredTodos().filter(t => t.id !== id);
-            localStorage.setItem(PLANNER_STORAGE_KEY, JSON.stringify(todos));
-            renderCalendar();
-            renderDailyPlanner(selectedDayFormatted);
-        }
-
-        function renderDailyPlanner(dateISO) {
-            document.getElementById('selectedDateLabel').innerText = dateISO;
-            const container = document.getElementById('dailyPlannerItems');
-            container.innerHTML = '';
-
-            // 1. Get Scheduled Appointments from Counseling Logs for this date
-            const logs = getStoredLogs().filter(l => l.followUpRequired === 'Yes' && l.followUpDate === dateISO);
-            
-            // 2. Get Custom Tasks for this date
-            const todos = getStoredTodos().filter(t => t.date === dateISO);
-
-            if (logs.length === 0 && todos.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-slate-400">
-                        <i data-lucide="check-circle-2" class="w-8 h-8 mx-auto mb-1 opacity-40"></i>
-                        <p class="text-xs">No scheduled follow-ups or tasks for this date.</p>
-                    </div>
-                `;
-                lucide.createIcons();
-                return;
-            }
-
-            // Render Auto-synced Counseling Appointments
-            logs.forEach(appt => {
-                const item = document.createElement('div');
-                item.className = "p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs space-y-1";
-                item.innerHTML = `
-                    <div class="flex items-center justify-between font-bold text-amber-900">
-                        <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i> ${appt.followUpTime !== 'Not Set' ? appt.followUpTime : 'All Day'}</span>
-                        <span class="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded">Appointment</span>
-                    </div>
-                    <p class="font-semibold text-slate-800">${escapeHtml(appt.learnerName)} (${escapeHtml(appt.gradeSection)})</p>
-                    <p class="text-[11px] text-slate-500">Reason: ${escapeHtml(appt.reasonForVisit)}</p>
-                `;
-                container.appendChild(item);
-            });
-
-            // Render Custom To-Do Tasks
-            todos.forEach(todo => {
-                const item = document.createElement('div');
-                item.className = "p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs flex items-center justify-between gap-2";
-                item.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodoComplete('${todo.id}')" class="rounded text-indigo-600 focus:ring-indigo-500">
-                        <span class="${todo.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${escapeHtml(todo.text)}</span>
-                    </div>
-                    <button onclick="deleteTodo('${todo.id}')" class="text-slate-400 hover:text-red-500">
-                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                    </button>
-                `;
-                container.appendChild(item);
-            });
-
-            lucide.createIcons();
         }
 
         // Calculate Real-time Risk Score for HEEADDSSS
@@ -1714,3 +1703,554 @@
             const existing = getStoredLogs();
             existing.unshift(newLog);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+
+            showToast('Counseling Log Saved Successfully!');
+            resetForm();
+            switchTab('history');
+            renderCalendar();
+        }
+
+        function resetForm() {
+            document.getElementById('counselingForm').reset();
+            document.getElementById('sessionDate').valueAsDate = new Date();
+            document.getElementById('timeStarted').value = '';
+            document.getElementById('timeEnded').value = '';
+            document.getElementById('counselorReflection').value = '';
+            toggleCustomReason('');
+            toggleFollowUpFields('Yes');
+        }
+
+        function getStoredLogs() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function loadLogs() {
+            const logs = getStoredLogs();
+            renderLogsList(logs);
+        }
+
+        function renderLogsList(logs) {
+            const container = document.getElementById('logsContainer');
+            container.innerHTML = '';
+            document.getElementById('recordCountTag').innerText = `${logs.length} Total Records`;
+
+            if (logs.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                        <p class="text-sm">No counseling records found.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            logs.forEach(log => {
+                const card = document.createElement('div');
+                card.className = "p-5 hover:bg-slate-50 transition flex flex-col md:flex-row justify-between md:items-center gap-4";
+                
+                const followUpBadge = log.followUpRequired === 'Yes' 
+                    ? `<span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800"><i data-lucide="clock" class="w-3 h-3"></i> Follow-up: ${log.followUpDate} ${log.followUpTime !== 'Not Set' ? '@ ' + log.followUpTime : ''}</span>`
+                    : `<span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800"><i data-lucide="check" class="w-3 h-3"></i> ${log.followUpRequired}</span>`;
+
+                const timeSlotText = (log.timeStarted && log.timeStarted !== 'Not Set') 
+                    ? ` • Time: ${log.timeStarted} - ${log.timeEnded || 'Ongoing'}`
+                    : '';
+
+                card.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-bold text-slate-800 text-base">${escapeHtml(log.learnerName)}</h4>
+                            <span class="text-xs font-medium px-2 py-0.5 bg-slate-200 text-slate-700 rounded">${escapeHtml(log.gradeSection)}</span>
+                            <span class="text-xs text-slate-500">(${escapeHtml(log.sex)})</span>
+                        </div>
+                        <p class="text-xs font-medium text-indigo-700 flex items-center gap-1">
+                            <i data-lucide="tag" class="w-3 h-3"></i> ${escapeHtml(log.reasonForVisit)}
+                        </p>
+                        <p class="text-xs text-slate-500 line-clamp-1">
+                            <span class="font-semibold text-slate-600">Presenting Concern:</span> ${escapeHtml(log.presentingConcern)}
+                        </p>
+                        <div class="pt-1 flex items-center gap-3 text-xs text-slate-400">
+                            <span>Session Date: ${log.sessionDate}${timeSlotText}</span>
+                            <span>•</span>
+                            <span>Counselor: ${escapeHtml(log.counselorName)}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 self-start md:self-center">
+                        ${followUpBadge}
+                        <button onclick="viewLearnerCaseHistory('${escapeHtml(log.learnerName)}')" class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <i data-lucide="layers" class="w-3.5 h-3.5"></i> Linked Case History
+                        </button>
+                        <button onclick="deleteLog('${log.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete Log">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        function filterLogs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const reasonFilter = document.getElementById('filterReason').value;
+            const allLogs = getStoredLogs();
+
+            const filtered = allLogs.filter(log => {
+                const matchesSearch = log.learnerName.toLowerCase().includes(query) ||
+                                      log.gradeSection.toLowerCase().includes(query) ||
+                                      log.reasonForVisit.toLowerCase().includes(query);
+                
+                const matchesReason = reasonFilter === 'ALL' || log.reasonForVisit === reasonFilter;
+
+                return matchesSearch && matchesReason;
+            });
+
+            renderLogsList(filtered);
+        }
+
+        function handleMonthFilterChange() {
+            document.getElementById('reportDateFrom').value = '';
+            document.getElementById('reportDateTo').value = '';
+            generateReport();
+        }
+
+        function clearMonthAndGenerate() {
+            document.getElementById('reportMonth').value = '';
+            generateReport();
+        }
+
+        function calculateAndShowMonthlyReach() {
+            const monthVal = document.getElementById('reportMonth').value;
+            if (!monthVal) {
+                alert('Please select a Month under "Filter by Month" first.');
+                return;
+            }
+
+            const [year, month] = monthVal.split('-');
+            const monthName = new Date(year, parseInt(month) - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+            const counselingLogs = getStoredLogs().filter(l => l.sessionDate && l.sessionDate.startsWith(monthVal));
+            const heeaddsssLogs = getStoredHeeaddsss().filter(h => h.assessmentDate && h.assessmentDate.startsWith(monthVal));
+
+            const counselingSessionCount = counselingLogs.length;
+            const counselingStudentsSet = new Set(counselingLogs.map(l => l.learnerName.toLowerCase().trim()));
+
+            const testingSessionCount = heeaddsssLogs.length;
+            const testingStudentsSet = new Set(heeaddsssLogs.map(h => h.learnerName.toLowerCase().trim()));
+
+            const criticalRiskTestingCount = heeaddsssLogs.filter(h => h.flagStatus === 'HIGH RISK').length;
+
+            const combinedStudentsSet = new Set([
+                ...counselingLogs.map(l => l.learnerName.toLowerCase().trim()),
+                ...heeaddsssLogs.map(h => h.learnerName.toLowerCase().trim())
+            ]);
+
+            const totalUniqueLearnersReached = combinedStudentsSet.size;
+            const totalServiceInteractions = counselingSessionCount + testingSessionCount;
+
+            document.getElementById('reachModalMonthTitle').innerText = `Report Period: ${monthName}`;
+            
+            const modalBody = document.getElementById('reachModalBody');
+            modalBody.innerHTML = `
+                <div class="bg-indigo-900 text-white rounded-xl p-6 text-center space-y-2">
+                    <span class="text-xs uppercase font-bold text-indigo-300 tracking-wider">Total Unique Learners Reached</span>
+                    <h3 class="text-4xl font-extrabold text-emerald-400">${totalUniqueLearnersReached} <span class="text-base font-normal text-indigo-200">Student(s)</span></h3>
+                    <p class="text-xs text-indigo-200">Across Individual Counseling and HEEADDSSS Psychosocial Testing</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-5 space-y-2">
+                        <div class="flex items-center gap-2 text-indigo-800 font-bold text-sm border-b pb-2 border-indigo-200">
+                            <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Individual Counseling
+                        </div>
+                        <div class="pt-1">
+                            <span class="block text-2xl font-bold text-indigo-900">${counselingSessionCount} <span class="text-xs text-slate-500 font-normal">Total Sessions</span></span>
+                            <span class="text-xs text-indigo-700 font-medium">(${counselingStudentsSet.size} unique learner/s served)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-2">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm border-b pb-2 border-emerald-200">
+                            <i data-lucide="clipboard-check" class="w-4 h-4 text-emerald-600"></i> HEEADDSSS Testing / Screening
+                        </div>
+                        <div class="pt-1">
+                            <span class="block text-2xl font-bold text-emerald-900">${testingSessionCount} <span class="text-xs text-slate-500 font-normal">Assessments Administered</span></span>
+                            <span class="text-xs text-emerald-700 font-medium">(${testingStudentsSet.size} unique learner/s tested)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+                    <h4 class="font-bold text-xs uppercase text-slate-500">Service Details Summary</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                        <div class="p-2.5 bg-white rounded border border-slate-200">
+                            <span class="block text-slate-400 font-medium">Total Service Visits</span>
+                            <span class="font-bold text-slate-800 text-sm">${totalServiceInteractions}</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded border border-slate-200">
+                            <span class="block text-slate-400 font-medium">Critical Testing Flags</span>
+                            <span class="font-bold text-red-600 text-sm">${criticalRiskTestingCount} High Risk</span>
+                        </div>
+                        <div class="p-2.5 bg-white rounded border border-slate-200 col-span-2 sm:col-span-1">
+                            <span class="block text-slate-400 font-medium">Reporting Month</span>
+                            <span class="font-bold text-indigo-700 text-sm">${monthName}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('reachModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeReachModal() {
+            document.getElementById('reachModal').classList.add('hidden');
+        }
+
+        function generateReport() {
+            const monthVal = document.getElementById('reportMonth').value;
+            const nameVal = document.getElementById('reportLearnerName').value.toLowerCase().trim();
+            const gradeVal = document.getElementById('reportGrade').value.toLowerCase().trim();
+            const reasonVal = document.getElementById('reportReason').value;
+            const sexVal = document.getElementById('reportSex').value;
+            const dateFrom = document.getElementById('reportDateFrom').value;
+            const dateTo = document.getElementById('reportDateTo').value;
+
+            const allLogs = getStoredLogs();
+
+            const filtered = allLogs.filter(log => {
+                if (monthVal && !log.sessionDate.startsWith(monthVal)) return false;
+                if (nameVal && !log.learnerName.toLowerCase().includes(nameVal)) return false;
+                if (gradeVal && !log.gradeSection.toLowerCase().includes(gradeVal)) return false;
+                if (reasonVal !== 'ALL' && log.reasonForVisit !== reasonVal) return false;
+                if (sexVal !== 'ALL' && log.sex !== sexVal) return false;
+
+                if (!monthVal) {
+                    if (dateFrom && log.sessionDate < dateFrom) return false;
+                    if (dateTo && log.sessionDate > dateTo) return false;
+                }
+
+                return true;
+            });
+
+            document.getElementById('reportMatchCount').innerText = filtered.length;
+            
+            const uniqueLearners = new Set(filtered.map(l => l.learnerName.toLowerCase().trim())).size;
+            document.getElementById('reportUniqueLearners').innerText = uniqueLearners;
+
+            const followUpCount = filtered.filter(l => l.followUpRequired === 'Yes').length;
+            document.getElementById('reportFollowUpCount').innerText = followUpCount;
+
+            const reasonCounts = {};
+            const sexCounts = { 'Male': 0, 'Female': 0, 'Prefer not to say / Other': 0 };
+
+            filtered.forEach(l => {
+                reasonCounts[l.reasonForVisit] = (reasonCounts[l.reasonForVisit] || 0) + 1;
+                
+                if (l.sex === 'Male') sexCounts['Male']++;
+                else if (l.sex === 'Female') sexCounts['Female']++;
+                else sexCounts['Prefer not to say / Other']++;
+            });
+
+            let topReason = '-';
+            let maxCount = 0;
+            for (const [r, cnt] of Object.entries(reasonCounts)) {
+                if (cnt > maxCount) {
+                    maxCount = cnt;
+                    topReason = `${r} (${cnt})`;
+                }
+            }
+            document.getElementById('reportTopReason').innerText = topReason;
+
+            renderCharts(reasonCounts, sexCounts);
+
+            const tbody = document.getElementById('reportTableBody');
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-8 text-slate-400">
+                            No counseling records match the selected filter criteria.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filtered.forEach(log => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+                
+                const followUpText = log.followUpRequired === 'Yes'
+                    ? `<span class="text-amber-700 font-semibold">${log.followUpDate} @ ${log.followUpTime}</span>`
+                    : `<span class="text-emerald-600 font-medium">${log.followUpRequired}</span>`;
+
+                const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set') 
+                    ? `${log.sessionDate}<br><span class="text-[10px] text-slate-400 font-sans">(${log.timeStarted} - ${log.timeEnded || 'N/A'})</span>`
+                    : log.sessionDate;
+
+                tr.innerHTML = `
+                    <td class="p-3 font-mono text-slate-700">${timeSlotDisplay}</td>
+                    <td class="p-3 font-bold text-slate-800">${escapeHtml(log.learnerName)}</td>
+                    <td class="p-3">${escapeHtml(log.gradeSection)}</td>
+                    <td class="p-3">${escapeHtml(log.sex)}</td>
+                    <td class="p-3 font-semibold text-indigo-700">${escapeHtml(log.reasonForVisit)}</td>
+                    <td class="p-3">${followUpText}</td>
+                    <td class="p-3 text-slate-500">${escapeHtml(log.counselorName)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const filtersDesc = [];
+            if (monthVal) {
+                const [y, m] = monthVal.split('-');
+                const monthName = new Date(y, parseInt(m)-1).toLocaleString('default', { month: 'long', year: 'numeric' });
+                filtersDesc.push(`Month: ${monthName}`);
+            }
+            if (nameVal) filtersDesc.push(`Learner: "${nameVal}"`);
+            if (gradeVal) filtersDesc.push(`Grade: "${gradeVal}"`);
+            if (reasonVal !== 'ALL') filtersDesc.push(`Reason: ${reasonVal}`);
+            if (sexVal !== 'ALL') filtersDesc.push(`Sex: ${sexVal}`);
+            if (!monthVal && (dateFrom || dateTo)) filtersDesc.push(`Date: ${dateFrom || 'Start'} to ${dateTo || 'End'}`);
+
+            document.getElementById('reportFilterDescription').innerText = filtersDesc.length > 0 
+                ? `Filtered by: ${filtersDesc.join(' | ')}`
+                : 'Showing all recorded counseling logs';
+        }
+
+        function renderCharts(reasonCounts, sexCounts) {
+            if (reasonsChartInstance) reasonsChartInstance.destroy();
+            if (sexChartInstance) sexChartInstance.destroy();
+
+            const reasonLabels = Object.keys(reasonCounts);
+            const reasonValues = Object.values(reasonCounts);
+
+            const ctxReasons = document.getElementById('reasonsChart').getContext('2d');
+            reasonsChartInstance = new Chart(ctxReasons, {
+                type: 'bar',
+                data: {
+                    labels: reasonLabels.length > 0 ? reasonLabels : ['No Data'],
+                    datasets: [{
+                        label: 'Number of Learner Visits',
+                        data: reasonValues.length > 0 ? reasonValues : [0],
+                        backgroundColor: [
+                            '#6366f1', '#3b82f6', '#06b6d4', '#10b981', 
+                            '#f59e0b', '#ec4899', '#8b5cf6', '#64748b'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.raw} Student Session(s)`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 10 },
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(val);
+                                    return label.length > 20 ? label.substring(0, 18) + '...' : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const ctxSex = document.getElementById('sexChart').getContext('2d');
+            sexChartInstance = new Chart(ctxSex, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Male', 'Female', 'Other / Unspecified'],
+                    datasets: [{
+                        data: [sexCounts['Male'], sexCounts['Female'], sexCounts['Prefer not to say / Other']],
+                        backgroundColor: ['#3b82f6', '#ec4899', '#94a3b8']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+        }
+
+        function resetReportFilters() {
+            document.getElementById('reportMonth').value = '';
+            document.getElementById('reportLearnerName').value = '';
+            document.getElementById('reportGrade').value = '';
+            document.getElementById('reportReason').value = 'ALL';
+            document.getElementById('reportSex').value = 'ALL';
+            document.getElementById('reportDateFrom').value = '';
+            document.getElementById('reportDateTo').value = '';
+            generateReport();
+        }
+
+        // VIEW LINKED MULTI-PAGE SESSIONS FOR A SPECIFIC LEARNER
+        function viewLearnerCaseHistory(learnerName) {
+            const logs = getStoredLogs();
+            // Filter all sessions for this specific learner (case-insensitive)
+            const learnerSessions = logs.filter(l => l.learnerName.toLowerCase().trim() === learnerName.toLowerCase().trim())
+                                        .sort((a, b) => new Date(a.sessionDate) - new Date(b.sessionDate));
+
+            if (learnerSessions.length === 0) return;
+
+            const primary = learnerSessions[0];
+
+            document.getElementById('modalTitle').innerText = `Linked Counseling Case Progress - ${primary.learnerName}`;
+            document.getElementById('modalHeaderSubtitle').innerText = `Cumulative Session Log (${learnerSessions.length} Total Session/s Registered)`;
+            document.getElementById('printCounselorName').innerText = primary.counselorName || 'Guidance Counselor';
+            document.getElementById('printLearnerName').innerText = primary.learnerName;
+
+            let sessionsHTML = learnerSessions.map((log, index) => {
+                const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set')
+                    ? `${log.timeStarted} - ${log.timeEnded || 'Ongoing'}`
+                    : 'Time Not Set';
+
+                const reflectionBlock = log.counselorReflection 
+                    ? `<div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3">
+                           <h6 class="font-bold text-xs text-indigo-900 uppercase">Counselor Reflection / Clinical Observation</h6>
+                           <p class="text-slate-800 text-xs whitespace-pre-wrap mt-0.5">${escapeHtml(log.counselorReflection)}</p>
+                       </div>` 
+                    : '';
+
+                return `
+                    <div class="border-2 border-indigo-100 rounded-xl p-6 bg-white shadow-xs space-y-4 page-break-after">
+                        <div class="flex justify-between items-center border-b pb-3 bg-indigo-900 text-white -mx-6 -mt-6 p-4 rounded-t-xl">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-indigo-300">Session #${index + 1} (${index === 0 ? 'Initial Visit' : 'Follow-up Session'})</span>
+                                <h4 class="font-extrabold text-sm">${log.sessionDate} • ${timeSlotDisplay}</h4>
+                            </div>
+                            <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full text-indigo-100 font-semibold border border-indigo-700">${escapeHtml(log.reasonForVisit)}</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div><span class="font-bold text-slate-500 uppercase">Reason for Session:</span> ${escapeHtml(log.reasonForVisit)}</div>
+                            <div><span class="font-bold text-slate-500 uppercase">Counselor:</span> ${escapeHtml(log.counselorName)}</div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="border-l-4 border-indigo-500 pl-3">
+                                <h6 class="font-bold text-xs text-slate-500 uppercase">1. Presenting Concern</h6>
+                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.presentingConcern)}</p>
+                            </div>
+
+                            <div class="border-l-4 border-indigo-500 pl-3">
+                                <h6 class="font-bold text-xs text-slate-500 uppercase">2. Session Summary / Discussion</h6>
+                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.sessionSummary)}</p>
+                            </div>
+
+                            <div class="border-l-4 border-indigo-500 pl-3">
+                                <h6 class="font-bold text-xs text-slate-500 uppercase">3. Interventions & Strategies Used</h6>
+                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.interventions)}</p>
+                            </div>
+
+                            <div class="border-l-4 border-indigo-500 pl-3">
+                                <h6 class="font-bold text-xs text-slate-500 uppercase">4. Learner Response & Observation</h6>
+                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.learnerResponse)}</p>
+                            </div>
+
+                            <div class="border-l-4 border-indigo-500 pl-3">
+                                <h6 class="font-bold text-xs text-slate-500 uppercase">5. Agreement / Action Plan</h6>
+                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.actionPlan)}</p>
+                            </div>
+                        </div>
+
+                        ${reflectionBlock}
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-amber-900">Follow-up Requirement:</span> ${log.followUpRequired}
+                            </div>
+                            ${log.followUpRequired === 'Yes' ? `<div class="font-bold text-amber-800">Next Appt: ${log.followUpDate} @ ${log.followUpTime}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <!-- Learner Header Info Card -->
+                <div class="bg-slate-800 text-white p-4 rounded-xl grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                    <div>
+                        <span class="block text-slate-400 font-semibold uppercase">Learner Name</span>
+                        <span class="font-bold text-white text-sm">${escapeHtml(primary.learnerName)}</span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 font-semibold uppercase">Grade & Section</span>
+                        <span class="font-semibold text-slate-200">${escapeHtml(primary.gradeSection)}</span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 font-semibold uppercase">Sex / Age</span>
+                        <span class="text-slate-200">${escapeHtml(primary.sex)} / ${escapeHtml(primary.age)} yrs</span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 font-semibold uppercase">Total Sessions</span>
+                        <span class="font-bold text-emerald-400 text-sm">${learnerSessions.length} Linked Session(s)</span>
+                    </div>
+                </div>
+
+                <!-- Linked Multi-Page Timeline -->
+                <div class="space-y-6">
+                    ${sessionsHTML}
+                </div>
+            `;
+
+            document.getElementById('viewModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('viewModal').classList.add('hidden');
+        }
+
+        function deleteLog(id) {
+            if (confirm('Are you sure you want to delete this counseling log? This action cannot be undone.')) {
+                let logs = getStoredLogs();
+                logs = logs.filter(l => l.id !== id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+                showToast('Record deleted.');
+                loadLogs();
+                renderCalendar();
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

@@ -213,7 +213,8 @@
                             <!-- Learner Name -->
                             <div class="sm:col-span-2">
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="learnerName" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                <input type="text" id="learnerName" oninput="checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                <div id="previousSessionsNotification" class="mt-2 hidden"></div>
                             </div>
 
                             <!-- Grade & Section Dropdown / Auto-suggest -->
@@ -1716,8 +1717,38 @@
             document.getElementById('timeStarted').value = '';
             document.getElementById('timeEnded').value = '';
             document.getElementById('counselorReflection').value = '';
+            document.getElementById('previousSessionsNotification').classList.add('hidden');
             toggleCustomReason('');
             toggleFollowUpFields('Yes');
+        }
+
+        function checkPreviousSessions(name) {
+            const container = document.getElementById('previousSessionsNotification');
+            if (!name || name.trim() === '') {
+                container.classList.add('hidden');
+                return;
+            }
+
+            const logs = getStoredLogs();
+            const pastSessions = logs.filter(l => l.learnerName.toLowerCase().trim() === name.toLowerCase().trim());
+
+            if (pastSessions.length > 0) {
+                container.innerHTML = `
+                    <div class="flex items-center justify-between bg-amber-50 border border-amber-200 p-2.5 rounded-lg">
+                        <div class="flex items-center gap-2 text-amber-800">
+                            <i data-lucide="history" class="w-4 h-4"></i>
+                            <span class="text-xs font-bold">${pastSessions.length} previous session(s) found.</span>
+                        </div>
+                        <button type="button" onclick="viewLearnerCaseHistory('${escapeHtml(name)}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold rounded shadow-sm transition">
+                            Review Past Notes
+                        </button>
+                    </div>
+                `;
+                container.classList.remove('hidden');
+                lucide.createIcons();
+            } else {
+                container.classList.add('hidden');
+            }
         }
 
         function getStoredLogs() {

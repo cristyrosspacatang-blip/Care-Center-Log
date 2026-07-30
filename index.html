@@ -881,6 +881,18 @@
 
         <!-- TAB 3: HISTORY LOG & QUICK SEARCH -->
         <section id="tab-history" class="space-y-6 hidden">
+            
+            <!-- EMERGENCY RECOVERY BANNER -->
+            <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
+                <div>
+                    <h4 class="font-bold text-amber-900 text-sm flex items-center gap-2"><i data-lucide="database" class="w-4 h-4"></i> Missing Old Records?</h4>
+                    <p class="text-xs text-amber-700 mt-1">If your previous counseling notes are not showing, they might be trapped in offline memory. Click the button to merge and restore them to the cloud.</p>
+                </div>
+                <button onclick="window.forceRestoreLocalData()" class="px-4 py-2 bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-amber-700 transition flex items-center gap-2 whitespace-nowrap">
+                    <i data-lucide="download-cloud" class="w-4 h-4"></i> Force Restore Data
+                </button>
+            </div>
+
             <!-- Search & Quick Filters -->
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="relative w-full sm:w-96">
@@ -1212,7 +1224,7 @@
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global Application State Data (Populated by Firebase Cloud)
+        // Global Application State Data (Populated by Firebase Cloud + Local Fallback)
         let logsData = [];
         let heeaddsssData = [];
         let todosData = [];
@@ -1268,73 +1280,81 @@
                 currentUser = user;
                 if (user) {
                     document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
-                    
-                    // --- AUTOMATIC DATA MIGRATION FROM LOCALSTORAGE TO CLOUD ---
-                    await migrateLocalDataToCloud(user.uid);
-                    
                     setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 2000);
                     setupFirestoreListeners();
                 }
             });
         }
 
-        // RECOVERY SCRIPT: Moves old local storage data into the new Cloud Database safely
-        async function migrateLocalDataToCloud(uid) {
-            let migratedAnything = false;
-            const recoveryIndicator = document.getElementById('dataRecoveryIndicator');
-
-            try {
-                // Check Old Counseling Logs
-                const oldLogsStr = localStorage.getItem('care_center_counseling_logs');
-                if (oldLogsStr) {
-                    recoveryIndicator.classList.remove('opacity-0');
-                    const oldLogs = JSON.parse(oldLogsStr);
-                    for (const log of oldLogs) {
-                        await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'counseling_logs', log.id), log);
-                    }
-                    localStorage.setItem('care_center_counseling_logs_migrated_to_cloud', oldLogsStr);
-                    localStorage.removeItem('care_center_counseling_logs');
-                    migratedAnything = true;
+        // --- HELPER: Merge Cloud Data with Local Storage Data so nothing is ever hidden ---
+        function mergeWithLocalData(cloudData, localKey1, localKey2) {
+            const local1 = JSON.parse(localStorage.getItem(localKey1) || '[]');
+            const local2 = JSON.parse(localStorage.getItem(localKey2) || '[]');
+            const combined = [...cloudData, ...local1, ...local2];
+            
+            // Remove duplicates using ID
+            const uniqueMap = new Map();
+            combined.forEach(item => {
+                if (!uniqueMap.has(item.id)) {
+                    uniqueMap.set(item.id, item);
                 }
-
-                // Check Old HEEADDSSS Logs
-                const oldHeeaddsssStr = localStorage.getItem('care_center_heeaddsss_logs');
-                if (oldHeeaddsssStr) {
-                    recoveryIndicator.classList.remove('opacity-0');
-                    const oldHeeaddsss = JSON.parse(oldHeeaddsssStr);
-                    for (const h of oldHeeaddsss) {
-                        await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'heeaddsss_logs', h.id), h);
-                    }
-                    localStorage.setItem('care_center_heeaddsss_logs_migrated_to_cloud', oldHeeaddsssStr);
-                    localStorage.removeItem('care_center_heeaddsss_logs');
-                    migratedAnything = true;
-                }
-
-                if (migratedAnything) {
-                    setTimeout(() => {
-                        recoveryIndicator.classList.add('opacity-0');
-                        showToast('Old local data successfully recovered and moved to Cloud!');
-                    }, 2000);
-                }
-            } catch (err) {
-                console.error("Migration error: ", err);
-                recoveryIndicator.classList.add('opacity-0');
-            }
+            });
+            return Array.from(uniqueMap.values()).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
         }
+
+        // --- EMERGENCY MANUAL RECOVERY SCRIPT ---
+        window.forceRestoreLocalData = async function() {
+            if (!currentUser) {
+                alert('Please wait for the cloud connection to initialize.');
+                return;
+            }
+            
+            document.getElementById('dataRecoveryIndicator').classList.remove('opacity-0');
+            
+            try {
+                // Restore Individual Logs
+                const allLogs = mergeWithLocalData([], 'care_center_counseling_logs', 'care_center_counseling_logs_migrated_to_cloud');
+                for(const log of allLogs) {
+                    await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'counseling_logs', log.id), log);
+                }
+
+                // Restore HEEADDSSS Logs
+                const allHeeaddsss = mergeWithLocalData([], 'care_center_heeaddsss_logs', 'care_center_heeaddsss_logs_migrated_to_cloud');
+                for(const h of allHeeaddsss) {
+                    await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', h.id), h);
+                }
+
+                document.getElementById('dataRecoveryIndicator').classList.add('opacity-0');
+                showToast('All previous offline data safely merged to Cloud!');
+                
+                // Refresh views
+                window.filterLogs();
+                window.filterHeeaddsssRecords();
+            } catch (err) {
+                console.error("Recovery error: ", err);
+                document.getElementById('dataRecoveryIndicator').classList.add('opacity-0');
+                alert("An error occurred during recovery. Check console.");
+            }
+        };
 
         function setupFirestoreListeners() {
             if (!currentUser) return;
             const uid = currentUser.uid;
 
             onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'counseling_logs'), (snapshot) => {
-                logsData = snapshot.docs.map(doc => doc.data()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const cloudLogs = snapshot.docs.map(doc => doc.data());
+                // Instantly merge with old local storage just in case migration failed
+                logsData = mergeWithLocalData(cloudLogs, 'care_center_counseling_logs', 'care_center_counseling_logs_migrated_to_cloud');
+                
                 window.filterLogs();
                 renderCalendar();
                 if(!document.getElementById('tab-reports').classList.contains('hidden')) window.generateReport();
             }, (error) => console.error("Error fetching logs:", error));
 
             onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'heeaddsss_logs'), (snapshot) => {
-                heeaddsssData = snapshot.docs.map(doc => doc.data()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const cloudHeeaddsss = snapshot.docs.map(doc => doc.data());
+                heeaddsssData = mergeWithLocalData(cloudHeeaddsss, 'care_center_heeaddsss_logs', 'care_center_heeaddsss_logs_migrated_to_cloud');
+                
                 window.filterHeeaddsssRecords();
             }, (error) => console.error("Error fetching heeaddsss:", error));
 
@@ -1358,9 +1378,16 @@
             document.getElementById('reportMonth').value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
             lucide.createIcons();
+            
+            // If offline/unauthenticated, load fallback data initially
+            logsData = mergeWithLocalData([], 'care_center_counseling_logs', 'care_center_counseling_logs_migrated_to_cloud');
+            heeaddsssData = mergeWithLocalData([], 'care_center_heeaddsss_logs', 'care_center_heeaddsss_logs_migrated_to_cloud');
+            
             renderCalendar();
             renderTodoList();
             window.updateHeeaddsssRiskScore();
+            window.filterLogs();
+            window.filterHeeaddsssRecords();
         });
 
         window.switchTab = function(tab) {
@@ -1807,6 +1834,11 @@
 
             await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', newRecord.id), newRecord);
 
+            // Redundant local save to guarantee no data loss in transit
+            const localHeeaddsss = JSON.parse(localStorage.getItem('care_center_heeaddsss_logs') || '[]');
+            localHeeaddsss.unshift(newRecord);
+            localStorage.setItem('care_center_heeaddsss_logs', JSON.stringify(localHeeaddsss));
+
             setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
             showToast('HEEADDSSS Assessment Saved Successfully to Cloud!');
             document.getElementById('heeaddsssForm').reset();
@@ -1997,6 +2029,11 @@
             };
 
             await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'counseling_logs', newLog.id), newLog);
+
+            // Save redundant local copy for extreme safety
+            const localLogs = JSON.parse(localStorage.getItem('care_center_counseling_logs') || '[]');
+            localLogs.unshift(newLog);
+            localStorage.setItem('care_center_counseling_logs', JSON.stringify(localLogs));
 
             setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
             showToast('Counseling Log Saved Successfully to Cloud!');

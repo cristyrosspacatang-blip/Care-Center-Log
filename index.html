@@ -29,6 +29,9 @@
                 padding: 0 !important;
                 margin: 0 !important;
             }
+            .page-break-before {
+                page-break-before: always;
+            }
         }
         .print-only {
             display: none;
@@ -42,7 +45,12 @@
         <i data-lucide="cloud-lightning" class="w-3.5 h-3.5 animate-pulse"></i> Syncing to Cloud...
     </div>
 
-    <!-- Exact School Grade & Section Datalist with Class Advisers -->
+    <!-- Data Recovery Indicator -->
+    <div id="dataRecoveryIndicator" class="fixed top-32 right-4 z-40 bg-amber-500 text-white px-4 py-2 rounded-lg shadow-lg text-xs font-bold flex items-center gap-2 transition opacity-0 pointer-events-none">
+        <i data-lucide="download-cloud" class="w-4 h-4 animate-bounce"></i> Recovering old data to Cloud...
+    </div>
+
+    <!-- Exact School Grade & Section Datalist -->
     <datalist id="gradeSectionOptions">
         <!-- Grade 7 -->
         <option value="Grade 7 - Sampaguita (Adviser: Lora Mae Garcia)"></option>
@@ -56,7 +64,6 @@
         <option value="Grade 7 - Sunflower (Adviser: Abonales, Raymon)"></option>
         <option value="Grade 7 - Tulip (Adviser: Orgen, Hannah Joy)"></option>
         <option value="Grade 7 - STE (Adviser: Pagente, Reshirl J.)"></option>
-
         <!-- Grade 8 -->
         <option value="Grade 8 - Narra (Adviser: Balient, Airene)"></option>
         <option value="Grade 8 - Mahogany (Adviser: Piamonte, Rosalie)"></option>
@@ -69,7 +76,6 @@
         <option value="Grade 8 - Tangile (Adviser: Guzman, Nicole R.)"></option>
         <option value="Grade 8 - Talisay (Adviser: Orot, Richel)"></option>
         <option value="Grade 8 - STE (Adviser: Rogie Ann G. Dela Cruz)"></option>
-
         <!-- Grade 9 -->
         <option value="Grade 9 - Gold (Adviser: Patricia Mae S. Moreno)"></option>
         <option value="Grade 9 - Emerald (Adviser: Toling, Roger)"></option>
@@ -81,7 +87,6 @@
         <option value="Grade 9 - Diamond (Adviser: Dumalag, Jessa)"></option>
         <option value="Grade 9 - Amethyst (Adviser: Mildred Bellosio)"></option>
         <option value="Grade 9 - Topaz (Adviser: Maderada, Myla)"></option>
-
         <!-- Grade 10 -->
         <option value="Grade 10 - Rizal (Adviser: Valles, Rhea Aisa F.)"></option>
         <option value="Grade 10 - Aguinaldo (Adviser: Canicon, Medelyn M.)"></option>
@@ -100,31 +105,33 @@
             <div class="flex items-center space-x-3">
                 <div class="p-2 bg-indigo-600 rounded-lg relative">
                     <i data-lucide="heart-handshake" class="w-8 h-8 text-white"></i>
-                    <!-- Cloud Icon Indicator -->
                     <div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-indigo-700" title="Connected to Cloud Storage">
                         <i data-lucide="cloud" class="w-2.5 h-2.5 text-white"></i>
                     </div>
                 </div>
                 <div>
                     <h1 class="text-xl font-bold leading-tight">Care Center Counseling System</h1>
-                    <p class="text-xs text-indigo-200">Cloud Connected • Individual Log, Planner & HEEADDSSS Testing</p>
+                    <p class="text-xs text-indigo-200">Cloud Connected • Comprehensive Guidance Management</p>
                 </div>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-                <button onclick="switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Calendar & Planner
+                <button onclick="window.switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Planner
                 </button>
-                <button onclick="switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="plus-circle" class="w-4 h-4"></i> New Counseling Log
+                <button onclick="window.switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <i data-lucide="user" class="w-4 h-4"></i> Individual
                 </button>
-                <button onclick="switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> HEEADDSSS Assessment
+                <button onclick="window.switchTab('group-guidance')" id="btn-tab-group" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <i data-lucide="users" class="w-4 h-4"></i> Group Guidance
                 </button>
-                <button onclick="switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="file-text" class="w-4 h-4"></i> Counseling History
+                <button onclick="window.switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Testing
                 </button>
-                <button onclick="switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Monthly Analytics
+                <button onclick="window.switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <i data-lucide="folder-clock" class="w-4 h-4"></i> History
+                </button>
+                <button onclick="window.switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics
                 </button>
             </div>
         </div>
@@ -136,8 +143,7 @@
         <!-- TAB 0: CALENDAR & DAILY PLANNER (HOME) -->
         <section id="tab-planner" class="space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Left 2 Cols: Monthly Appointments Calendar -->
+                <!-- Monthly Appointments Calendar -->
                 <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-2">
                         <div class="flex items-center gap-2">
@@ -145,10 +151,10 @@
                             <h2 class="text-lg font-bold text-slate-800" id="calendarMonthTitle">Appointments & Follow-up Calendar</h2>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <button onclick="window.prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
                             </button>
-                            <button onclick="nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <button onclick="window.nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
                             </button>
                         </div>
@@ -163,7 +169,7 @@
                     </div>
                 </div>
 
-                <!-- Right 1 Col: Counselor Daily To-Do Planner -->
+                <!-- Counselor Daily To-Do Planner -->
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 flex flex-col">
                     <div class="flex items-center justify-between border-b pb-3">
                         <div class="flex items-center gap-2 text-indigo-800">
@@ -173,20 +179,17 @@
                         <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" id="todoCountTag">0 Tasks</span>
                     </div>
 
-                    <!-- Add Todo Form -->
-                    <form onsubmit="handleAddTodo(event)" class="flex gap-2">
-                        <input type="text" id="newTodoInput" required placeholder="Add new counselor task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
+                    <form onsubmit="window.handleAddTodo(event)" class="flex gap-2">
+                        <input type="text" id="newTodoInput" required placeholder="Add new task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
                         <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
                             <i data-lucide="plus" class="w-4 h-4"></i> Add
                         </button>
                     </form>
 
-                    <!-- To-Do List Items -->
                     <div id="todoListContainer" class="space-y-2 flex-1 overflow-y-auto max-h-[280px] pt-1">
                         <!-- Rendered dynamically -->
                     </div>
 
-                    <!-- Selected Day Appointments List -->
                     <div class="border-t pt-3 space-y-2">
                         <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-1">
                             <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i> Linked Appointments on Selected Day
@@ -196,7 +199,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -205,34 +207,28 @@
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
                 <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="notebook-pen" class="w-5 h-5 text-indigo-400"></i>
+                        <i data-lucide="user" class="w-5 h-5 text-indigo-400"></i>
                         <h2 class="text-lg font-semibold">Individual Counseling Log Sheet</h2>
                     </div>
                     <span class="text-xs bg-slate-700 px-2.5 py-1 rounded-full text-slate-300">Confidential Record</span>
                 </div>
 
-                <form id="counselingForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
-
-                    <!-- SECTION 1: LEARNER INFORMATION & SESSION TIME -->
+                <form id="counselingForm" onsubmit="window.handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                    <!-- SECTION 1: LEARNER INFORMATION -->
                     <div>
                         <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
                             <i data-lucide="user" class="w-4 h-4"></i> Learner Information & Session Schedule
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <!-- Learner Name -->
                             <div class="sm:col-span-2">
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="learnerName" oninput="checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                <input type="text" id="learnerName" oninput="window.checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                                 <div id="previousSessionsNotification" class="mt-2 hidden"></div>
                             </div>
-
-                            <!-- Grade & Section Dropdown / Auto-suggest -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
-                                <input type="text" id="gradeSection" list="gradeSectionOptions" required placeholder="Select or type Grade & Section..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                <input type="text" id="gradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                             </div>
-
-                            <!-- Sex -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex <span class="text-red-500">*</span></label>
                                 <select id="sex" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
@@ -242,28 +238,21 @@
                                     <option value="Prefer not to say">Prefer not to say</option>
                                 </select>
                             </div>
-
-                            <!-- Age / LRN -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Age</label>
                                 <input type="number" id="age" min="1" max="100" placeholder="e.g. 15" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">LRN (Optional)</label>
                                 <input type="text" id="lrn" placeholder="12-digit LRN" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
-
-                            <!-- Counseling Date -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Session Date <span class="text-red-500">*</span></label>
                                 <input type="date" id="sessionDate" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
-
-                            <!-- Reason for Visit Dropdown -->
                             <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Reason for Visit / Counseling <span class="text-red-500">*</span></label>
-                                <select id="reasonForVisit" required onchange="toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Reason for Counseling <span class="text-red-500">*</span></label>
+                                <select id="reasonForVisit" required onchange="window.toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                                     <option value="" disabled selected>Select Reason...</option>
                                     <option value="Academic Performance / Failures">Academic Performance / Failures</option>
                                     <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
@@ -277,20 +266,16 @@
                                     <option value="Others">Others (Please Specify)</option>
                                 </select>
                             </div>
-
-                            <!-- SESSION TIMESLOT -->
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Started</label>
                                 <input type="time" id="timeStarted" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Ended</label>
                                 <input type="time" id="timeEnded" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                             </div>
                         </div>
 
-                        <!-- Custom Reason Input -->
                         <div id="customReasonContainer" class="mt-3 hidden">
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Specify Other Reason <span class="text-red-500">*</span></label>
                             <input type="text" id="customReason" placeholder="Type reason here..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
@@ -302,40 +287,33 @@
                         <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
                             <i data-lucide="file-text" class="w-4 h-4"></i> Detailed Counseling Notes
                         </h3>
-
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">1. Presenting Concern <span class="text-red-500">*</span></label>
-                                <textarea id="presentingConcern" required rows="3" placeholder="Describe the problem presented..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                <textarea id="presentingConcern" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">2. Session Summary / Discussion <span class="text-red-500">*</span></label>
-                                <textarea id="sessionSummary" required rows="4" placeholder="Summarize core conversation and insights..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                <textarea id="sessionSummary" required rows="4" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">3. Interventions / Strategies Used <span class="text-red-500">*</span></label>
-                                <textarea id="interventions" required rows="3" placeholder="Techniques, advice, or strategies applied..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                <textarea id="interventions" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">4. Learner Response / Observation <span class="text-red-500">*</span></label>
-                                <textarea id="learnerResponse" required rows="3" placeholder="Learner's demeanor and emotional state..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                <textarea id="learnerResponse" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">5. Agreement / Action Plan <span class="text-red-500">*</span></label>
-                                <textarea id="actionPlan" required rows="3" placeholder="Agreed action steps..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                <textarea id="actionPlan" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
                             </div>
-
-                            <!-- NEW: COUNSELOR'S REFLECTION BOX -->
                             <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
                                 <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1.5">
                                     <i data-lucide="brain" class="w-4 h-4 text-indigo-600"></i> Counselor's Personal Reflection & Clinical Notes
                                 </label>
-                                <p class="text-xs text-slate-500 mb-2">Write your personal professional reflections, observations, or self-evaluations regarding this session.</p>
-                                <textarea id="counselorReflection" rows="3" placeholder="Counselor's personal notes/reflections on the session dynamics..." class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
+                                <p class="text-xs text-slate-500 mb-2">Write your personal professional reflections, observations, or self-evaluations.</p>
+                                <textarea id="counselorReflection" rows="3" class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
                             </div>
                         </div>
                     </div>
@@ -345,37 +323,32 @@
                         <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
                             <i data-lucide="calendar-clock" class="w-4 h-4"></i> Follow-up Plan & Next Appointment
                         </h3>
-
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Follow-up Required?</label>
-                                <select id="followUpRequired" onchange="toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                <select id="followUpRequired" onchange="window.toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No / Resolved</option>
                                     <option value="Referred to Outside Agency">Referred to Outside Agency</option>
                                 </select>
                             </div>
-
                             <div id="followUpDateContainer">
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date of Appointment</label>
                                 <input type="date" id="followUpDate" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
-
                             <div id="followUpTimeContainer">
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time of Appointment</label>
                                 <input type="time" id="followUpTime" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                             </div>
                         </div>
-
                         <div class="mt-4">
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Counselor / Designated Person</label>
-                            <input type="text" id="counselorName" required placeholder="Counselor's Full Name & Designation" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                            <input type="text" id="counselorName" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm font-semibold">
                         </div>
                     </div>
 
-                    <!-- Submit Buttons -->
                     <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="button" onclick="resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                        <button type="button" onclick="window.resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
                             Clear Form
                         </button>
                         <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
@@ -386,19 +359,163 @@
             </div>
         </section>
 
-        <!-- TAB 2: HEEADDSSS ASSESSMENT TOOL -->
+        <!-- TAB: GROUP GUIDANCE -->
+        <section id="tab-group-guidance" class="space-y-6 hidden">
+            <!-- Navigation Sub-Toggle -->
+            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
+                <div class="flex gap-2">
+                    <button onclick="window.toggleGroupSubTab('form')" id="btn-group-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                        <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New Group Session
+                    </button>
+                    <button onclick="window.toggleGroupSubTab('records')" id="btn-group-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                        <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Session History
+                    </button>
+                </div>
+                <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="users" class="w-3.5 h-3.5 inline mr-1"></i> Group Counseling Module</span>
+            </div>
+
+            <!-- SUB-SECTION A: NEW GROUP FORM -->
+            <div id="group-sub-form" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
+                <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
+                    <h2 class="text-lg font-bold flex items-center gap-2">
+                        <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i> Group Guidance Case Note
+                    </h2>
+                </div>
+                
+                <form id="groupGuidanceForm" onsubmit="window.handleGroupSubmit(event)" class="p-6 sm:p-8 space-y-6">
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date <span class="text-red-500">*</span></label>
+                            <input type="date" id="gDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time <span class="text-red-500">*</span></label>
+                            <input type="time" id="gTime" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section <span class="text-red-500">*</span></label>
+                            <input type="text" id="gGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="sm:col-span-4"><h4 class="text-xs font-bold text-slate-500 uppercase">Number of Participants</h4></div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Male</label>
+                            <input type="number" id="gMale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Female</label>
+                            <input type="number" id="gFemale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Total</label>
+                            <input type="number" id="gTotal" readonly value="0" class="w-full px-3.5 py-2 border border-indigo-300 bg-indigo-50 font-bold text-indigo-900 rounded-lg text-sm cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Topic <span class="text-red-500">*</span></label>
+                            <input type="text" id="gTopic" required placeholder="Session topic..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Text Areas -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Purpose <span class="text-red-500">*</span></label>
+                            <textarea id="gPurpose" required rows="2" placeholder="Purpose of this group guidance..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Summary of Session <span class="text-red-500">*</span></label>
+                            <textarea id="gSummary" required rows="3" placeholder="Summary..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Observations <span class="text-red-500">*</span></label>
+                            <textarea id="gObservations" required rows="3" placeholder="Group dynamics, behavior..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Student Responses / Participation <span class="text-red-500">*</span></label>
+                            <textarea id="gResponses" required rows="3" placeholder="How participants engaged..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assessment <span class="text-red-500">*</span></label>
+                            <textarea id="gAssessment" required rows="2" placeholder="Overall counselor assessment..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Recommendations / Follow-Up <span class="text-red-500">*</span></label>
+                            <textarea id="gRecommendations" required rows="2" placeholder="Next steps..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Documentation & Prepared By -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Upload Attendance Sheet (Image/PDF)</label>
+                            <input type="file" id="gAttendanceFile" accept="image/*, application/pdf" onchange="window.handleGroupAttendanceUpload(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            <p class="text-[10px] text-slate-400 mt-1">Image will be compressed safely. It will attach to your print report.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Prepared By <span class="text-red-500">*</span></label>
+                            <input type="text" id="gPreparedBy" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-800">
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                        <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                            <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save Group Session
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- SUB-SECTION B: GROUP RECORDS HISTORY -->
+            <div id="group-sub-records" class="space-y-4 hidden">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
+                    <div class="relative w-full sm:w-96">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="gSearchInput" oninput="window.filterGroupRecords()" placeholder="Search Topic or Grade/Section..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="text-xs text-slate-500 font-semibold" id="gRecordCountTag">
+                        0 Sessions Saved
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
+                                <tr>
+                                    <th class="p-3.5">Date & Time</th>
+                                    <th class="p-3.5">Grade & Sec</th>
+                                    <th class="p-3.5">Topic</th>
+                                    <th class="p-3.5 text-center">Total Pax</th>
+                                    <th class="p-3.5 text-center">Documentation</th>
+                                    <th class="p-3.5 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="groupTableBody" class="divide-y divide-slate-200">
+                                <!-- Dynamic rendering -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: HEEADDSSS ASSESSMENT TOOL -->
         <section id="tab-heeaddsss" class="space-y-6 hidden">
             <!-- Navigation Sub-Toggle -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
                 <div class="flex gap-2">
-                    <button onclick="toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                    <button onclick="window.toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
                         <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New HEEADDSSS Form
                     </button>
-                    <button onclick="toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                    <button onclick="window.toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
                         <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Assessment Records History
                     </button>
                 </div>
-                <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="shield-alert" class="w-3.5 h-3.5 inline mr-1"></i> Adolescent Risk Screening Tool</span>
+                <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="shield-alert" class="w-3.5 h-3.5 inline mr-1"></i> Adolescent Risk Screening</span>
             </div>
 
             <!-- SUB-SECTION A: NEW HEEADDSSS ASSESSMENT FORM -->
@@ -408,17 +525,15 @@
                         <h2 class="text-lg font-bold flex items-center gap-2">
                             <i data-lucide="clipboard-check" class="w-5 h-5 text-indigo-300"></i> HEEADDSSS Assessment Form
                         </h2>
-                        <p class="text-xs text-indigo-200">Psychosocial & Risk Screening Questionnaire for Learners</p>
                     </div>
                     <span class="text-xs bg-indigo-800 border border-indigo-700 text-indigo-200 px-3 py-1 rounded-full">Tagalog Standard</span>
                 </div>
 
-                <form id="heeaddsssForm" onsubmit="handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
-                    
-                    <!-- LEARNER METADATA HEADER -->
+                <form id="heeaddsssForm" onsubmit="window.handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                    <!-- Learner Info ... -->
                     <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
                         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Learner Profile & Contact Information
+                            <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Learner Profile
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div class="sm:col-span-2">
@@ -427,7 +542,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
-                                <input type="text" id="hGradeSection" list="gradeSectionOptions" required placeholder="Select or type Grade & Section..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                                <input type="text" id="hGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Assessment Date <span class="text-red-500">*</span></label>
@@ -450,32 +565,27 @@
                                 <input type="text" id="hPhone" placeholder="0917-XXX-XXXX" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">E-mail Address / FB Account</label>
-                                <input type="text" id="hContactSocial" placeholder="juan.delacruz@facebook.com" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">E-mail / FB Account</label>
+                                <input type="text" id="hContactSocial" placeholder="juan.delacruz@fb.com" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                             </div>
                         </div>
                     </div>
 
-                    <!-- QUESTIONNAIRE TABLE -->
+                    <!-- Questions Table -->
                     <div class="space-y-4">
                         <div class="flex justify-between items-center border-b pb-2">
-                            <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide">
-                                HEEADDSSS Psychosocial Assessment Questions
-                            </h3>
-                            <span class="text-xs text-slate-500">Select "Hindi" or "Oo" for each item</span>
+                            <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide">Psychosocial Assessment Questions</h3>
                         </div>
-
                         <div class="overflow-x-auto border border-slate-200 rounded-xl">
                             <table class="w-full text-left text-xs sm:text-sm">
                                 <thead class="bg-slate-100 text-slate-700 uppercase font-semibold border-b">
                                     <tr>
                                         <th class="p-3.5 w-12 text-center">#</th>
                                         <th class="p-3.5">Mga Katanungan (Questions)</th>
-                                        <th class="p-3.5 w-48 text-center">Tugon (Response)</th>
+                                        <th class="p-3.5 w-48 text-center">Tugon</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-200 bg-white">
-                                    
                                     <!-- Q1 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">1</td>
@@ -486,15 +596,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq1" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq1" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q2 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">2</td>
@@ -504,15 +613,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq2" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq2" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q3 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">3</td>
@@ -522,15 +630,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq3" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq3" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q4 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">4</td>
@@ -541,15 +648,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq4" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq4" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q5 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">5</td>
@@ -559,15 +665,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq5" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq5" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q6 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">6</td>
@@ -577,15 +682,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq6" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq6" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q7 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">7</td>
@@ -595,15 +699,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq7" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq7" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q8 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">8</td>
@@ -613,15 +716,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq8" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq8" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q9 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">9</td>
@@ -631,15 +733,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq9" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq9" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q10 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">10</td>
@@ -650,15 +751,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq10" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq10" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q11 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">11</td>
@@ -668,15 +768,14 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq11" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq11" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <!-- Q12 -->
                                     <tr class="hover:bg-slate-50 transition">
                                         <td class="p-3.5 font-bold text-center text-slate-500">12</td>
@@ -687,21 +786,20 @@
                                         <td class="p-3.5 text-center">
                                             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
+                                                    <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
                                                 </label>
                                                 <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-emerald-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq12" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
+                                                    <input type="radio" name="hq12" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
                                                 </label>
                                             </div>
                                         </td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <!-- AUTOMATED RISK ASSESSMENT LEVEL BADGE -->
+                    <!-- Risk Level & Remarks -->
                     <div id="riskLevelCard" class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
                         <div>
                             <span class="text-xs text-slate-500 font-bold uppercase block">Calculated Risk Profile</span>
@@ -714,78 +812,50 @@
                         </div>
                     </div>
 
-                    <!-- COUNSELOR REMARKS & ACTION -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Counselor Assessment Remarks / Action Plan</label>
-                        <textarea id="hCounselorRemarks" rows="3" placeholder="Enter counselor notes, referral steps, or follow-up recommendation..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
+                        <textarea id="hCounselorRemarks" rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
                     </div>
 
-                    <!-- SUBMIT BUTTONS -->
                     <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="button" onclick="document.getElementById('heeaddsssForm').reset(); updateHeeaddsssRiskScore();" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
-                            Clear Assessment
-                        </button>
                         <button type="submit" class="px-6 py-2.5 bg-indigo-700 text-white rounded-lg text-sm font-semibold hover:bg-indigo-800 shadow-md transition flex items-center gap-2">
-                            <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save to Cloud
+                            <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save Assessment
                         </button>
                     </div>
                 </form>
             </div>
 
-            <!-- SUB-SECTION B: HEEADDSSS ASSESSMENT RECORDS HISTORY WITH MULTI-FILTERS -->
+            <!-- SUB-SECTION B: HEEADDSSS RECORDS -->
             <div id="heeaddsss-sub-records" class="space-y-4 hidden">
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4 no-print">
                     <div class="flex items-center justify-between border-b pb-2">
-                        <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide flex items-center gap-2">
-                            <i data-lucide="filter" class="w-4 h-4 text-indigo-600"></i> Assessment History Filters
+                        <h3 class="text-sm font-bold text-indigo-900 uppercase flex items-center gap-2">
+                            <i data-lucide="filter" class="w-4 h-4 text-indigo-600"></i> Filters
                         </h3>
-                        <div class="text-xs text-slate-500 font-semibold" id="hRecordCountTag">
-                            0 Assessments Saved
-                        </div>
+                        <div class="text-xs text-slate-500 font-semibold" id="hRecordCountTag">0 Saved</div>
                     </div>
-
-                    <!-- MULTI-FILTER CONTROLS FOR ASSESSMENT HISTORY -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- 1. Filter by Month of Administration -->
-                        <div class="bg-indigo-50/70 p-2.5 rounded-lg border border-indigo-100">
-                            <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1">
-                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i> Month of Administration
-                            </label>
-                            <input type="month" id="hFilterMonth" onchange="filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
+                            <label class="block text-xs font-bold text-indigo-900 uppercase mb-1"><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> Month</label>
+                            <input type="month" id="hFilterMonth" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm">
                         </div>
-
-                        <!-- 2. Filter by Grade & Section -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section</label>
-                            <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="filterHeeaddsssRecords()" placeholder="Select or type Grade/Section..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section</label>
+                            <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                         </div>
-
-                        <!-- 3. Filter by Risk Flag Level -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Risk Profile Flag</label>
-                            <select id="hFilterRisk" onchange="filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                                <option value="ALL">All Risk Levels</option>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Risk Flag</label>
+                            <select id="hFilterRisk" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                                <option value="ALL">All Levels</option>
                                 <option value="HIGH RISK">Critical High Risk</option>
                                 <option value="MODERATE RISK">Moderate Risk</option>
                                 <option value="LOW RISK">Low Risk</option>
                             </select>
                         </div>
-
-                        <!-- 4. Search Learner Name -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Name Search</label>
-                            <div class="relative">
-                                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
-                                <input type="text" id="hSearchInput" oninput="filterHeeaddsssRecords()" placeholder="Search student name..." class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Search</label>
+                            <input type="text" id="hSearchInput" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                         </div>
-                    </div>
-
-                    <!-- Reset Filters Link -->
-                    <div class="flex justify-end pt-1">
-                        <button onclick="resetHeeaddsssFilters()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1">
-                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Clear Assessment Filters
-                        </button>
                     </div>
                 </div>
 
@@ -795,17 +865,14 @@
                             <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
                                 <tr>
                                     <th class="p-3.5">Date</th>
-                                    <th class="p-3.5">Learner Name</th>
-                                    <th class="p-3.5">Grade & Sec</th>
-                                    <th class="p-3.5">Sex / Age</th>
-                                    <th class="p-3.5">Contact</th>
+                                    <th class="p-3.5">Learner</th>
+                                    <th class="p-3.5">Grade</th>
+                                    <th class="p-3.5">Sex/Age</th>
                                     <th class="p-3.5">Risk Flag</th>
                                     <th class="p-3.5 text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="heeaddsssTableBody" class="divide-y divide-slate-200">
-                                <!-- Dynamic rendering -->
-                            </tbody>
+                            <tbody id="heeaddsssTableBody" class="divide-y divide-slate-200"></tbody>
                         </table>
                     </div>
                 </div>
@@ -818,10 +885,10 @@
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="relative w-full sm:w-96">
                     <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                    <input type="text" id="searchInput" oninput="filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="searchInput" oninput="window.filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <select id="filterReason" onchange="filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
+                    <select id="filterReason" onchange="window.filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
                         <option value="ALL">All Reasons</option>
                         <option value="Academic Performance / Failures">Academic Failures</option>
                         <option value="Absenteeism / Tardiness">Absenteeism</option>
@@ -856,7 +923,7 @@
                         <h2 class="font-bold text-lg">Counselor Monthly Reports & Filtering</h2>
                     </div>
                     <!-- MONTHLY REACH CALCULATOR BUTTON -->
-                    <button onclick="calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
+                    <button onclick="window.calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
                         <i data-lucide="users" class="w-4 h-4"></i> Calculate Month Reach Summary
                     </button>
                 </div>
@@ -868,19 +935,19 @@
                         <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1">
                             <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i> Filter by Month
                         </label>
-                        <input type="month" id="reportMonth" onchange="handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
+                        <input type="month" id="reportMonth" onchange="window.handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
                     </div>
 
                     <!-- Filter: Learner Name -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Learner Name</label>
-                        <input type="text" id="reportLearnerName" oninput="generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="reportLearnerName" oninput="window.generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                     </div>
 
                     <!-- Filter: Reason for Visit -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Reason for Visit</label>
-                        <select id="reportReason" onchange="generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                        <select id="reportReason" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                             <option value="ALL">All Reasons</option>
                             <option value="Academic Performance / Failures">Academic Failures</option>
                             <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
@@ -897,13 +964,13 @@
                     <!-- Filter: Grade & Section Dropdown/Auto-suggest -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Grade & Section</label>
-                        <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="generateReport()" placeholder="Select or type Grade/Section..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="window.generateReport()" placeholder="Select or type..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
                     </div>
 
                     <!-- Filter: Sex -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex</label>
-                        <select id="reportSex" onchange="generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                        <select id="reportSex" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                             <option value="ALL">All</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -913,18 +980,18 @@
                     <!-- Filter: Custom Date From -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date From</label>
-                        <input type="date" id="reportDateFrom" onchange="clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <input type="date" id="reportDateFrom" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                     </div>
 
                     <!-- Filter: Custom Date To -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date To</label>
-                        <input type="date" id="reportDateTo" onchange="clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <input type="date" id="reportDateTo" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                     </div>
 
                     <!-- Reset Filters Button -->
                     <div class="flex items-end">
-                        <button onclick="resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
+                        <button onclick="window.resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
                             <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
                         </button>
                     </div>
@@ -1023,7 +1090,7 @@
                 <h3 class="font-bold text-lg flex items-center gap-2" id="modalTitle">
                     <i data-lucide="file-check" class="w-5 h-5 text-emerald-400"></i> Learner Record Preview
                 </h3>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-white transition">
+                <button onclick="window.closeModal()" class="text-slate-400 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -1056,11 +1123,60 @@
             </div>
 
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print flex-shrink-0">
-                <button onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                <button onclick="window.closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
                 <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 flex items-center gap-2 shadow">
                     <i data-lucide="printer" class="w-4 h-4"></i> Print / Save as PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP GUIDANCE DETAIL MODAL & PRINT VIEW -->
+    <div id="viewGroupModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full my-8 overflow-hidden print-card max-h-[90vh] flex flex-col">
+            <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center no-print flex-shrink-0">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i> Group Guidance Record Preview
+                </h3>
+                <button onclick="window.closeGroupModal()" class="text-indigo-300 hover:text-white transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div class="p-8 space-y-6 text-slate-800 overflow-y-auto flex-1">
+                <div class="text-center border-b pb-4">
+                    <h2 class="text-xl font-bold text-indigo-900 uppercase">GROUP GUIDANCE CASE NOTE</h2>
+                    <p class="text-xs text-slate-500 font-semibold mt-1">Care Center Counseling Office</p>
+                </div>
+
+                <div id="groupModalBody" class="space-y-6">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Signatures -->
+                <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
+                    <div>
+                        <div class="border-b border-slate-400 mb-1"></div>
+                        <p class="font-semibold text-slate-700" id="printGroupCounselorName">CRISTY ROSS PACATANG-CAINGLET</p>
+                        <p class="text-slate-500">Guidance Counselor II</p>
+                    </div>
+                </div>
+
+                <!-- Attached Documentation (Prints on Next Page automatically) -->
+                <div id="groupDocumentationSection" class="hidden page-break-before pt-8 text-center">
+                    <h2 class="text-lg font-bold text-indigo-900 uppercase border-b pb-2 mb-4">Official Documentation / Attendance Sheet</h2>
+                    <img id="groupDocumentationImage" src="" alt="Documentation" class="max-w-full h-auto mx-auto rounded border border-slate-300 shadow-sm" />
+                </div>
+            </div>
+
+            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print flex-shrink-0">
+                <button onclick="window.closeGroupModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                    Close
+                </button>
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 flex items-center gap-2 shadow">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Print Record & Documentation
                 </button>
             </div>
         </div>
@@ -1074,7 +1190,7 @@
                 <h3 class="font-bold text-lg flex items-center gap-2">
                     <i data-lucide="bar-chart-2" class="w-5 h-5 text-emerald-400"></i> Monthly Learners Reached Breakdown
                 </h3>
-                <button onclick="closeReachModal()" class="text-slate-400 hover:text-white transition">
+                <button onclick="window.closeReachModal()" class="text-slate-400 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -1091,7 +1207,7 @@
             </div>
 
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print">
-                <button onclick="closeReachModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                <button onclick="window.closeReachModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
                 <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 flex items-center gap-2 shadow">
@@ -1117,6 +1233,8 @@
         let logsData = [];
         let heeaddsssData = [];
         let todosData = [];
+        let groupGuidanceData = [];
+        let currentAttendanceBase64 = null;
 
         // Global Setup Configs
         let appId = typeof __app_id !== 'undefined' ? __app_id : 'care-center-default';
@@ -1127,7 +1245,6 @@
             firebaseConfig = JSON.parse(__firebase_config);
         }
 
-        // Questions List Transcribed from Image
         const HEEADDSSS_QUESTIONS = [
             "1. Ikaw ba ay nakaranas ng pananakit o panananakot sa inyong bahay, paaralan o trabaho?",
             "2. May mga pagkakataon ba na pinag-isipan mong maglayas o umalis ng inyong bahay?",
@@ -1143,16 +1260,13 @@
             "12. Gusto mo bang mag pa counsel o komunsulta para matulungan ka?"
         ];
 
-        // Calendar State Variables
         let currentCalendarYear = new Date().getFullYear();
         let currentCalendarMonth = new Date().getMonth();
         let selectedCalendarDateStr = new Date().toISOString().split('T')[0];
 
-        // Chart Instances
         let reasonsChartInstance = null;
         let sexChartInstance = null;
 
-        // Initialize Firebase
         if (firebaseConfig) {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
@@ -1167,53 +1281,99 @@
             }
             initAuth();
 
-            onAuthStateChanged(auth, (user) => {
+            onAuthStateChanged(auth, async (user) => {
                 currentUser = user;
                 if (user) {
                     document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
+                    
+                    // --- AUTOMATIC DATA MIGRATION FROM LOCALSTORAGE TO CLOUD ---
+                    await migrateLocalDataToCloud(user.uid);
+                    
                     setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 2000);
                     setupFirestoreListeners();
                 }
             });
         }
 
+        // RECOVERY SCRIPT: Moves old local storage data into the new Cloud Database safely
+        async function migrateLocalDataToCloud(uid) {
+            let migratedAnything = false;
+            const recoveryIndicator = document.getElementById('dataRecoveryIndicator');
+
+            try {
+                // Check Old Counseling Logs
+                const oldLogsStr = localStorage.getItem('care_center_counseling_logs');
+                if (oldLogsStr) {
+                    recoveryIndicator.classList.remove('opacity-0');
+                    const oldLogs = JSON.parse(oldLogsStr);
+                    for (const log of oldLogs) {
+                        await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'counseling_logs', log.id), log);
+                    }
+                    // Mark as safely migrated so it doesn't duplicate next refresh
+                    localStorage.setItem('care_center_counseling_logs_migrated_to_cloud', oldLogsStr);
+                    localStorage.removeItem('care_center_counseling_logs');
+                    migratedAnything = true;
+                }
+
+                // Check Old HEEADDSSS Logs
+                const oldHeeaddsssStr = localStorage.getItem('care_center_heeaddsss_logs');
+                if (oldHeeaddsssStr) {
+                    recoveryIndicator.classList.remove('opacity-0');
+                    const oldHeeaddsss = JSON.parse(oldHeeaddsssStr);
+                    for (const h of oldHeeaddsss) {
+                        await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'heeaddsss_logs', h.id), h);
+                    }
+                    localStorage.setItem('care_center_heeaddsss_logs_migrated_to_cloud', oldHeeaddsssStr);
+                    localStorage.removeItem('care_center_heeaddsss_logs');
+                    migratedAnything = true;
+                }
+
+                if (migratedAnything) {
+                    setTimeout(() => {
+                        recoveryIndicator.classList.add('opacity-0');
+                        showToast('Old local data successfully recovered and moved to Cloud!');
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error("Migration error: ", err);
+                recoveryIndicator.classList.add('opacity-0');
+            }
+        }
+
         function setupFirestoreListeners() {
             if (!currentUser) return;
             const uid = currentUser.uid;
 
-            // 1. Listen for Counseling Logs Updates
             onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'counseling_logs'), (snapshot) => {
                 logsData = snapshot.docs.map(doc => doc.data()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 loadLogs();
                 renderCalendar();
-                // Check if reports tab is open to refresh it
-                if(!document.getElementById('tab-reports').classList.contains('hidden')) {
-                    generateReport();
-                }
+                if(!document.getElementById('tab-reports').classList.contains('hidden')) window.generateReport();
             }, (error) => console.error("Error fetching logs:", error));
 
-            // 2. Listen for HEEADDSSS Updates
             onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'heeaddsss_logs'), (snapshot) => {
                 heeaddsssData = snapshot.docs.map(doc => doc.data()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 loadHeeaddsssRecords();
             }, (error) => console.error("Error fetching heeaddsss:", error));
 
-            // 3. Listen for Counselor Todos Updates
             onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'counselor_todos'), (snapshot) => {
                 todosData = snapshot.docs.map(doc => doc.data()).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
                 renderTodoList();
             }, (error) => console.error("Error fetching todos:", error));
+
+            onSnapshot(collection(db, 'artifacts', appId, 'users', uid, 'group_guidance_logs'), (snapshot) => {
+                groupGuidanceData = snapshot.docs.map(doc => doc.data()).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                window.filterGroupRecords();
+            }, (error) => console.error("Error fetching groups:", error));
         }
 
-        // Setup Initial UI states
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('sessionDate').valueAsDate = new Date();
             document.getElementById('hDate').valueAsDate = new Date();
+            document.getElementById('gDate').valueAsDate = new Date();
 
             const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            document.getElementById('reportMonth').value = `${year}-${month}`;
+            document.getElementById('reportMonth').value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
             lucide.createIcons();
             renderCalendar();
@@ -1221,155 +1381,88 @@
             updateHeeaddsssRiskScore();
         });
 
-        // Exposing Functions to Window (for HTML inline onclick/onchange/onsubmit handlers)
         window.switchTab = function(tab) {
-            const tabPlanner = document.getElementById('tab-planner');
-            const tabNew = document.getElementById('tab-new-log');
-            const tabHeeaddsss = document.getElementById('tab-heeaddsss');
-            const tabHistory = document.getElementById('tab-history');
-            const tabReports = document.getElementById('tab-reports');
-            
-            const btnPlanner = document.getElementById('btn-tab-planner');
-            const btnNew = document.getElementById('btn-tab-new');
-            const btnHeeaddsss = document.getElementById('btn-tab-heeaddsss');
-            const btnHistory = document.getElementById('btn-tab-history');
-            const btnReports = document.getElementById('btn-tab-reports');
+            ['planner', 'new-log', 'group-guidance', 'heeaddsss', 'history', 'reports'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+                document.getElementById('btn-tab-' + (t==='group-guidance'?'group':t)).className = 'px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5';
+            });
 
-            tabPlanner.classList.add('hidden');
-            tabNew.classList.add('hidden');
-            tabHeeaddsss.classList.add('hidden');
-            tabHistory.classList.add('hidden');
-            tabReports.classList.add('hidden');
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+            document.getElementById('btn-tab-' + (tab==='group-guidance'?'group':tab)).className = 'px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5';
 
-            const inactiveStyle = 'px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5';
-            const activeStyle = 'px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5';
-
-            btnPlanner.className = inactiveStyle;
-            btnNew.className = inactiveStyle;
-            btnHeeaddsss.className = inactiveStyle;
-            btnHistory.className = inactiveStyle;
-            btnReports.className = inactiveStyle;
-
-            if (tab === 'planner') {
-                tabPlanner.classList.remove('hidden');
-                btnPlanner.className = activeStyle;
-                renderCalendar();
-            } else if (tab === 'new-log') {
-                tabNew.classList.remove('hidden');
-                btnNew.className = activeStyle;
-            } else if (tab === 'heeaddsss') {
-                tabHeeaddsss.classList.remove('hidden');
-                btnHeeaddsss.className = activeStyle;
-                loadHeeaddsssRecords();
-            } else if (tab === 'history') {
-                tabHistory.classList.remove('hidden');
-                btnHistory.className = activeStyle;
-                loadLogs();
-            } else if (tab === 'reports') {
-                tabReports.classList.remove('hidden');
-                btnReports.className = activeStyle;
-                generateReport();
-            }
+            if (tab === 'planner') renderCalendar();
+            if (tab === 'heeaddsss') loadHeeaddsssRecords();
+            if (tab === 'group-guidance') window.filterGroupRecords();
+            if (tab === 'history') loadLogs();
+            if (tab === 'reports') window.generateReport();
         };
 
         // ================= CALENDAR & DAILY PLANNER LOGIC =================
         window.prevCalendarMonth = function() {
             currentCalendarMonth--;
-            if (currentCalendarMonth < 0) {
-                currentCalendarMonth = 11;
-                currentCalendarYear--;
-            }
+            if (currentCalendarMonth < 0) { currentCalendarMonth = 11; currentCalendarYear--; }
             renderCalendar();
         };
 
         window.nextCalendarMonth = function() {
             currentCalendarMonth++;
-            if (currentCalendarMonth > 11) {
-                currentCalendarMonth = 0;
-                currentCalendarYear++;
-            }
+            if (currentCalendarMonth > 11) { currentCalendarMonth = 0; currentCalendarYear++; }
             renderCalendar();
         };
 
         function renderCalendar() {
             const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1).getDay();
             const totalDays = new Date(currentCalendarYear, currentCalendarMonth + 1, 0).getDate();
-            const monthName = new Date(currentCalendarYear, currentCalendarMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
-            
-            document.getElementById('calendarMonthTitle').innerText = `${monthName}`;
+            document.getElementById('calendarMonthTitle').innerText = new Date(currentCalendarYear, currentCalendarMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
 
             const grid = document.getElementById('calendarDaysGrid');
             grid.innerHTML = '';
 
             const followUps = logsData.filter(l => l.followUpRequired === 'Yes' && l.followUpDate);
 
-            // Empty padding cells
             for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = "bg-slate-50 border border-slate-100 rounded-lg h-16 sm:h-20 opacity-40";
-                grid.appendChild(emptyCell);
+                grid.innerHTML += `<div class="bg-slate-50 border border-slate-100 rounded-lg h-16 sm:h-20 opacity-40"></div>`;
             }
 
             const todayStr = new Date().toISOString().split('T')[0];
 
             for (let day = 1; day <= totalDays; day++) {
-                const dayMonth = String(currentCalendarMonth + 1).padStart(2, '0');
-                const dayFormatted = String(day).padStart(2, '0');
-                const dateStr = `${currentCalendarYear}-${dayMonth}-${dayFormatted}`;
-
+                const dateStr = `${currentCalendarYear}-${String(currentCalendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const dayAppointments = followUps.filter(l => l.followUpDate === dateStr);
+                
                 const isToday = todayStr === dateStr;
                 const isSelected = selectedCalendarDateStr === dateStr;
+                let borderClasses = isSelected ? "border-2 border-indigo-600 bg-indigo-50/50" : (isToday ? "border-2 border-emerald-500 bg-emerald-50/30" : "border border-slate-200");
 
-                const dayCell = document.createElement('div');
-                dayCell.onclick = () => window.selectCalendarDate(dateStr);
+                const badge = dayAppointments.length > 0 ? `<span class="mt-1 inline-block text-[9px] sm:text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded truncate">${dayAppointments.length} Appt</span>` : '';
 
-                let borderClasses = "border border-slate-200";
-                if (isSelected) borderClasses = "border-2 border-indigo-600 bg-indigo-50/50";
-                else if (isToday) borderClasses = "border-2 border-emerald-500 bg-emerald-50/30";
-
-                dayCell.className = `p-1 sm:p-2 rounded-lg h-16 sm:h-20 flex flex-col justify-between cursor-pointer transition hover:border-indigo-400 bg-white ${borderClasses}`;
-
-                const badge = dayAppointments.length > 0 
-                    ? `<span class="mt-1 inline-block text-[9px] sm:text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded truncate" title="${dayAppointments.length} follow-up(s)">${dayAppointments.length} Appt</span>` 
-                    : '';
-
-                dayCell.innerHTML = `
+                const cell = document.createElement('div');
+                cell.onclick = () => { selectedCalendarDateStr = dateStr; renderCalendar(); };
+                cell.className = `p-1 sm:p-2 rounded-lg h-16 sm:h-20 flex flex-col justify-between cursor-pointer transition hover:border-indigo-400 bg-white ${borderClasses}`;
+                cell.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="text-xs font-bold ${isToday ? 'text-emerald-700 font-extrabold' : 'text-slate-700'}">${day}</span>
                         ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
-                    </div>
-                    ${badge}
-                `;
-
-                grid.appendChild(dayCell);
+                    </div>${badge}`;
+                grid.appendChild(cell);
             }
             displaySelectedDayAppointments(selectedCalendarDateStr);
         }
 
-        window.selectCalendarDate = function(dateStr) {
-            selectedCalendarDateStr = dateStr;
-            renderCalendar();
-        };
-
         function displaySelectedDayAppointments(dateStr) {
             const container = document.getElementById('selectedDayAppointments');
             const appointments = logsData.filter(l => l.followUpRequired === 'Yes' && l.followUpDate === dateStr);
-
             if (appointments.length === 0) {
                 container.innerHTML = `<p class="text-slate-400 italic">No scheduled follow-up appointments on ${dateStr}.</p>`;
                 return;
             }
-
             container.innerHTML = appointments.map(a => `
                 <div class="p-2 bg-amber-50 border border-amber-200 rounded-lg flex justify-between items-center">
                     <div>
                         <p class="font-bold text-amber-900 text-xs">${escapeHtml(a.learnerName)}</p>
                         <p class="text-[10px] text-amber-700">${escapeHtml(a.gradeSection)} @ ${a.followUpTime || 'Time not set'}</p>
                     </div>
-                    <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(a.learnerName)}')" class="px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded text-[10px] font-bold">
-                        View Log
-                    </button>
+                    <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(a.learnerName)}')" class="px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded text-[10px] font-bold">View Log</button>
                 </div>
             `).join('');
         }
@@ -1377,19 +1470,9 @@
         window.handleAddTodo = async function(e) {
             e.preventDefault();
             const input = document.getElementById('newTodoInput');
-            const text = input.value.trim();
-            if (!text || !currentUser) return;
-
-            const newTodo = {
-                id: 'TODO-' + Date.now(),
-                text: text,
-                done: false,
-                createdAt: Date.now()
-            };
-            
-            // Cloud Save
+            if (!input.value.trim() || !currentUser) return;
+            const newTodo = { id: 'TODO-' + Date.now(), text: input.value.trim(), done: false, createdAt: Date.now() };
             await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'counselor_todos', newTodo.id), newTodo);
-            
             input.value = '';
             showToast('Task added to daily planner.');
         };
@@ -1411,26 +1494,241 @@
         function renderTodoList() {
             const container = document.getElementById('todoListContainer');
             document.getElementById('todoCountTag').innerText = `${todosData.length} Task(s)`;
-
             if (todosData.length === 0) {
                 container.innerHTML = `<p class="text-xs text-slate-400 italic py-4 text-center">No daily tasks yet. Add a task above!</p>`;
                 return;
             }
-
             container.innerHTML = todosData.map(t => `
                 <div class="p-2.5 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2 overflow-hidden">
                         <input type="checkbox" ${t.done ? 'checked' : ''} onchange="window.toggleTodoDone('${t.id}')" class="rounded text-indigo-600 focus:ring-indigo-500">
                         <span class="text-xs ${t.done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'} truncate">${escapeHtml(t.text)}</span>
                     </div>
-                    <button type="button" onclick="window.deleteTodo('${t.id}')" class="text-slate-400 hover:text-red-500 transition">
-                        <i data-lucide="trash" class="w-3.5 h-3.5"></i>
-                    </button>
+                    <button type="button" onclick="window.deleteTodo('${t.id}')" class="text-slate-400 hover:text-red-500 transition"><i data-lucide="trash" class="w-3.5 h-3.5"></i></button>
                 </div>
             `).join('');
-
             lucide.createIcons();
         }
+
+        // ================= GROUP GUIDANCE LOGIC =================
+        window.toggleGroupSubTab = function(sub) {
+            if (sub === 'form') {
+                document.getElementById('group-sub-form').classList.remove('hidden');
+                document.getElementById('group-sub-records').classList.add('hidden');
+                document.getElementById('btn-group-form').className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
+                document.getElementById('btn-group-records').className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
+            } else {
+                document.getElementById('group-sub-form').classList.add('hidden');
+                document.getElementById('group-sub-records').classList.remove('hidden');
+                document.getElementById('btn-group-records').className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
+                document.getElementById('btn-group-form').className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
+                window.filterGroupRecords();
+            }
+        };
+
+        window.calculateGroupTotal = function() {
+            const male = parseInt(document.getElementById('gMale').value) || 0;
+            const female = parseInt(document.getElementById('gFemale').value) || 0;
+            document.getElementById('gTotal').value = male + female;
+        };
+
+        window.handleGroupAttendanceUpload = function(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                currentAttendanceBase64 = null;
+                return;
+            }
+
+            if (file.type === 'application/pdf') {
+                if (file.size > 800000) {
+                    alert("This PDF is too large for cloud sync. Please convert it to an image (JPG/PNG) to allow compression, or use a smaller file.");
+                    event.target.value = '';
+                    currentAttendanceBase64 = null;
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => { currentAttendanceBase64 = e.target.result; };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 1200;
+                        const scaleSize = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = img.height * scaleSize;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        currentAttendanceBase64 = canvas.toDataURL('image/jpeg', 0.6);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        window.handleGroupSubmit = async function(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+
+            document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
+
+            const maleCount = parseInt(document.getElementById('gMale').value) || 0;
+            const femaleCount = parseInt(document.getElementById('gFemale').value) || 0;
+
+            const newGroupRecord = {
+                id: 'GROUP-' + Date.now(),
+                date: document.getElementById('gDate').value,
+                time: document.getElementById('gTime').value,
+                gradeSection: document.getElementById('gGradeSection').value.trim(),
+                male: maleCount,
+                female: femaleCount,
+                total: maleCount + femaleCount,
+                topic: document.getElementById('gTopic').value.trim(),
+                purpose: document.getElementById('gPurpose').value.trim(),
+                summary: document.getElementById('gSummary').value.trim(),
+                observations: document.getElementById('gObservations').value.trim(),
+                responses: document.getElementById('gResponses').value.trim(),
+                assessment: document.getElementById('gAssessment').value.trim(),
+                recommendations: document.getElementById('gRecommendations').value.trim(),
+                preparedBy: document.getElementById('gPreparedBy').value.trim(),
+                attendanceData: currentAttendanceBase64,
+                createdAt: new Date().toISOString()
+            };
+
+            await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'group_guidance_logs', newGroupRecord.id), newGroupRecord);
+            setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
+            
+            showToast('Group Guidance Session Saved Successfully!');
+            document.getElementById('groupGuidanceForm').reset();
+            document.getElementById('gDate').valueAsDate = new Date();
+            currentAttendanceBase64 = null;
+            window.toggleGroupSubTab('records');
+        };
+
+        window.filterGroupRecords = function() {
+            const query = document.getElementById('gSearchInput')?.value.toLowerCase() || '';
+            const filtered = groupGuidanceData.filter(g => 
+                g.topic.toLowerCase().includes(query) || 
+                g.gradeSection.toLowerCase().includes(query)
+            );
+            
+            const tbody = document.getElementById('groupTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            document.getElementById('gRecordCountTag').innerText = `${filtered.length} Sessions Saved`;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400">No group records found.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(g => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+                const hasDoc = g.attendanceData ? '<span class="text-emerald-600 font-bold flex items-center justify-center gap-1"><i data-lucide="image" class="w-4 h-4"></i> Attached</span>' : '<span class="text-slate-400">None</span>';
+                
+                tr.innerHTML = `
+                    <td class="p-3.5 font-mono text-slate-700">${g.date} <span class="text-xs text-slate-400">${g.time}</span></td>
+                    <td class="p-3.5 font-bold text-slate-800">${escapeHtml(g.gradeSection)}</td>
+                    <td class="p-3.5 font-medium text-indigo-700">${escapeHtml(g.topic)}</td>
+                    <td class="p-3.5 text-center font-bold text-slate-600">${g.total} <span class="text-[10px] font-normal">(${g.male}M/${g.female}F)</span></td>
+                    <td class="p-3.5 text-center">${hasDoc}</td>
+                    <td class="p-3.5 text-center flex justify-center gap-2">
+                        <button onclick="window.viewGroupDetail('${g.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Detail"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        <button onclick="window.deleteGroupLog('${g.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+        };
+
+        window.deleteGroupLog = async function(id) {
+            if(!currentUser) return;
+            if (confirm('Are you sure you want to delete this group guidance record?')) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'group_guidance_logs', id));
+                showToast('Group record deleted.');
+            }
+        };
+
+        window.viewGroupDetail = function(id) {
+            const g = groupGuidanceData.find(item => item.id === id);
+            if (!g) return;
+
+            document.getElementById('printGroupCounselorName').innerText = g.preparedBy || 'Guidance Counselor';
+
+            const modalBody = document.getElementById('groupModalBody');
+            modalBody.innerHTML = `
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs">
+                    <div><span class="block text-slate-400 font-semibold uppercase">Date</span><span class="font-bold text-slate-800 text-sm">${g.date}</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Time</span><span class="font-bold text-slate-800 text-sm">${g.time}</span></div>
+                    <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Grade/Section</span><span class="font-bold text-slate-800 text-sm">${escapeHtml(g.gradeSection)}</span></div>
+                    
+                    <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Topic</span><span class="font-bold text-indigo-700 text-sm">${escapeHtml(g.topic)}</span></div>
+                    <div class="col-span-2 flex gap-4">
+                        <div><span class="block text-slate-400 font-semibold uppercase">Male</span><span class="font-bold text-slate-700 text-sm">${g.male}</span></div>
+                        <div><span class="block text-slate-400 font-semibold uppercase">Female</span><span class="font-bold text-slate-700 text-sm">${g.female}</span></div>
+                        <div><span class="block text-slate-400 font-semibold uppercase text-emerald-600">Total</span><span class="font-extrabold text-emerald-700 text-lg">${g.total}</span></div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Purpose</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.purpose)}</p>
+                    </div>
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Summary of Session</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.summary)}</p>
+                    </div>
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Observations</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.observations)}</p>
+                    </div>
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Student Responses/Participation</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.responses)}</p>
+                    </div>
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Assessment</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.assessment)}</p>
+                    </div>
+                    <div class="border-l-4 border-indigo-500 pl-3">
+                        <h6 class="font-bold text-xs text-slate-500 uppercase">Recommendations/Follow-Up</h6>
+                        <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.recommendations)}</p>
+                    </div>
+                </div>
+            `;
+
+            const docSection = document.getElementById('groupDocumentationSection');
+            
+            if (g.attendanceData) {
+                if (g.attendanceData.startsWith('data:application/pdf')) {
+                    docSection.innerHTML = `
+                        <h2 class="text-lg font-bold text-indigo-900 uppercase border-b pb-2 mb-4">Official Documentation / Attendance Sheet</h2>
+                        <iframe src="${g.attendanceData}" class="w-full h-[600px] border border-slate-300 rounded shadow-sm"></iframe>
+                    `;
+                } else {
+                    docSection.innerHTML = `
+                        <h2 class="text-lg font-bold text-indigo-900 uppercase border-b pb-2 mb-4">Official Documentation / Attendance Sheet</h2>
+                        <img src="${g.attendanceData}" alt="Documentation" class="max-w-full h-auto mx-auto rounded border border-slate-300 shadow-sm" />
+                    `;
+                }
+                docSection.classList.remove('hidden');
+            } else {
+                docSection.classList.add('hidden');
+            }
+
+            document.getElementById('viewGroupModal').classList.remove('hidden');
+            lucide.createIcons();
+        };
+
+        window.closeGroupModal = function() {
+            document.getElementById('viewGroupModal').classList.add('hidden');
+        };
 
         // ================= PREVIOUS SESSION CHECKER =================
         window.checkPreviousSessions = function(name) {
@@ -1490,7 +1788,7 @@
                 dateContainer.classList.add('opacity-50', 'pointer-events-none');
                 timeContainer.classList.add('opacity-50', 'pointer-events-none');
                 dateInput.setAttribute('disabled', 'true');
-                timeInput.setAttribute('disabled', 'true');
+                dateInput.setAttribute('disabled', 'true');
                 dateInput.value = '';
                 timeInput.value = '';
             }
@@ -1534,7 +1832,6 @@
                 createdAt: new Date().toISOString()
             };
 
-            // Save to Firestore
             await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'counseling_logs', newLog.id), newLog);
 
             setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
@@ -1554,10 +1851,6 @@
             window.toggleFollowUpFields('Yes');
         };
 
-        function loadLogs() {
-            window.filterLogs();
-        }
-
         window.filterLogs = function() {
             const query = document.getElementById('searchInput')?.value.toLowerCase() || '';
             const reasonFilter = document.getElementById('filterReason')?.value || 'ALL';
@@ -1570,28 +1863,18 @@
                 return matchesSearch && matchesReason;
             });
 
-            renderLogsList(filtered);
-        };
-
-        function renderLogsList(logs) {
             const container = document.getElementById('logsContainer');
             if(!container) return;
-
             container.innerHTML = '';
-            document.getElementById('recordCountTag').innerText = `${logs.length} Total Records`;
+            document.getElementById('recordCountTag').innerText = `${filtered.length} Total Records`;
 
-            if (logs.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 text-slate-400">
-                        <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
-                        <p class="text-sm">No counseling records found.</p>
-                    </div>
-                `;
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-slate-400"><i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i><p class="text-sm">No counseling records found.</p></div>`;
                 lucide.createIcons();
                 return;
             }
 
-            logs.forEach(log => {
+            filtered.forEach(log => {
                 const card = document.createElement('div');
                 card.className = "p-5 hover:bg-slate-50 transition flex flex-col md:flex-row justify-between md:items-center gap-4";
                 
@@ -1600,8 +1883,7 @@
                     : `<span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800"><i data-lucide="check" class="w-3 h-3"></i> ${log.followUpRequired}</span>`;
 
                 const timeSlotText = (log.timeStarted && log.timeStarted !== 'Not Set') 
-                    ? ` • Time: ${log.timeStarted} - ${log.timeEnded || 'Ongoing'}`
-                    : '';
+                    ? ` • Time: ${log.timeStarted} - ${log.timeEnded || 'Ongoing'}` : '';
 
                 card.innerHTML = `
                     <div class="space-y-1">
@@ -1634,310 +1916,32 @@
                 `;
                 container.appendChild(card);
             });
-
-            lucide.createIcons();
-        }
-
-        window.deleteLog = async function(id) {
-            if (!currentUser) return;
-            if (confirm('Are you sure you want to delete this counseling log? This action cannot be undone.')) {
-                await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'counseling_logs', id));
-                showToast('Record deleted from cloud.');
-            }
-        };
-
-        // ================= HEEADDSSS MODULE =================
-        window.toggleHeeaddsssSubTab = function(sub) {
-            const formDiv = document.getElementById('heeaddsss-sub-form');
-            const recordsDiv = document.getElementById('heeaddsss-sub-records');
-            const btnForm = document.getElementById('btn-heeaddsss-form');
-            const btnRecords = document.getElementById('btn-heeaddsss-records');
-
-            if (sub === 'form') {
-                formDiv.classList.remove('hidden');
-                recordsDiv.classList.add('hidden');
-                btnForm.className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
-                btnRecords.className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
-            } else {
-                formDiv.classList.add('hidden');
-                recordsDiv.classList.remove('hidden');
-                btnRecords.className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
-                btnForm.className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
-                loadHeeaddsssRecords();
-            }
-        };
-
-        window.updateHeeaddsssRiskScore = function() {
-            const criticalQuestions = ['hq1', 'hq4', 'hq10'];
-            const moderateQuestions = ['hq2', 'hq3', 'hq5', 'hq6', 'hq7', 'hq11'];
-            let criticalCount = 0;
-            let moderateCount = 0;
-
-            criticalQuestions.forEach(q => {
-                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'Oo') criticalCount++;
-            });
-
-            moderateQuestions.forEach(q => {
-                if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'Oo') moderateCount++;
-            });
-
-            const card = document.getElementById('riskLevelCard');
-            const text = document.getElementById('riskLevelText');
-            const badge = document.getElementById('riskLevelBadge');
-
-            if (criticalCount > 0) {
-                card.className = "p-4 rounded-xl bg-red-50 border border-red-200 flex flex-col sm:flex-row justify-between items-center gap-3";
-                text.className = "text-base font-extrabold text-red-700 flex items-center gap-2";
-                text.innerHTML = `<i data-lucide="alert-triangle" class="w-5 h-5 text-red-600"></i> CRITICAL RISK FLAG DETECTED`;
-                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-red-600 text-white shadow-sm";
-                badge.innerText = `${criticalCount} Critical & ${moderateCount} Moderate Flag(s)`;
-            } else if (moderateCount >= 2) {
-                card.className = "p-4 rounded-xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row justify-between items-center gap-3";
-                text.className = "text-base font-extrabold text-amber-800 flex items-center gap-2";
-                text.innerHTML = `<i data-lucide="alert-circle" class="w-5 h-5 text-amber-600"></i> Moderate Risk / Follow-up Recommended`;
-                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-amber-200 text-amber-900 border border-amber-300";
-                badge.innerText = `${moderateCount} Moderate Flags`;
-            } else {
-                card.className = "p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3";
-                text.className = "text-base font-extrabold text-emerald-700 flex items-center gap-2";
-                text.innerHTML = `<i data-lucide="shield-check" class="w-5 h-5"></i> Low Risk / Standard Screening`;
-                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200";
-                badge.innerText = `0 Critical Flags`;
-            }
-
             lucide.createIcons();
         };
 
-        window.handleHeeaddsssSubmit = async function(e) {
-            e.preventDefault();
-            if (!currentUser) return;
+        function loadLogs() { window.filterLogs(); }
 
-            document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
-
-            const answers = [];
-            for (let i = 1; i <= 12; i++) {
-                const val = document.querySelector(`input[name="hq${i}"]:checked`)?.value || 'Hindi';
-                answers.push({ qIndex: i, question: HEEADDSSS_QUESTIONS[i-1], answer: val });
-            }
-
-            const criticalTrigger = answers[0].answer === 'Oo' || answers[3].answer === 'Oo' || answers[9].answer === 'Oo';
-            const flagStatus = criticalTrigger ? 'HIGH RISK' : (answers.filter(a => a.answer === 'Oo').length >= 3 ? 'MODERATE RISK' : 'LOW RISK');
-
-            const newRecord = {
-                id: 'HEEADDSSS-' + Date.now(),
-                learnerName: document.getElementById('hLearnerName').value.trim(),
-                gradeSection: document.getElementById('hGradeSection').value.trim(),
-                assessmentDate: document.getElementById('hDate').value,
-                sex: document.getElementById('hSex').value,
-                age: document.getElementById('hAge').value || 'N/A',
-                phone: document.getElementById('hPhone').value.trim() || 'N/A',
-                contactSocial: document.getElementById('hContactSocial').value.trim() || 'N/A',
-                answers: answers,
-                flagStatus: flagStatus,
-                counselorRemarks: document.getElementById('hCounselorRemarks').value.trim(),
-                createdAt: new Date().toISOString()
-            };
-
-            await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', newRecord.id), newRecord);
-
-            setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
-            showToast('HEEADDSSS Assessment Saved Successfully to Cloud!');
-            document.getElementById('heeaddsssForm').reset();
-            window.updateHeeaddsssRiskScore();
-            window.toggleHeeaddsssSubTab('records');
-        };
-
-        function loadHeeaddsssRecords() {
-            window.filterHeeaddsssRecords();
-        }
-
-        window.filterHeeaddsssRecords = function() {
-            const monthVal = document.getElementById('hFilterMonth')?.value || '';
-            const gradeVal = document.getElementById('hFilterGrade')?.value.toLowerCase().trim() || '';
-            const riskVal = document.getElementById('hFilterRisk')?.value || 'ALL';
-            const nameQuery = document.getElementById('hSearchInput')?.value.toLowerCase().trim() || '';
-
-            const filtered = heeaddsssData.filter(r => {
-                if (monthVal && !r.assessmentDate.startsWith(monthVal)) return false;
-                if (gradeVal && !r.gradeSection.toLowerCase().includes(gradeVal)) return false;
-                if (riskVal !== 'ALL' && r.flagStatus !== riskVal) return false;
-                if (nameQuery && !r.learnerName.toLowerCase().includes(nameQuery)) return false;
-                return true;
-            });
-
-            renderHeeaddsssList(filtered, heeaddsssData.length);
-        };
-
-        window.resetHeeaddsssFilters = function() {
-            if (document.getElementById('hFilterMonth')) document.getElementById('hFilterMonth').value = '';
-            if (document.getElementById('hFilterGrade')) document.getElementById('hFilterGrade').value = '';
-            if (document.getElementById('hFilterRisk')) document.getElementById('hFilterRisk').value = 'ALL';
-            if (document.getElementById('hSearchInput')) document.getElementById('hSearchInput').value = '';
-            window.filterHeeaddsssRecords();
-        };
-
-        function renderHeeaddsssList(records, totalCount = records.length) {
-            const tbody = document.getElementById('heeaddsssTableBody');
-            if(!tbody) return;
-            tbody.innerHTML = '';
-            document.getElementById('hRecordCountTag').innerText = `Showing ${records.length} of ${totalCount} Assessment(s)`;
-
-            if (records.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center py-8 text-slate-400">
-                            No HEEADDSSS assessment records match the selected filter criteria.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            records.forEach(r => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition";
-
-                let flagBadge = '';
-                if (r.flagStatus === 'HIGH RISK') {
-                    flagBadge = '<span class="px-2.5 py-1 bg-red-600 text-white rounded-full font-bold text-xs shadow-sm">CRITICAL HIGH RISK</span>';
-                } else if (r.flagStatus === 'MODERATE RISK') {
-                    flagBadge = '<span class="px-2.5 py-1 bg-amber-100 text-amber-800 border border-amber-300 rounded-full font-bold text-xs">MODERATE RISK</span>';
-                } else {
-                    flagBadge = '<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-semibold text-xs">LOW RISK</span>';
-                }
-
-                tr.innerHTML = `
-                    <td class="p-3.5 font-mono text-slate-700">${r.assessmentDate}</td>
-                    <td class="p-3.5 font-bold text-slate-800">${escapeHtml(r.learnerName)}</td>
-                    <td class="p-3.5">${escapeHtml(r.gradeSection)}</td>
-                    <td class="p-3.5">${escapeHtml(r.sex)} (${escapeHtml(r.age)} yrs)</td>
-                    <td class="p-3.5 text-slate-500">${escapeHtml(r.phone)}</td>
-                    <td class="p-3.5">${flagBadge}</td>
-                    <td class="p-3.5 text-center flex justify-center gap-2">
-                        <button onclick="window.viewHeeaddsssDetail('${r.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Full Assessment">
-                            <i data-lucide="eye" class="w-4 h-4"></i>
-                        </button>
-                        <button onclick="window.deleteHeeaddsss('${r.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            lucide.createIcons();
-        }
-
-        window.deleteHeeaddsss = async function(id) {
-            if(!currentUser) return;
-            if (confirm('Delete this HEEADDSSS Assessment record from Cloud?')) {
-                await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', id));
-                showToast('Assessment deleted.');
-            }
-        };
-
-        window.viewHeeaddsssDetail = function(id) {
-            const r = heeaddsssData.find(item => item.id === id);
-            if (!r) return;
-
-            document.getElementById('modalTitle').innerText = "HEEADDSSS Assessment Record Summary";
-            document.getElementById('modalHeaderSubtitle').innerText = "Adolescent Psychosocial Risk Assessment";
-            document.getElementById('printCounselorName').innerText = "Guidance Counselor / Nurse";
-            document.getElementById('printLearnerName').innerText = r.learnerName;
-
-            let answersRows = r.answers.map(a => `
-                <tr class="border-b">
-                    <td class="p-2 font-medium">${a.question}</td>
-                    <td class="p-2 text-center font-bold ${a.answer === 'Oo' ? 'text-red-600' : 'text-slate-600'}">${a.answer}</td>
-                </tr>
-            `).join('');
-
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = `
-                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Learner Name</span>
-                        <span class="font-bold text-slate-800 text-sm">${escapeHtml(r.learnerName)}</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Grade & Section</span>
-                        <span class="font-semibold text-slate-700">${escapeHtml(r.gradeSection)}</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Sex / Age</span>
-                        <span class="text-slate-700">${escapeHtml(r.sex)} / ${escapeHtml(r.age)} yrs</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Assessment Date</span>
-                        <span class="font-semibold text-indigo-700">${r.assessmentDate}</span>
-                    </div>
-                    <div class="col-span-2">
-                        <span class="block text-slate-400 font-semibold uppercase">Phone / Landline</span>
-                        <span class="text-slate-700">${escapeHtml(r.phone)}</span>
-                    </div>
-                    <div class="col-span-2">
-                        <span class="block text-slate-400 font-semibold uppercase">Email / FB Account</span>
-                        <span class="text-slate-700">${escapeHtml(r.contactSocial)}</span>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-xs uppercase text-slate-500 mb-2">Psychosocial Responses</h4>
-                    <table class="w-full text-xs text-slate-700 border border-slate-200">
-                        <thead class="bg-slate-100 font-bold">
-                            <tr>
-                                <th class="p-2 text-left">Questions</th>
-                                <th class="p-2 w-20 text-center">Response</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${answersRows}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <h4 class="font-bold text-xs uppercase text-slate-500 mb-1">Counselor Assessment Remarks</h4>
-                    <p class="text-slate-800 text-xs whitespace-pre-wrap">${escapeHtml(r.counselorRemarks) || 'No additional remarks.'}</p>
-                </div>
-            `;
-
-            document.getElementById('viewModal').classList.remove('hidden');
-            lucide.createIcons();
-        };
-
-        // ================= REPORTS & ANALYTICS =================
-        window.handleMonthFilterChange = function() {
-            document.getElementById('reportDateFrom').value = '';
-            document.getElementById('reportDateTo').value = '';
-            window.generateReport();
-        };
-
-        window.clearMonthAndGenerate = function() {
-            document.getElementById('reportMonth').value = '';
-            window.generateReport();
-        };
-
+        // ================= MONTHLY REACH SUMMARY =================
         window.calculateAndShowMonthlyReach = function() {
             const monthVal = document.getElementById('reportMonth').value;
-            if (!monthVal) {
-                alert('Please select a Month under "Filter by Month" first.');
-                return;
-            }
+            if (!monthVal) { alert('Please select a Month under "Filter by Month" first.'); return; }
 
             const [year, month] = monthVal.split('-');
             const monthName = new Date(year, parseInt(month) - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
 
             const counselingLogs = logsData.filter(l => l.sessionDate && l.sessionDate.startsWith(monthVal));
             const heeaddsssLogs = heeaddsssData.filter(h => h.assessmentDate && h.assessmentDate.startsWith(monthVal));
+            const groupLogs = groupGuidanceData.filter(g => g.date && g.date.startsWith(monthVal));
 
             const counselingSessionCount = counselingLogs.length;
             const counselingStudentsSet = new Set(counselingLogs.map(l => l.learnerName.toLowerCase().trim()));
 
             const testingSessionCount = heeaddsssLogs.length;
             const testingStudentsSet = new Set(heeaddsssLogs.map(h => h.learnerName.toLowerCase().trim()));
-
             const criticalRiskTestingCount = heeaddsssLogs.filter(h => h.flagStatus === 'HIGH RISK').length;
+
+            const groupSessionCount = groupLogs.length;
+            const groupTotalParticipants = groupLogs.reduce((sum, g) => sum + (parseInt(g.total) || 0), 0);
 
             const combinedStudentsSet = new Set([
                 ...counselingLogs.map(l => l.learnerName.toLowerCase().trim()),
@@ -1945,36 +1949,37 @@
             ]);
 
             const totalUniqueLearnersReached = combinedStudentsSet.size;
-            const totalServiceInteractions = counselingSessionCount + testingSessionCount;
+            const totalServiceInteractions = counselingSessionCount + testingSessionCount + groupSessionCount;
 
             document.getElementById('reachModalMonthTitle').innerText = `Report Period: ${monthName}`;
             
-            const modalBody = document.getElementById('reachModalBody');
-            modalBody.innerHTML = `
+            document.getElementById('reachModalBody').innerHTML = `
                 <div class="bg-indigo-900 text-white rounded-xl p-6 text-center space-y-2">
-                    <span class="text-xs uppercase font-bold text-indigo-300 tracking-wider">Total Unique Learners Reached</span>
+                    <span class="text-xs uppercase font-bold text-indigo-300 tracking-wider">Total Unique Individual Learners</span>
                     <h3 class="text-4xl font-extrabold text-emerald-400">${totalUniqueLearnersReached} <span class="text-base font-normal text-indigo-200">Student(s)</span></h3>
-                    <p class="text-xs text-indigo-200">Across Individual Counseling and HEEADDSSS Psychosocial Testing</p>
+                    <p class="text-[10px] text-indigo-200">Across 1-on-1 Counseling and Psychosocial Testing</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-5 space-y-2">
-                        <div class="flex items-center gap-2 text-indigo-800 font-bold text-sm border-b pb-2 border-indigo-200">
-                            <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Individual Counseling
-                        </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 space-y-2">
+                        <div class="flex items-center gap-1.5 text-indigo-800 font-bold text-xs border-b pb-2 border-indigo-200"><i data-lucide="user-check" class="w-3.5 h-3.5 text-indigo-600"></i> Individual Counseling</div>
                         <div class="pt-1">
-                            <span class="block text-2xl font-bold text-indigo-900">${counselingSessionCount} <span class="text-xs text-slate-500 font-normal">Total Sessions</span></span>
-                            <span class="text-xs text-indigo-700 font-medium">(${counselingStudentsSet.size} unique learner/s served)</span>
+                            <span class="block text-xl font-bold text-indigo-900">${counselingSessionCount} <span class="text-[10px] text-slate-500 font-normal">Sessions</span></span>
+                            <span class="text-[10px] text-indigo-700 font-medium">(${counselingStudentsSet.size} unique learners)</span>
                         </div>
                     </div>
-
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-2">
-                        <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm border-b pb-2 border-emerald-200">
-                            <i data-lucide="clipboard-check" class="w-4 h-4 text-emerald-600"></i> HEEADDSSS Testing / Screening
-                        </div>
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-2">
+                        <div class="flex items-center gap-1.5 text-emerald-800 font-bold text-xs border-b pb-2 border-emerald-200"><i data-lucide="clipboard-check" class="w-3.5 h-3.5 text-emerald-600"></i> Testing / Screening</div>
                         <div class="pt-1">
-                            <span class="block text-2xl font-bold text-emerald-900">${testingSessionCount} <span class="text-xs text-slate-500 font-normal">Assessments Administered</span></span>
-                            <span class="text-xs text-emerald-700 font-medium">(${testingStudentsSet.size} unique learner/s tested)</span>
+                            <span class="block text-xl font-bold text-emerald-900">${testingSessionCount} <span class="text-[10px] text-slate-500 font-normal">Assessments</span></span>
+                            <span class="text-[10px] text-emerald-700 font-medium">(${testingStudentsSet.size} unique learners)</span>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
+                        <div class="flex items-center gap-1.5 text-amber-800 font-bold text-xs border-b pb-2 border-amber-200"><i data-lucide="users" class="w-3.5 h-3.5 text-amber-600"></i> Group Guidance</div>
+                        <div class="pt-1">
+                            <span class="block text-xl font-bold text-amber-900">${groupSessionCount} <span class="text-[10px] text-slate-500 font-normal">Sessions</span></span>
+                            <span class="text-[10px] text-amber-700 font-medium">(${groupTotalParticipants} total participants)</span>
                         </div>
                     </div>
                 </div>
@@ -1983,8 +1988,8 @@
                     <h4 class="font-bold text-xs uppercase text-slate-500">Service Details Summary</h4>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                         <div class="p-2.5 bg-white rounded border border-slate-200">
-                            <span class="block text-slate-400 font-medium">Total Service Visits</span>
-                            <span class="font-bold text-slate-800 text-sm">${totalServiceInteractions}</span>
+                            <span class="block text-slate-400 font-medium">Total Interventions</span>
+                            <span class="font-bold text-slate-800 text-sm">${totalServiceInteractions} Events</span>
                         </div>
                         <div class="p-2.5 bg-white rounded border border-slate-200">
                             <span class="block text-slate-400 font-medium">Critical Testing Flags</span>
@@ -1997,7 +2002,6 @@
                     </div>
                 </div>
             `;
-
             document.getElementById('reachModal').classList.remove('hidden');
             lucide.createIcons();
         };
@@ -2021,41 +2025,30 @@
                 if (gradeVal && !log.gradeSection.toLowerCase().includes(gradeVal)) return false;
                 if (reasonVal !== 'ALL' && log.reasonForVisit !== reasonVal) return false;
                 if (sexVal !== 'ALL' && log.sex !== sexVal) return false;
-
                 if (!monthVal) {
                     if (dateFrom && log.sessionDate < dateFrom) return false;
                     if (dateTo && log.sessionDate > dateTo) return false;
                 }
-
                 return true;
             });
 
             document.getElementById('reportMatchCount').innerText = filtered.length;
-            
-            const uniqueLearners = new Set(filtered.map(l => l.learnerName.toLowerCase().trim())).size;
-            document.getElementById('reportUniqueLearners').innerText = uniqueLearners;
-
-            const followUpCount = filtered.filter(l => l.followUpRequired === 'Yes').length;
-            document.getElementById('reportFollowUpCount').innerText = followUpCount;
+            document.getElementById('reportUniqueLearners').innerText = new Set(filtered.map(l => l.learnerName.toLowerCase().trim())).size;
+            document.getElementById('reportFollowUpCount').innerText = filtered.filter(l => l.followUpRequired === 'Yes').length;
 
             const reasonCounts = {};
             const sexCounts = { 'Male': 0, 'Female': 0, 'Prefer not to say / Other': 0 };
 
             filtered.forEach(l => {
                 reasonCounts[l.reasonForVisit] = (reasonCounts[l.reasonForVisit] || 0) + 1;
-                
                 if (l.sex === 'Male') sexCounts['Male']++;
                 else if (l.sex === 'Female') sexCounts['Female']++;
                 else sexCounts['Prefer not to say / Other']++;
             });
 
-            let topReason = '-';
-            let maxCount = 0;
+            let topReason = '-'; let maxCount = 0;
             for (const [r, cnt] of Object.entries(reasonCounts)) {
-                if (cnt > maxCount) {
-                    maxCount = cnt;
-                    topReason = `${r} (${cnt})`;
-                }
+                if (cnt > maxCount) { maxCount = cnt; topReason = `${r} (${cnt})`; }
             }
             document.getElementById('reportTopReason').innerText = topReason;
 
@@ -2065,30 +2058,19 @@
             tbody.innerHTML = '';
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center py-8 text-slate-400">
-                            No counseling records match the selected filter criteria.
-                        </td>
-                    </tr>
-                `;
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No records found.</td></tr>`;
                 return;
             }
 
             filtered.forEach(log => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition";
-                
                 const followUpText = log.followUpRequired === 'Yes'
                     ? `<span class="text-amber-700 font-semibold">${log.followUpDate} @ ${log.followUpTime}</span>`
                     : `<span class="text-emerald-600 font-medium">${log.followUpRequired}</span>`;
 
-                const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set') 
-                    ? `${log.sessionDate}<br><span class="text-[10px] text-slate-400 font-sans">(${log.timeStarted} - ${log.timeEnded || 'N/A'})</span>`
-                    : log.sessionDate;
-
                 tr.innerHTML = `
-                    <td class="p-3 font-mono text-slate-700">${timeSlotDisplay}</td>
+                    <td class="p-3 font-mono text-slate-700">${log.sessionDate}<br><span class="text-[10px] text-slate-400 font-sans">(${log.timeStarted || 'N/A'})</span></td>
                     <td class="p-3 font-bold text-slate-800">${escapeHtml(log.learnerName)}</td>
                     <td class="p-3">${escapeHtml(log.gradeSection)}</td>
                     <td class="p-3">${escapeHtml(log.sex)}</td>
@@ -2098,100 +2080,13 @@
                 `;
                 tbody.appendChild(tr);
             });
-
-            const filtersDesc = [];
-            if (monthVal) {
-                const [y, m] = monthVal.split('-');
-                const monthName = new Date(y, parseInt(m)-1).toLocaleString('default', { month: 'long', year: 'numeric' });
-                filtersDesc.push(`Month: ${monthName}`);
-            }
-            if (nameVal) filtersDesc.push(`Learner: "${nameVal}"`);
-            if (gradeVal) filtersDesc.push(`Grade: "${gradeVal}"`);
-            if (reasonVal !== 'ALL') filtersDesc.push(`Reason: ${reasonVal}`);
-            if (sexVal !== 'ALL') filtersDesc.push(`Sex: ${sexVal}`);
-            if (!monthVal && (dateFrom || dateTo)) filtersDesc.push(`Date: ${dateFrom || 'Start'} to ${dateTo || 'End'}`);
-
-            document.getElementById('reportFilterDescription').innerText = filtersDesc.length > 0 
-                ? `Filtered by: ${filtersDesc.join(' | ')}`
-                : 'Showing all recorded counseling logs';
         };
 
-        function renderCharts(reasonCounts, sexCounts) {
-            if (reasonsChartInstance) reasonsChartInstance.destroy();
-            if (sexChartInstance) sexChartInstance.destroy();
-
-            const reasonLabels = Object.keys(reasonCounts);
-            const reasonValues = Object.values(reasonCounts);
-
-            const ctxReasons = document.getElementById('reasonsChart').getContext('2d');
-            reasonsChartInstance = new Chart(ctxReasons, {
-                type: 'bar',
-                data: {
-                    labels: reasonLabels.length > 0 ? reasonLabels : ['No Data'],
-                    datasets: [{
-                        label: 'Number of Learner Visits',
-                        data: reasonValues.length > 0 ? reasonValues : [0],
-                        backgroundColor: [
-                            '#6366f1', '#3b82f6', '#06b6d4', '#10b981', 
-                            '#f59e0b', '#ec4899', '#8b5cf6', '#64748b'
-                        ],
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { callbacks: { label: (ctx) => ` ${ctx.raw} Student Session(s)` } }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, ticks: { precision: 0 } },
-                        x: { ticks: { font: { size: 10 }, callback: function(val, index) {
-                            let label = this.getLabelForValue(val);
-                            return label.length > 20 ? label.substring(0, 18) + '...' : label;
-                        }}}
-                    }
-                }
-            });
-
-            const ctxSex = document.getElementById('sexChart').getContext('2d');
-            sexChartInstance = new Chart(ctxSex, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Male', 'Female', 'Other / Unspecified'],
-                    datasets: [{
-                        data: [sexCounts['Male'], sexCounts['Female'], sexCounts['Prefer not to say / Other']],
-                        backgroundColor: ['#3b82f6', '#ec4899', '#94a3b8']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
-                }
-            });
-        }
-
-        window.resetReportFilters = function() {
-            document.getElementById('reportMonth').value = '';
-            document.getElementById('reportLearnerName').value = '';
-            document.getElementById('reportGrade').value = '';
-            document.getElementById('reportReason').value = 'ALL';
-            document.getElementById('reportSex').value = 'ALL';
-            document.getElementById('reportDateFrom').value = '';
-            document.getElementById('reportDateTo').value = '';
-            window.generateReport();
-        };
-
-        // VIEW LINKED MULTI-PAGE SESSIONS FOR A SPECIFIC LEARNER
+        // Linked Cases Logic
         window.viewLearnerCaseHistory = function(learnerName) {
-            // Filter all sessions for this specific learner (case-insensitive)
             const learnerSessions = logsData.filter(l => l.learnerName.toLowerCase().trim() === learnerName.toLowerCase().trim())
                                         .sort((a, b) => new Date(a.sessionDate) - new Date(b.sessionDate));
-
             if (learnerSessions.length === 0) return;
-
             const primary = learnerSessions[0];
 
             document.getElementById('modalTitle').innerText = `Linked Counseling Case Progress - ${primary.learnerName}`;
@@ -2200,16 +2095,8 @@
             document.getElementById('printLearnerName').innerText = primary.learnerName;
 
             let sessionsHTML = learnerSessions.map((log, index) => {
-                const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set')
-                    ? `${log.timeStarted} - ${log.timeEnded || 'Ongoing'}`
-                    : 'Time Not Set';
-
-                const reflectionBlock = log.counselorReflection 
-                    ? `<div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 mt-4">
-                           <h6 class="font-bold text-xs text-indigo-900 uppercase">Counselor Reflection / Clinical Observation</h6>
-                           <p class="text-slate-800 text-xs whitespace-pre-wrap mt-0.5">${escapeHtml(log.counselorReflection)}</p>
-                       </div>` 
-                    : '';
+                const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set') ? `${log.timeStarted} - ${log.timeEnded || 'Ongoing'}` : 'Time Not Set';
+                const reflectionBlock = log.counselorReflection ? `<div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 mt-4"><h6 class="font-bold text-xs text-indigo-900 uppercase">Counselor Reflection / Clinical Observation</h6><p class="text-slate-800 text-xs whitespace-pre-wrap mt-0.5">${escapeHtml(log.counselorReflection)}</p></div>` : '';
 
                 return `
                     <div class="border-2 border-indigo-100 rounded-xl p-6 bg-white shadow-xs space-y-4 page-break-after">
@@ -2220,79 +2107,35 @@
                             </div>
                             <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full text-indigo-100 font-semibold border border-indigo-700">${escapeHtml(log.reasonForVisit)}</span>
                         </div>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200">
                             <div><span class="font-bold text-slate-500 uppercase">Reason for Session:</span> ${escapeHtml(log.reasonForVisit)}</div>
                             <div><span class="font-bold text-slate-500 uppercase">Counselor:</span> ${escapeHtml(log.counselorName)}</div>
                         </div>
-
                         <div class="space-y-3">
-                            <div class="border-l-4 border-indigo-500 pl-3">
-                                <h6 class="font-bold text-xs text-slate-500 uppercase">1. Presenting Concern</h6>
-                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.presentingConcern)}</p>
-                            </div>
-
-                            <div class="border-l-4 border-indigo-500 pl-3">
-                                <h6 class="font-bold text-xs text-slate-500 uppercase">2. Session Summary / Discussion</h6>
-                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.sessionSummary)}</p>
-                            </div>
-
-                            <div class="border-l-4 border-indigo-500 pl-3">
-                                <h6 class="font-bold text-xs text-slate-500 uppercase">3. Interventions & Strategies Used</h6>
-                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.interventions)}</p>
-                            </div>
-
-                            <div class="border-l-4 border-indigo-500 pl-3">
-                                <h6 class="font-bold text-xs text-slate-500 uppercase">4. Learner Response & Observation</h6>
-                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.learnerResponse)}</p>
-                            </div>
-
-                            <div class="border-l-4 border-indigo-500 pl-3">
-                                <h6 class="font-bold text-xs text-slate-500 uppercase">5. Agreement / Action Plan</h6>
-                                <p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.actionPlan)}</p>
-                            </div>
+                            <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">1. Presenting Concern</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.presentingConcern)}</p></div>
+                            <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">2. Session Summary / Discussion</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.sessionSummary)}</p></div>
+                            <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">3. Interventions & Strategies Used</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.interventions)}</p></div>
+                            <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">4. Learner Response & Observation</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.learnerResponse)}</p></div>
+                            <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">5. Agreement / Action Plan</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.actionPlan)}</p></div>
                         </div>
-
                         ${reflectionBlock}
-
                         <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs flex justify-between items-center mt-4">
-                            <div>
-                                <span class="font-bold text-amber-900">Follow-up Requirement:</span> ${log.followUpRequired}
-                            </div>
+                            <div><span class="font-bold text-amber-900">Follow-up Requirement:</span> ${log.followUpRequired}</div>
                             ${log.followUpRequired === 'Yes' ? `<div class="font-bold text-amber-800">Next Appt: ${log.followUpDate} @ ${log.followUpTime}</div>` : ''}
                         </div>
                     </div>
                 `;
             }).join('');
 
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = `
-                <!-- Learner Header Info Card -->
+            document.getElementById('modalBody').innerHTML = `
                 <div class="bg-slate-800 text-white p-4 rounded-xl grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Learner Name</span>
-                        <span class="font-bold text-white text-sm">${escapeHtml(primary.learnerName)}</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Grade & Section</span>
-                        <span class="font-semibold text-slate-200">${escapeHtml(primary.gradeSection)}</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Sex / Age</span>
-                        <span class="text-slate-200">${escapeHtml(primary.sex)} / ${escapeHtml(primary.age)} yrs</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-400 font-semibold uppercase">Total Sessions</span>
-                        <span class="font-bold text-emerald-400 text-sm">${learnerSessions.length} Linked Session(s)</span>
-                    </div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Learner Name</span><span class="font-bold text-white text-sm">${escapeHtml(primary.learnerName)}</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Grade & Section</span><span class="font-semibold text-slate-200">${escapeHtml(primary.gradeSection)}</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Sex / Age</span><span class="text-slate-200">${escapeHtml(primary.sex)} / ${escapeHtml(primary.age)} yrs</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Total Sessions</span><span class="font-bold text-emerald-400 text-sm">${learnerSessions.length} Linked Session(s)</span></div>
                 </div>
-
-                <!-- Linked Multi-Page Timeline -->
-                <div class="space-y-6">
-                    ${sessionsHTML}
-                </div>
+                <div class="space-y-6">${sessionsHTML}</div>
             `;
-
             document.getElementById('viewModal').classList.remove('hidden');
             lucide.createIcons();
         };
@@ -2305,19 +2148,12 @@
             const toast = document.getElementById('toast');
             document.getElementById('toastMsg').innerText = msg;
             toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+            setTimeout(() => { toast.classList.add('translate-y-20', 'opacity-0'); }, 3000);
         }
 
         function escapeHtml(str) {
             if (!str) return '';
-            return str
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>

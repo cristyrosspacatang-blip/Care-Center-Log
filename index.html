@@ -1309,7 +1309,6 @@
                     for (const log of oldLogs) {
                         await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'counseling_logs', log.id), log);
                     }
-                    // Mark as safely migrated so it doesn't duplicate next refresh
                     localStorage.setItem('care_center_counseling_logs_migrated_to_cloud', oldLogsStr);
                     localStorage.removeItem('care_center_counseling_logs');
                     migratedAnything = true;
@@ -1378,7 +1377,7 @@
             lucide.createIcons();
             renderCalendar();
             renderTodoList();
-            updateHeeaddsssRiskScore();
+            window.updateHeeaddsssRiskScore();
         });
 
         window.switchTab = function(tab) {
@@ -1437,7 +1436,7 @@
                 const badge = dayAppointments.length > 0 ? `<span class="mt-1 inline-block text-[9px] sm:text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded truncate">${dayAppointments.length} Appt</span>` : '';
 
                 const cell = document.createElement('div');
-                cell.onclick = () => { selectedCalendarDateStr = dateStr; renderCalendar(); };
+                cell.onclick = () => { window.selectCalendarDate(dateStr); };
                 cell.className = `p-1 sm:p-2 rounded-lg h-16 sm:h-20 flex flex-col justify-between cursor-pointer transition hover:border-indigo-400 bg-white ${borderClasses}`;
                 cell.innerHTML = `
                     <div class="flex justify-between items-center">
@@ -1448,6 +1447,11 @@
             }
             displaySelectedDayAppointments(selectedCalendarDateStr);
         }
+        
+        window.selectCalendarDate = function(dateStr) {
+            selectedCalendarDateStr = dateStr;
+            renderCalendar();
+        };
 
         function displaySelectedDayAppointments(dateStr) {
             const container = document.getElementById('selectedDayAppointments');
@@ -1637,8 +1641,8 @@
                     <td class="p-3.5 text-center font-bold text-slate-600">${g.total} <span class="text-[10px] font-normal">(${g.male}M/${g.female}F)</span></td>
                     <td class="p-3.5 text-center">${hasDoc}</td>
                     <td class="p-3.5 text-center flex justify-center gap-2">
-                        <button onclick="window.viewGroupDetail('${g.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Detail"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                        <button onclick="window.deleteGroupLog('${g.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        <button type="button" onclick="window.viewGroupDetail('${g.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Detail"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        <button type="button" onclick="window.deleteGroupLog('${g.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1730,47 +1734,230 @@
             document.getElementById('viewGroupModal').classList.add('hidden');
         };
 
-        // ================= PREVIOUS SESSION CHECKER =================
-        window.checkPreviousSessions = function(name) {
-            const container = document.getElementById('previousSessionsNotification');
-            if (!name || name.trim() === '') {
-                container.classList.add('hidden');
+        // ================= HEEADDSSS LOGIC =================
+        window.toggleHeeaddsssSubTab = function(sub) {
+            if (sub === 'form') {
+                document.getElementById('heeaddsss-sub-form').classList.remove('hidden');
+                document.getElementById('heeaddsss-sub-records').classList.add('hidden');
+                document.getElementById('btn-heeaddsss-form').className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
+                document.getElementById('btn-heeaddsss-records').className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
+            } else {
+                document.getElementById('heeaddsss-sub-form').classList.add('hidden');
+                document.getElementById('heeaddsss-sub-records').classList.remove('hidden');
+                document.getElementById('btn-heeaddsss-records').className = 'px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm';
+                document.getElementById('btn-heeaddsss-form').className = 'px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition';
+                window.filterHeeaddsssRecords();
+            }
+        };
+
+        window.updateHeeaddsssRiskScore = function() {
+            const criticalQuestions = ['hq1', 'hq4', 'hq10'];
+            const moderateQuestions = ['hq2', 'hq3', 'hq5', 'hq6', 'hq7', 'hq11'];
+            let criticalCount = 0; let moderateCount = 0;
+
+            criticalQuestions.forEach(q => { if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'Oo') criticalCount++; });
+            moderateQuestions.forEach(q => { if (document.querySelector(`input[name="${q}"]:checked`)?.value === 'Oo') moderateCount++; });
+
+            const card = document.getElementById('riskLevelCard');
+            const text = document.getElementById('riskLevelText');
+            const badge = document.getElementById('riskLevelBadge');
+
+            if (criticalCount > 0) {
+                card.className = "p-4 rounded-xl bg-red-50 border border-red-200 flex flex-col sm:flex-row justify-between items-center gap-3";
+                text.className = "text-base font-extrabold text-red-700 flex items-center gap-2";
+                text.innerHTML = `<i data-lucide="alert-triangle" class="w-5 h-5 text-red-600"></i> CRITICAL RISK FLAG DETECTED`;
+                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-red-600 text-white shadow-sm";
+                badge.innerText = `${criticalCount} Critical & ${moderateCount} Moderate Flag(s)`;
+            } else if (moderateCount >= 2) {
+                card.className = "p-4 rounded-xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row justify-between items-center gap-3";
+                text.className = "text-base font-extrabold text-amber-800 flex items-center gap-2";
+                text.innerHTML = `<i data-lucide="alert-circle" class="w-5 h-5 text-amber-600"></i> Moderate Risk / Follow-up Recommended`;
+                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-amber-200 text-amber-900 border border-amber-300";
+                badge.innerText = `${moderateCount} Moderate Flags`;
+            } else {
+                card.className = "p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3";
+                text.className = "text-base font-extrabold text-emerald-700 flex items-center gap-2";
+                text.innerHTML = `<i data-lucide="shield-check" class="w-5 h-5"></i> Low Risk / Standard Screening`;
+                badge.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200";
+                badge.innerText = `0 Critical Flags`;
+            }
+            lucide.createIcons();
+        };
+
+        window.handleHeeaddsssSubmit = async function(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+
+            document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
+
+            const answers = [];
+            for (let i = 1; i <= 12; i++) {
+                const val = document.querySelector(`input[name="hq${i}"]:checked`)?.value || 'Hindi';
+                answers.push({ qIndex: i, question: HEEADDSSS_QUESTIONS[i-1], answer: val });
+            }
+
+            const criticalTrigger = answers[0].answer === 'Oo' || answers[3].answer === 'Oo' || answers[9].answer === 'Oo';
+            const flagStatus = criticalTrigger ? 'HIGH RISK' : (answers.filter(a => a.answer === 'Oo').length >= 3 ? 'MODERATE RISK' : 'LOW RISK');
+
+            const newRecord = {
+                id: 'HEEADDSSS-' + Date.now(),
+                learnerName: document.getElementById('hLearnerName').value.trim(),
+                gradeSection: document.getElementById('hGradeSection').value.trim(),
+                assessmentDate: document.getElementById('hDate').value,
+                sex: document.getElementById('hSex').value,
+                age: document.getElementById('hAge').value || 'N/A',
+                phone: document.getElementById('hPhone').value.trim() || 'N/A',
+                contactSocial: document.getElementById('hContactSocial').value.trim() || 'N/A',
+                answers: answers,
+                flagStatus: flagStatus,
+                counselorRemarks: document.getElementById('hCounselorRemarks').value.trim(),
+                createdAt: new Date().toISOString()
+            };
+
+            await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', newRecord.id), newRecord);
+
+            setTimeout(() => document.getElementById('cloudSyncIndicator').classList.add('opacity-0'), 1000);
+            showToast('HEEADDSSS Assessment Saved Successfully to Cloud!');
+            document.getElementById('heeaddsssForm').reset();
+            window.updateHeeaddsssRiskScore();
+            window.toggleHeeaddsssSubTab('records');
+        };
+
+        function loadHeeaddsssRecords() { window.filterHeeaddsssRecords(); }
+
+        window.filterHeeaddsssRecords = function() {
+            const monthVal = document.getElementById('hFilterMonth')?.value || '';
+            const gradeVal = document.getElementById('hFilterGrade')?.value.toLowerCase().trim() || '';
+            const riskVal = document.getElementById('hFilterRisk')?.value || 'ALL';
+            const nameQuery = document.getElementById('hSearchInput')?.value.toLowerCase().trim() || '';
+
+            const filtered = heeaddsssData.filter(r => {
+                if (monthVal && !r.assessmentDate.startsWith(monthVal)) return false;
+                if (gradeVal && !r.gradeSection.toLowerCase().includes(gradeVal)) return false;
+                if (riskVal !== 'ALL' && r.flagStatus !== riskVal) return false;
+                if (nameQuery && !r.learnerName.toLowerCase().includes(nameQuery)) return false;
+                return true;
+            });
+
+            renderHeeaddsssList(filtered, heeaddsssData.length);
+        };
+
+        window.resetHeeaddsssFilters = function() {
+            if (document.getElementById('hFilterMonth')) document.getElementById('hFilterMonth').value = '';
+            if (document.getElementById('hFilterGrade')) document.getElementById('hFilterGrade').value = '';
+            if (document.getElementById('hFilterRisk')) document.getElementById('hFilterRisk').value = 'ALL';
+            if (document.getElementById('hSearchInput')) document.getElementById('hSearchInput').value = '';
+            window.filterHeeaddsssRecords();
+        };
+
+        function renderHeeaddsssList(records, totalCount = records.length) {
+            const tbody = document.getElementById('heeaddsssTableBody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            document.getElementById('hRecordCountTag').innerText = `Showing ${records.length} of ${totalCount} Assessment(s)`;
+
+            if (records.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No HEEADDSSS assessment records match the selected filter criteria.</td></tr>`;
                 return;
             }
 
-            const pastSessions = logsData.filter(l => l.learnerName.toLowerCase().trim() === name.toLowerCase().trim());
+            records.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
 
+                let flagBadge = '';
+                if (r.flagStatus === 'HIGH RISK') flagBadge = '<span class="px-2.5 py-1 bg-red-600 text-white rounded-full font-bold text-xs shadow-sm">CRITICAL HIGH RISK</span>';
+                else if (r.flagStatus === 'MODERATE RISK') flagBadge = '<span class="px-2.5 py-1 bg-amber-100 text-amber-800 border border-amber-300 rounded-full font-bold text-xs">MODERATE RISK</span>';
+                else flagBadge = '<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-semibold text-xs">LOW RISK</span>';
+
+                tr.innerHTML = `
+                    <td class="p-3.5 font-mono text-slate-700">${r.assessmentDate}</td>
+                    <td class="p-3.5 font-bold text-slate-800">${escapeHtml(r.learnerName)}</td>
+                    <td class="p-3.5">${escapeHtml(r.gradeSection)}</td>
+                    <td class="p-3.5">${escapeHtml(r.sex)} (${escapeHtml(r.age)} yrs)</td>
+                    <td class="p-3.5 text-slate-500">${escapeHtml(r.phone)}</td>
+                    <td class="p-3.5">${flagBadge}</td>
+                    <td class="p-3.5 text-center flex justify-center gap-2">
+                        <button type="button" onclick="window.viewHeeaddsssDetail('${r.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Full Assessment"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        <button type="button" onclick="window.deleteHeeaddsss('${r.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        window.deleteHeeaddsss = async function(id) {
+            if(!currentUser) return;
+            if (confirm('Delete this HEEADDSSS Assessment record from Cloud?')) {
+                await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'heeaddsss_logs', id));
+                showToast('Assessment deleted.');
+            }
+        };
+
+        window.viewHeeaddsssDetail = function(id) {
+            const r = heeaddsssData.find(item => item.id === id);
+            if (!r) return;
+
+            document.getElementById('modalTitle').innerText = "HEEADDSSS Assessment Record Summary";
+            document.getElementById('modalHeaderSubtitle').innerText = "Adolescent Psychosocial Risk Assessment";
+            document.getElementById('printCounselorName').innerText = "Guidance Counselor / Nurse";
+            document.getElementById('printLearnerName').innerText = r.learnerName;
+
+            let answersRows = r.answers.map(a => `
+                <tr class="border-b"><td class="p-2 font-medium">${a.question}</td><td class="p-2 text-center font-bold ${a.answer === 'Oo' ? 'text-red-600' : 'text-slate-600'}">${a.answer}</td></tr>
+            `).join('');
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                    <div><span class="block text-slate-400 font-semibold uppercase">Learner Name</span><span class="font-bold text-slate-800 text-sm">${escapeHtml(r.learnerName)}</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Grade & Section</span><span class="font-semibold text-slate-700">${escapeHtml(r.gradeSection)}</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Sex / Age</span><span class="text-slate-700">${escapeHtml(r.sex)} / ${escapeHtml(r.age)} yrs</span></div>
+                    <div><span class="block text-slate-400 font-semibold uppercase">Assessment Date</span><span class="font-semibold text-indigo-700">${r.assessmentDate}</span></div>
+                    <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Phone / Landline</span><span class="text-slate-700">${escapeHtml(r.phone)}</span></div>
+                    <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Email / FB Account</span><span class="text-slate-700">${escapeHtml(r.contactSocial)}</span></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase text-slate-500 mb-2">Psychosocial Responses</h4>
+                    <table class="w-full text-xs text-slate-700 border border-slate-200">
+                        <thead class="bg-slate-100 font-bold"><tr><th class="p-2 text-left">Questions</th><th class="p-2 w-20 text-center">Response</th></tr></thead>
+                        <tbody>${answersRows}</tbody>
+                    </table>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <h4 class="font-bold text-xs uppercase text-slate-500 mb-1">Counselor Assessment Remarks</h4>
+                    <p class="text-slate-800 text-xs whitespace-pre-wrap">${escapeHtml(r.counselorRemarks) || 'No additional remarks.'}</p>
+                </div>
+            `;
+            document.getElementById('viewModal').classList.remove('hidden');
+            lucide.createIcons();
+        };
+
+        // ================= PREVIOUS SESSION CHECKER =================
+        window.checkPreviousSessions = function(name) {
+            const container = document.getElementById('previousSessionsNotification');
+            if (!name || name.trim() === '') { container.classList.add('hidden'); return; }
+
+            const pastSessions = logsData.filter(l => l.learnerName.toLowerCase().trim() === name.toLowerCase().trim());
             if (pastSessions.length > 0) {
                 container.innerHTML = `
                     <div class="flex items-center justify-between bg-amber-50 border border-amber-200 p-2.5 rounded-lg">
                         <div class="flex items-center gap-2 text-amber-800">
-                            <i data-lucide="history" class="w-4 h-4"></i>
-                            <span class="text-xs font-bold">${pastSessions.length} previous session(s) found.</span>
+                            <i data-lucide="history" class="w-4 h-4"></i><span class="text-xs font-bold">${pastSessions.length} previous session(s) found.</span>
                         </div>
-                        <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(name)}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold rounded shadow-sm transition">
-                            Review Past Notes
-                        </button>
-                    </div>
-                `;
+                        <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(name)}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold rounded shadow-sm transition">Review Past Notes</button>
+                    </div>`;
                 container.classList.remove('hidden');
                 lucide.createIcons();
-            } else {
-                container.classList.add('hidden');
-            }
+            } else { container.classList.add('hidden'); }
         };
 
         // ================= FORMS & UI HELPERS =================
         window.toggleCustomReason = function(value) {
             const container = document.getElementById('customReasonContainer');
             const customInput = document.getElementById('customReason');
-            if (value === 'Others') {
-                container.classList.remove('hidden');
-                customInput.setAttribute('required', 'true');
-            } else {
-                container.classList.add('hidden');
-                customInput.removeAttribute('required');
-                customInput.value = '';
-            }
+            if (value === 'Others') { container.classList.remove('hidden'); customInput.setAttribute('required', 'true'); } 
+            else { container.classList.add('hidden'); customInput.removeAttribute('required'); customInput.value = ''; }
         };
 
         window.toggleFollowUpFields = function(value) {
@@ -1780,34 +1967,22 @@
             const timeInput = document.getElementById('followUpTime');
 
             if (value === 'Yes') {
-                dateContainer.classList.remove('opacity-50', 'pointer-events-none');
-                timeContainer.classList.remove('opacity-50', 'pointer-events-none');
-                dateInput.removeAttribute('disabled');
-                timeInput.removeAttribute('disabled');
+                dateContainer.classList.remove('opacity-50', 'pointer-events-none'); timeContainer.classList.remove('opacity-50', 'pointer-events-none');
+                dateInput.removeAttribute('disabled'); timeInput.removeAttribute('disabled');
             } else {
-                dateContainer.classList.add('opacity-50', 'pointer-events-none');
-                timeContainer.classList.add('opacity-50', 'pointer-events-none');
-                dateInput.setAttribute('disabled', 'true');
-                dateInput.setAttribute('disabled', 'true');
-                dateInput.value = '';
-                timeInput.value = '';
+                dateContainer.classList.add('opacity-50', 'pointer-events-none'); timeContainer.classList.add('opacity-50', 'pointer-events-none');
+                dateInput.setAttribute('disabled', 'true'); timeInput.setAttribute('disabled', 'true');
+                dateInput.value = ''; timeInput.value = '';
             }
         };
 
         window.handleFormSubmit = async function(event) {
             event.preventDefault();
-            if (!currentUser) {
-                alert("Cloud storage is initializing, please wait a moment and try again.");
-                return;
-            }
+            if (!currentUser) { alert("Cloud storage is initializing, please wait a moment and try again."); return; }
 
             document.getElementById('cloudSyncIndicator').classList.remove('opacity-0');
 
             const reasonSelect = document.getElementById('reasonForVisit').value;
-            const finalReason = reasonSelect === 'Others' 
-                ? document.getElementById('customReason').value 
-                : reasonSelect;
-
             const newLog = {
                 id: 'LOG-' + Date.now(),
                 learnerName: document.getElementById('learnerName').value.trim(),
@@ -1818,7 +1993,7 @@
                 sessionDate: document.getElementById('sessionDate').value,
                 timeStarted: document.getElementById('timeStarted').value || 'Not Set',
                 timeEnded: document.getElementById('timeEnded').value || 'Not Set',
-                reasonForVisit: finalReason,
+                reasonForVisit: reasonSelect === 'Others' ? document.getElementById('customReason').value : reasonSelect,
                 presentingConcern: document.getElementById('presentingConcern').value.trim(),
                 sessionSummary: document.getElementById('sessionSummary').value.trim(),
                 interventions: document.getElementById('interventions').value.trim(),
@@ -1856,9 +2031,7 @@
             const reasonFilter = document.getElementById('filterReason')?.value || 'ALL';
 
             const filtered = logsData.filter(log => {
-                const matchesSearch = log.learnerName.toLowerCase().includes(query) ||
-                                      log.gradeSection.toLowerCase().includes(query) ||
-                                      log.reasonForVisit.toLowerCase().includes(query);
+                const matchesSearch = log.learnerName.toLowerCase().includes(query) || log.gradeSection.toLowerCase().includes(query) || log.reasonForVisit.toLowerCase().includes(query);
                 const matchesReason = reasonFilter === 'ALL' || log.reasonForVisit === reasonFilter;
                 return matchesSearch && matchesReason;
             });
@@ -1870,8 +2043,7 @@
 
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="text-center py-12 text-slate-400"><i data-lucide="inbox" class="w-12 h-12 mx-auto mb-2 opacity-50"></i><p class="text-sm">No counseling records found.</p></div>`;
-                lucide.createIcons();
-                return;
+                lucide.createIcons(); return;
             }
 
             filtered.forEach(log => {
@@ -1882,9 +2054,6 @@
                     ? `<span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800"><i data-lucide="clock" class="w-3 h-3"></i> Follow-up: ${log.followUpDate} ${log.followUpTime !== 'Not Set' ? '@ ' + log.followUpTime : ''}</span>`
                     : `<span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800"><i data-lucide="check" class="w-3 h-3"></i> ${log.followUpRequired}</span>`;
 
-                const timeSlotText = (log.timeStarted && log.timeStarted !== 'Not Set') 
-                    ? ` • Time: ${log.timeStarted} - ${log.timeEnded || 'Ongoing'}` : '';
-
                 card.innerHTML = `
                     <div class="space-y-1">
                         <div class="flex items-center gap-2">
@@ -1892,26 +2061,16 @@
                             <span class="text-xs font-medium px-2 py-0.5 bg-slate-200 text-slate-700 rounded">${escapeHtml(log.gradeSection)}</span>
                             <span class="text-xs text-slate-500">(${escapeHtml(log.sex)})</span>
                         </div>
-                        <p class="text-xs font-medium text-indigo-700 flex items-center gap-1">
-                            <i data-lucide="tag" class="w-3 h-3"></i> ${escapeHtml(log.reasonForVisit)}
-                        </p>
-                        <p class="text-xs text-slate-500 line-clamp-1">
-                            <span class="font-semibold text-slate-600">Presenting Concern:</span> ${escapeHtml(log.presentingConcern)}
-                        </p>
+                        <p class="text-xs font-medium text-indigo-700 flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3"></i> ${escapeHtml(log.reasonForVisit)}</p>
+                        <p class="text-xs text-slate-500 line-clamp-1"><span class="font-semibold text-slate-600">Presenting Concern:</span> ${escapeHtml(log.presentingConcern)}</p>
                         <div class="pt-1 flex items-center gap-3 text-xs text-slate-400">
-                            <span>Session Date: ${log.sessionDate}${timeSlotText}</span>
-                            <span>•</span>
-                            <span>Counselor: ${escapeHtml(log.counselorName)}</span>
+                            <span>Session Date: ${log.sessionDate}</span><span>•</span><span>Counselor: ${escapeHtml(log.counselorName)}</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 self-start md:self-center">
                         ${followUpBadge}
-                        <button onclick="window.viewLearnerCaseHistory('${escapeHtml(log.learnerName)}')" class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1">
-                            <i data-lucide="layers" class="w-3.5 h-3.5"></i> Linked Case History
-                        </button>
-                        <button onclick="window.deleteLog('${log.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete Log">
-                            <i data-lucide="trash-2" class="w-5 h-5"></i>
-                        </button>
+                        <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(log.learnerName)}')" class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1"><i data-lucide="layers" class="w-3.5 h-3.5"></i> Linked Case History</button>
+                        <button type="button" onclick="window.deleteLog('${log.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete Log"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -2010,6 +2169,17 @@
             document.getElementById('reachModal').classList.add('hidden');
         };
 
+        window.handleMonthFilterChange = function() {
+            document.getElementById('reportDateFrom').value = '';
+            document.getElementById('reportDateTo').value = '';
+            window.generateReport();
+        };
+
+        window.clearMonthAndGenerate = function() {
+            document.getElementById('reportMonth').value = '';
+            window.generateReport();
+        };
+
         window.generateReport = function() {
             const monthVal = document.getElementById('reportMonth').value;
             const nameVal = document.getElementById('reportLearnerName').value.toLowerCase().trim();
@@ -2080,6 +2250,57 @@
                 `;
                 tbody.appendChild(tr);
             });
+        };
+
+        function renderCharts(reasonCounts, sexCounts) {
+            if (reasonsChartInstance) reasonsChartInstance.destroy();
+            if (sexChartInstance) sexChartInstance.destroy();
+
+            const reasonLabels = Object.keys(reasonCounts);
+            const reasonValues = Object.values(reasonCounts);
+
+            const ctxReasons = document.getElementById('reasonsChart').getContext('2d');
+            reasonsChartInstance = new Chart(ctxReasons, {
+                type: 'bar',
+                data: {
+                    labels: reasonLabels.length > 0 ? reasonLabels : ['No Data'],
+                    datasets: [{
+                        label: 'Number of Learner Visits',
+                        data: reasonValues.length > 0 ? reasonValues : [0],
+                        backgroundColor: ['#6366f1', '#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#64748b'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.raw} Student Session(s)` } } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { precision: 0 } },
+                        x: { ticks: { font: { size: 10 }, callback: function(val) { let label = this.getLabelForValue(val); return label.length > 20 ? label.substring(0, 18) + '...' : label; } } }
+                    }
+                }
+            });
+
+            const ctxSex = document.getElementById('sexChart').getContext('2d');
+            sexChartInstance = new Chart(ctxSex, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Male', 'Female', 'Other / Unspecified'],
+                    datasets: [{ data: [sexCounts['Male'], sexCounts['Female'], sexCounts['Prefer not to say / Other']], backgroundColor: ['#3b82f6', '#ec4899', '#94a3b8'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } } }
+            });
+        }
+
+        window.resetReportFilters = function() {
+            document.getElementById('reportMonth').value = '';
+            document.getElementById('reportLearnerName').value = '';
+            document.getElementById('reportGrade').value = '';
+            document.getElementById('reportReason').value = 'ALL';
+            document.getElementById('reportSex').value = 'ALL';
+            document.getElementById('reportDateFrom').value = '';
+            document.getElementById('reportDateTo').value = '';
+            window.generateReport();
         };
 
         // Linked Cases Logic

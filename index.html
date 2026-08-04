@@ -30,7 +30,10 @@
                 margin: 0 !important;
             }
             .page-break-before {
-                page-break-before: always;
+                page-break-before: always !important;
+            }
+            .page-break-after {
+                page-break-after: always !important;
             }
         }
         .print-only {
@@ -89,1014 +92,1027 @@
         <option value="Grade 10 - Aquino (Adviser: Arnold Ayaon)"></option>
     </datalist>
 
-    <!-- Top Navigation -->
-    <header class="bg-indigo-700 text-white shadow-md no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="p-2 bg-indigo-600 rounded-lg relative">
-                    <i data-lucide="heart-handshake" class="w-8 h-8 text-white"></i>
-                    <div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-indigo-700" title="Offline Secure Mode">
-                        <i data-lucide="shield-check" class="w-2.5 h-2.5 text-white"></i>
+    <!-- WRAPPER TO CONTROL WHAT IS VISIBLE DURING BULK PRINT -->
+    <div id="mainContentWrapper">
+        <!-- Top Navigation -->
+        <header class="bg-indigo-700 text-white shadow-md no-print">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-indigo-600 rounded-lg relative">
+                        <i data-lucide="heart-handshake" class="w-8 h-8 text-white"></i>
+                        <div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-indigo-700" title="Offline Secure Mode">
+                            <i data-lucide="shield-check" class="w-2.5 h-2.5 text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold leading-tight">Care Center Counseling System</h1>
+                        <p class="text-xs text-indigo-200">Offline Secure Mode • Comprehensive Guidance Management</p>
                     </div>
                 </div>
-                <div>
-                    <h1 class="text-xl font-bold leading-tight">Care Center Counseling System</h1>
-                    <p class="text-xs text-indigo-200">Offline Secure Mode • Comprehensive Guidance Management</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="window.switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
+                        <i data-lucide="calendar" class="w-4 h-4"></i> Planner
+                    </button>
+                    <button onclick="window.switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                        <i data-lucide="user" class="w-4 h-4"></i> Individual
+                    </button>
+                    <button onclick="window.switchTab('group-guidance')" id="btn-tab-group" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                        <i data-lucide="users" class="w-4 h-4"></i> Group Guidance
+                    </button>
+                    <button onclick="window.switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                        <i data-lucide="clipboard-check" class="w-4 h-4"></i> Testing
+                    </button>
+                    <button onclick="window.switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                        <i data-lucide="folder-clock" class="w-4 h-4"></i> History
+                    </button>
+                    <button onclick="window.switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics
+                    </button>
                 </div>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
-                <button onclick="window.switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Planner
-                </button>
-                <button onclick="window.switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="user" class="w-4 h-4"></i> Individual
-                </button>
-                <button onclick="window.switchTab('group-guidance')" id="btn-tab-group" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="users" class="w-4 h-4"></i> Group Guidance
-                </button>
-                <button onclick="window.switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Testing
-                </button>
-                <button onclick="window.switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="folder-clock" class="w-4 h-4"></i> History
-                </button>
-                <button onclick="window.switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
-                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics
-                </button>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Main Container -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- TAB 0: CALENDAR & DAILY PLANNER (HOME) -->
-        <section id="tab-planner" class="space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Monthly Appointments Calendar -->
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-2">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="calendar-check" class="w-5 h-5 text-indigo-600"></i>
-                            <h2 class="text-lg font-bold text-slate-800" id="calendarMonthTitle">Appointments & Follow-up Calendar</h2>
+            <!-- TAB 0: CALENDAR & DAILY PLANNER (HOME) -->
+            <section id="tab-planner" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Monthly Appointments Calendar -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="calendar-check" class="w-5 h-5 text-indigo-600"></i>
+                                <h2 class="text-lg font-bold text-slate-800" id="calendarMonthTitle">Appointments & Follow-up Calendar</h2>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="window.prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="window.nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="window.prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
-                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="window.nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </button>
+
+                        <!-- Calendar Grid -->
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-500 uppercase pb-2">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 min-h-[320px]">
+                            <!-- Populated dynamically -->
                         </div>
                     </div>
 
-                    <!-- Calendar Grid -->
-                    <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-500 uppercase pb-2">
-                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                    </div>
-                    <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 min-h-[320px]">
-                        <!-- Populated dynamically -->
+                    <!-- Counselor Daily To-Do Planner -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 flex flex-col">
+                        <div class="flex items-center justify-between border-b pb-3">
+                            <div class="flex items-center gap-2 text-indigo-800">
+                                <i data-lucide="list-todo" class="w-5 h-5 text-indigo-600"></i>
+                                <h3 class="font-bold text-base">Counselor Daily To-Do Planner</h3>
+                            </div>
+                            <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" id="todoCountTag">0 Tasks</span>
+                        </div>
+
+                        <form onsubmit="window.handleAddTodo(event)" class="flex gap-2">
+                            <input type="text" id="newTodoInput" required placeholder="Add new task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
+                            <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Add
+                            </button>
+                        </form>
+
+                        <div id="todoListContainer" class="space-y-2 flex-1 overflow-y-auto max-h-[280px] pt-1">
+                            <!-- Rendered dynamically -->
+                        </div>
+
+                        <div class="border-t pt-3 space-y-2">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i> Linked Appointments on Selected Day
+                            </h4>
+                            <div id="selectedDayAppointments" class="text-xs space-y-1.5 max-h-[140px] overflow-y-auto">
+                                <p class="text-slate-400 italic">Click a date on the calendar to view follow-up sessions.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Counselor Daily To-Do Planner -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 flex flex-col">
-                    <div class="flex items-center justify-between border-b pb-3">
-                        <div class="flex items-center gap-2 text-indigo-800">
-                            <i data-lucide="list-todo" class="w-5 h-5 text-indigo-600"></i>
-                            <h3 class="font-bold text-base">Counselor Daily To-Do Planner</h3>
+            <!-- TAB 1: NEW COUNSELING LOG FORM -->
+            <section id="tab-new-log" class="space-y-6 hidden">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
+                    <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="user" class="w-5 h-5 text-indigo-400"></i>
+                            <h2 class="text-lg font-semibold">Individual Counseling Log Sheet</h2>
                         </div>
-                        <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" id="todoCountTag">0 Tasks</span>
+                        <span class="text-xs bg-slate-700 px-2.5 py-1 rounded-full text-slate-300">Confidential Record</span>
                     </div>
 
-                    <form onsubmit="window.handleAddTodo(event)" class="flex gap-2">
-                        <input type="text" id="newTodoInput" required placeholder="Add new task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
-                        <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-                            <i data-lucide="plus" class="w-4 h-4"></i> Add
-                        </button>
+                    <form id="counselingForm" onsubmit="window.handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                        
+                        <!-- DRAFT NOTICE -->
+                        <div id="draftNotice" class="hidden bg-amber-50 border border-amber-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <span class="text-sm text-amber-800 font-semibold flex items-center gap-2">
+                                <i data-lucide="file-edit" class="w-5 h-5"></i> You have an unsaved draft of counseling notes.
+                            </span>
+                            <div class="flex gap-2 w-full sm:w-auto">
+                                <button type="button" onclick="window.loadDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-amber-700 transition">Resume Draft</button>
+                                <button type="button" onclick="window.discardDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg shadow-sm hover:bg-slate-300 transition">Discard</button>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 1: LEARNER INFORMATION -->
+                        <div>
+                            <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
+                                <i data-lucide="user" class="w-4 h-4"></i> Learner Information & Session Schedule
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="learnerName" oninput="window.checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                    <div id="previousSessionsNotification" class="mt-2 hidden"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
+                                    <input type="text" id="gradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex <span class="text-red-500">*</span></label>
+                                    <select id="sex" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                        <option value="" disabled selected>Select Sex</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Age</label>
+                                    <input type="number" id="age" min="1" max="100" placeholder="e.g. 15" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">LRN (Optional)</label>
+                                    <input type="text" id="lrn" placeholder="12-digit LRN" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Session Date <span class="text-red-500">*</span></label>
+                                    <input type="date" id="sessionDate" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Reason for Counseling <span class="text-red-500">*</span></label>
+                                    <select id="reasonForVisit" required onchange="window.toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                        <option value="" disabled selected>Select Reason...</option>
+                                        <option value="Academic Performance / Failures">Academic Performance / Failures</option>
+                                        <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
+                                        <option value="Behavioral / Conduct Issues">Behavioral / Conduct Issues</option>
+                                        <option value="Bullying / Peer Conflicts">Bullying / Peer Conflicts</option>
+                                        <option value="Emotional / Anxiety / Mental Health">Emotional / Anxiety / Mental Health</option>
+                                        <option value="Family / Personal Problems">Family / Personal Problems</option>
+                                        <option value="Career / Educational Guidance">Career / Educational Guidance</option>
+                                        <option value="Disciplinary Referral">Disciplinary Referral</option>
+                                        <option value="Routine Check-in / Walk-in">Routine Check-in / Walk-in</option>
+                                        <option value="Others">Others (Please Specify)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Started</label>
+                                    <input type="time" id="timeStarted" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Ended</label>
+                                    <input type="time" id="timeEnded" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                </div>
+                            </div>
+
+                            <div id="customReasonContainer" class="mt-3 hidden">
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Specify Other Reason <span class="text-red-500">*</span></label>
+                                <input type="text" id="customReason" placeholder="Type reason here..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: COUNSELING NOTES -->
+                        <div>
+                            <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-4 h-4"></i> Detailed Counseling Notes
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">1. Presenting Concern <span class="text-red-500">*</span></label>
+                                    <textarea id="presentingConcern" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">2. Session Summary / Discussion <span class="text-red-500">*</span></label>
+                                    <textarea id="sessionSummary" required rows="4" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">3. Interventions / Strategies Used <span class="text-red-500">*</span></label>
+                                    <textarea id="interventions" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">4. Learner Response / Observation <span class="text-red-500">*</span></label>
+                                    <textarea id="learnerResponse" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">5. Agreement / Action Plan <span class="text-red-500">*</span></label>
+                                    <textarea id="actionPlan" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
+                                </div>
+                                <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
+                                    <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="brain" class="w-4 h-4 text-indigo-600"></i> Counselor's Personal Reflection & Clinical Notes
+                                    </label>
+                                    <p class="text-xs text-slate-500 mb-2">Write your personal professional reflections, observations, or self-evaluations.</p>
+                                    <textarea id="counselorReflection" rows="3" class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: FOLLOW UP PLAN -->
+                        <div>
+                            <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
+                                <i data-lucide="calendar-clock" class="w-4 h-4"></i> Follow-up Plan & Next Appointment
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Follow-up Required?</label>
+                                    <select id="followUpRequired" onchange="window.toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No">No / Resolved</option>
+                                        <option value="Referred to Outside Agency">Referred to Outside Agency</option>
+                                    </select>
+                                </div>
+                                <div id="followUpDateContainer">
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date of Appointment</label>
+                                    <input type="date" id="followUpDate" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                </div>
+                                <div id="followUpTimeContainer">
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time of Appointment</label>
+                                    <input type="time" id="followUpTime" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Counselor / Designated Person</label>
+                                <input type="text" id="counselorName" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm font-semibold">
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3 flex-wrap">
+                            <button type="button" onclick="window.resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                                Clear Form
+                            </button>
+                            <button type="button" onclick="window.saveDraft()" class="px-5 py-2.5 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 shadow-md transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Save as Draft
+                            </button>
+                            <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i> Save Record
+                            </button>
+                        </div>
                     </form>
-
-                    <div id="todoListContainer" class="space-y-2 flex-1 overflow-y-auto max-h-[280px] pt-1">
-                        <!-- Rendered dynamically -->
-                    </div>
-
-                    <div class="border-t pt-3 space-y-2">
-                        <h4 class="text-xs font-bold text-slate-500 uppercase flex items-center gap-1">
-                            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600"></i> Linked Appointments on Selected Day
-                        </h4>
-                        <div id="selectedDayAppointments" class="text-xs space-y-1.5 max-h-[140px] overflow-y-auto">
-                            <p class="text-slate-400 italic">Click a date on the calendar to view follow-up sessions.</p>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TAB 1: NEW COUNSELING LOG FORM -->
-        <section id="tab-new-log" class="space-y-6 hidden">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
-                <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="user" class="w-5 h-5 text-indigo-400"></i>
-                        <h2 class="text-lg font-semibold">Individual Counseling Log Sheet</h2>
-                    </div>
-                    <span class="text-xs bg-slate-700 px-2.5 py-1 rounded-full text-slate-300">Confidential Record</span>
-                </div>
-
-                <form id="counselingForm" onsubmit="window.handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
-                    
-                    <!-- DRAFT NOTICE -->
-                    <div id="draftNotice" class="hidden bg-amber-50 border border-amber-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <span class="text-sm text-amber-800 font-semibold flex items-center gap-2">
-                            <i data-lucide="file-edit" class="w-5 h-5"></i> You have an unsaved draft of counseling notes.
-                        </span>
-                        <div class="flex gap-2 w-full sm:w-auto">
-                            <button type="button" onclick="window.loadDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-amber-700 transition">Resume Draft</button>
-                            <button type="button" onclick="window.discardDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg shadow-sm hover:bg-slate-300 transition">Discard</button>
-                        </div>
-                    </div>
-
-                    <!-- SECTION 1: LEARNER INFORMATION -->
-                    <div>
-                        <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
-                            <i data-lucide="user" class="w-4 h-4"></i> Learner Information & Session Schedule
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div class="sm:col-span-2">
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="learnerName" oninput="window.checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                                <div id="previousSessionsNotification" class="mt-2 hidden"></div>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
-                                <input type="text" id="gradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex <span class="text-red-500">*</span></label>
-                                <select id="sex" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                                    <option value="" disabled selected>Select Sex</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Prefer not to say">Prefer not to say</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Age</label>
-                                <input type="number" id="age" min="1" max="100" placeholder="e.g. 15" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">LRN (Optional)</label>
-                                <input type="text" id="lrn" placeholder="12-digit LRN" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Session Date <span class="text-red-500">*</span></label>
-                                <input type="date" id="sessionDate" required class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Reason for Counseling <span class="text-red-500">*</span></label>
-                                <select id="reasonForVisit" required onchange="window.toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                                    <option value="" disabled selected>Select Reason...</option>
-                                    <option value="Academic Performance / Failures">Academic Performance / Failures</option>
-                                    <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
-                                    <option value="Behavioral / Conduct Issues">Behavioral / Conduct Issues</option>
-                                    <option value="Bullying / Peer Conflicts">Bullying / Peer Conflicts</option>
-                                    <option value="Emotional / Anxiety / Mental Health">Emotional / Anxiety / Mental Health</option>
-                                    <option value="Family / Personal Problems">Family / Personal Problems</option>
-                                    <option value="Career / Educational Guidance">Career / Educational Guidance</option>
-                                    <option value="Disciplinary Referral">Disciplinary Referral</option>
-                                    <option value="Routine Check-in / Walk-in">Routine Check-in / Walk-in</option>
-                                    <option value="Others">Others (Please Specify)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Started</label>
-                                <input type="time" id="timeStarted" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time Ended</label>
-                                <input type="time" id="timeEnded" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                            </div>
-                        </div>
-
-                        <div id="customReasonContainer" class="mt-3 hidden">
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Specify Other Reason <span class="text-red-500">*</span></label>
-                            <input type="text" id="customReason" placeholder="Type reason here..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                        </div>
-                    </div>
-
-                    <!-- SECTION 2: COUNSELING NOTES -->
-                    <div>
-                        <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
-                            <i data-lucide="file-text" class="w-4 h-4"></i> Detailed Counseling Notes
-                        </h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">1. Presenting Concern <span class="text-red-500">*</span></label>
-                                <textarea id="presentingConcern" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">2. Session Summary / Discussion <span class="text-red-500">*</span></label>
-                                <textarea id="sessionSummary" required rows="4" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">3. Interventions / Strategies Used <span class="text-red-500">*</span></label>
-                                <textarea id="interventions" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">4. Learner Response / Observation <span class="text-red-500">*</span></label>
-                                <textarea id="learnerResponse" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">5. Agreement / Action Plan <span class="text-red-500">*</span></label>
-                                <textarea id="actionPlan" required rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"></textarea>
-                            </div>
-                            <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
-                                <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1.5">
-                                    <i data-lucide="brain" class="w-4 h-4 text-indigo-600"></i> Counselor's Personal Reflection & Clinical Notes
-                                </label>
-                                <p class="text-xs text-slate-500 mb-2">Write your personal professional reflections, observations, or self-evaluations.</p>
-                                <textarea id="counselorReflection" rows="3" class="w-full px-3.5 py-2.5 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SECTION 3: FOLLOW UP PLAN -->
-                    <div>
-                        <h3 class="text-md font-bold text-indigo-700 border-b border-indigo-100 pb-2 mb-4 flex items-center gap-2">
-                            <i data-lucide="calendar-clock" class="w-4 h-4"></i> Follow-up Plan & Next Appointment
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Follow-up Required?</label>
-                                <select id="followUpRequired" onchange="window.toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
-                                    <option value="Yes" selected>Yes</option>
-                                    <option value="No">No / Resolved</option>
-                                    <option value="Referred to Outside Agency">Referred to Outside Agency</option>
-                                </select>
-                            </div>
-                            <div id="followUpDateContainer">
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date of Appointment</label>
-                                <input type="date" id="followUpDate" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                            </div>
-                            <div id="followUpTimeContainer">
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time of Appointment</label>
-                                <input type="time" id="followUpTime" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Counselor / Designated Person</label>
-                            <input type="text" id="counselorName" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm font-semibold">
-                        </div>
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3 flex-wrap">
-                        <button type="button" onclick="window.resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
-                            Clear Form
+            <!-- TAB: GROUP GUIDANCE -->
+            <section id="tab-group-guidance" class="space-y-6 hidden">
+                <!-- Navigation Sub-Toggle -->
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
+                    <div class="flex gap-2">
+                        <button onclick="window.toggleGroupSubTab('form')" id="btn-group-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                            <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New Group Session
                         </button>
-                        <button type="button" onclick="window.saveDraft()" class="px-5 py-2.5 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 shadow-md transition flex items-center gap-2">
-                            <i data-lucide="save" class="w-4 h-4"></i> Save as Draft
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Record
+                        <button onclick="window.toggleGroupSubTab('records')" id="btn-group-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                            <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Session History
                         </button>
                     </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- TAB: GROUP GUIDANCE -->
-        <section id="tab-group-guidance" class="space-y-6 hidden">
-            <!-- Navigation Sub-Toggle -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
-                <div class="flex gap-2">
-                    <button onclick="window.toggleGroupSubTab('form')" id="btn-group-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
-                        <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New Group Session
-                    </button>
-                    <button onclick="window.toggleGroupSubTab('records')" id="btn-group-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
-                        <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Session History
-                    </button>
-                </div>
-                <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="users" class="w-3.5 h-3.5 inline mr-1"></i> Group Counseling Module</span>
-            </div>
-
-            <!-- SUB-SECTION A: NEW GROUP FORM -->
-            <div id="group-sub-form" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
-                <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
-                    <h2 class="text-lg font-bold flex items-center gap-2">
-                        <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i> Group Guidance Case Note
-                    </h2>
-                </div>
-                
-                <form id="groupGuidanceForm" onsubmit="window.handleGroupSubmit(event)" class="p-6 sm:p-8 space-y-6">
-                    <!-- Row 1 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date <span class="text-red-500">*</span></label>
-                            <input type="date" id="gDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time <span class="text-red-500">*</span></label>
-                            <input type="time" id="gTime" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section <span class="text-red-500">*</span></label>
-                            <input type="text" id="gGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-                        </div>
-                    </div>
-
-                    <!-- Row 2 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="sm:col-span-4"><h4 class="text-xs font-bold text-slate-500 uppercase">Number of Participants</h4></div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Male</label>
-                            <input type="number" id="gMale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Female</label>
-                            <input type="number" id="gFemale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Total</label>
-                            <input type="number" id="gTotal" readonly value="0" class="w-full px-3.5 py-2 border border-indigo-300 bg-indigo-50 font-bold text-indigo-900 rounded-lg text-sm cursor-not-allowed">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Topic <span class="text-red-500">*</span></label>
-                            <input type="text" id="gTopic" required placeholder="Session topic..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
-                        </div>
-                    </div>
-
-                    <!-- Text Areas -->
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Purpose <span class="text-red-500">*</span></label>
-                            <textarea id="gPurpose" required rows="2" placeholder="Purpose of this group guidance..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Summary of Session <span class="text-red-500">*</span></label>
-                            <textarea id="gSummary" required rows="3" placeholder="Summary..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Observations <span class="text-red-500">*</span></label>
-                            <textarea id="gObservations" required rows="3" placeholder="Group dynamics, behavior..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Student Responses / Participation <span class="text-red-500">*</span></label>
-                            <textarea id="gResponses" required rows="3" placeholder="How participants engaged..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assessment <span class="text-red-500">*</span></label>
-                            <textarea id="gAssessment" required rows="2" placeholder="Overall counselor assessment..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Recommendations / Follow-Up <span class="text-red-500">*</span></label>
-                            <textarea id="gRecommendations" required rows="2" placeholder="Next steps..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Documentation & Prepared By -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Upload Attendance Sheet (Image/PDF)</label>
-                            <input type="file" id="gAttendanceFile" accept="image/*, application/pdf" onchange="window.handleGroupAttendanceUpload(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Prepared By <span class="text-red-500">*</span></label>
-                            <input type="text" id="gPreparedBy" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-800">
-                        </div>
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Group Session
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- SUB-SECTION B: GROUP RECORDS HISTORY -->
-            <div id="group-sub-records" class="space-y-4 hidden">
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
-                    <div class="relative w-full sm:w-96">
-                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                        <input type="text" id="gSearchInput" oninput="window.filterGroupRecords()" placeholder="Search Topic or Grade/Section..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                    </div>
-                    <div class="text-xs text-slate-500 font-semibold" id="gRecordCountTag">
-                        0 Sessions Saved
-                    </div>
+                    <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="users" class="w-3.5 h-3.5 inline mr-1"></i> Group Counseling Module</span>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs sm:text-sm text-slate-600">
-                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
-                                <tr>
-                                    <th class="p-3.5">Date & Time</th>
-                                    <th class="p-3.5">Grade & Sec</th>
-                                    <th class="p-3.5">Topic</th>
-                                    <th class="p-3.5 text-center">Total Pax</th>
-                                    <th class="p-3.5 text-center">Documentation</th>
-                                    <th class="p-3.5 text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="groupTableBody" class="divide-y divide-slate-200">
-                                <!-- Dynamic rendering -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB: HEEADDSSS ASSESSMENT TOOL -->
-        <section id="tab-heeaddsss" class="space-y-6 hidden">
-            <!-- Navigation Sub-Toggle -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
-                <div class="flex gap-2">
-                    <button onclick="window.toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
-                        <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New HEEADDSSS Form
-                    </button>
-                    <button onclick="window.toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
-                        <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Assessment Records History
-                    </button>
-                </div>
-                <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="shield-alert" class="w-3.5 h-3.5 inline mr-1"></i> Adolescent Risk Screening</span>
-            </div>
-
-            <!-- SUB-SECTION A: NEW HEEADDSSS ASSESSMENT FORM -->
-            <div id="heeaddsss-sub-form" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
-                <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
-                    <div>
+                <!-- SUB-SECTION A: NEW GROUP FORM -->
+                <div id="group-sub-form" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
+                    <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
                         <h2 class="text-lg font-bold flex items-center gap-2">
-                            <i data-lucide="clipboard-check" class="w-5 h-5 text-indigo-300"></i> HEEADDSSS Assessment Form
+                            <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i> Group Guidance Case Note
                         </h2>
                     </div>
-                    <span class="text-xs bg-indigo-800 border border-indigo-700 text-indigo-200 px-3 py-1 rounded-full">Tagalog Standard</span>
+                    
+                    <form id="groupGuidanceForm" onsubmit="window.handleGroupSubmit(event)" class="p-6 sm:p-8 space-y-6">
+                        <!-- Row 1 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date <span class="text-red-500">*</span></label>
+                                <input type="date" id="gDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Time <span class="text-red-500">*</span></label>
+                                <input type="time" id="gTime" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section <span class="text-red-500">*</span></label>
+                                <input type="text" id="gGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="sm:col-span-4"><h4 class="text-xs font-bold text-slate-500 uppercase">Number of Participants</h4></div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Male</label>
+                                <input type="number" id="gMale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Female</label>
+                                <input type="number" id="gFemale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Total</label>
+                                <input type="number" id="gTotal" readonly value="0" class="w-full px-3.5 py-2 border border-indigo-300 bg-indigo-50 font-bold text-indigo-900 rounded-lg text-sm cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Topic <span class="text-red-500">*</span></label>
+                                <input type="text" id="gTopic" required placeholder="Session topic..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Text Areas -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Purpose <span class="text-red-500">*</span></label>
+                                <textarea id="gPurpose" required rows="2" placeholder="Purpose of this group guidance..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Summary of Session <span class="text-red-500">*</span></label>
+                                <textarea id="gSummary" required rows="3" placeholder="Summary..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Observations <span class="text-red-500">*</span></label>
+                                <textarea id="gObservations" required rows="3" placeholder="Group dynamics, behavior..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Student Responses / Participation <span class="text-red-500">*</span></label>
+                                <textarea id="gResponses" required rows="3" placeholder="How participants engaged..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assessment <span class="text-red-500">*</span></label>
+                                <textarea id="gAssessment" required rows="2" placeholder="Overall counselor assessment..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Recommendations / Follow-Up <span class="text-red-500">*</span></label>
+                                <textarea id="gRecommendations" required rows="2" placeholder="Next steps..." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Documentation & Prepared By -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Upload Attendance Sheet (Image/PDF)</label>
+                                <input type="file" id="gAttendanceFile" accept="image/*, application/pdf" onchange="window.handleGroupAttendanceUpload(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Prepared By <span class="text-red-500">*</span></label>
+                                <input type="text" id="gPreparedBy" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-800">
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                            <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i> Save Group Session
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <form id="heeaddsssForm" onsubmit="window.handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
-                    <!-- Learner Info ... -->
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Learner Profile
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div class="sm:col-span-2">
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="hLearnerName" required placeholder="Dela Cruz, Juan A." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
-                                <input type="text" id="hGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Assessment Date <span class="text-red-500">*</span></label>
-                                <input type="date" id="hDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex <span class="text-red-500">*</span></label>
-                                <select id="hSex" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <option value="" disabled selected>Select Sex</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Age</label>
-                                <input type="number" id="hAge" placeholder="15" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Cell Phone / Landline</label>
-                                <input type="text" id="hPhone" placeholder="0917-XXX-XXXX" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">E-mail / FB Account</label>
-                                <input type="text" id="hContactSocial" placeholder="juan.delacruz@fb.com" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                            </div>
+                <!-- SUB-SECTION B: GROUP RECORDS HISTORY -->
+                <div id="group-sub-records" class="space-y-4 hidden">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
+                        <div class="relative w-full sm:w-96">
+                            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                            <input type="text" id="gSearchInput" oninput="window.filterGroupRecords()" placeholder="Search Topic or Grade/Section..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="text-xs text-slate-500 font-semibold" id="gRecordCountTag">
+                            0 Sessions Saved
                         </div>
                     </div>
 
-                    <!-- Questions Table -->
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b pb-2">
-                            <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide">Psychosocial Assessment Questions</h3>
-                        </div>
-                        <div class="overflow-x-auto border border-slate-200 rounded-xl">
-                            <table class="w-full text-left text-xs sm:text-sm">
-                                <thead class="bg-slate-100 text-slate-700 uppercase font-semibold border-b">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                                <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
                                     <tr>
-                                        <th class="p-3.5 w-12 text-center">#</th>
-                                        <th class="p-3.5">Mga Katanungan (Questions)</th>
-                                        <th class="p-3.5 w-48 text-center">Tugon</th>
+                                        <th class="p-3.5">Date & Time</th>
+                                        <th class="p-3.5">Grade & Sec</th>
+                                        <th class="p-3.5">Topic</th>
+                                        <th class="p-3.5 text-center">Total Pax</th>
+                                        <th class="p-3.5 text-center">Documentation</th>
+                                        <th class="p-3.5 text-center">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-slate-200 bg-white">
-                                    <!-- Q1 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">1</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Ikaw ba ay nakaranas ng pananakit o panananakot sa inyong bahay, paaralan o trabaho?
-                                            <span class="block text-xs text-red-500 font-normal mt-0.5">* High Risk Concern if Yes</span>
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq1" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q2 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">2</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            May mga pagkakataon ba na pinag-isipan mong maglayas o umalis ng inyong bahay?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq2" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q3 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">3</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Nakaranas ka ba ng bullying na pisikal o cyber bullying sa paaralan o sa trabaho?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq3" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q4 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">4</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            May pagkakataon ba na seryoso mong naisip na wakasan ang iyong buhay?
-                                            <span class="block text-xs text-red-600 font-bold mt-0.5">⚠️ CRITICAL: Suicide Risk Trigger</span>
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq4" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q5 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">5</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Naninigarilyo ka ba?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq5" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q6 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">6</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Umiinom ka ba ng alak?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq6" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q7 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">7</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Nakakita ka na ba ng mga ipinagbabawal na "gamot" o drugs?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq7" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q8 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">8</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Ikaw ba ay nakaranas ng magkarelasyon (boyfriend / girlfriend)?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq8" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q9 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">9</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Ikaw ba ay nakaranas ng makipag sex o makipagtalik?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq9" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q10 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">10</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Nakaranas ka ba na ikaw ay pinilit makipag sex?
-                                            <span class="block text-xs text-red-600 font-bold mt-0.5">⚠️ CRITICAL: Abuse / Coercion Concern</span>
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq10" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q11 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">11</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Ikaw ba ay nakaranas nang mabuntis, o makabuntis?
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq11" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Q12 -->
-                                    <tr class="hover:bg-slate-50 transition">
-                                        <td class="p-3.5 font-bold text-center text-slate-500">12</td>
-                                        <td class="p-3.5 font-medium text-slate-800">
-                                            Gusto mo bang mag pa counsel o komunsulta para matulungan ka?
-                                            <span class="block text-xs text-emerald-600 font-semibold mt-0.5">💬 Voluntary Seeking Help</span>
-                                        </td>
-                                        <td class="p-3.5 text-center">
-                                            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
-                                                </label>
-                                                <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-emerald-600 has-[:checked]:text-white text-slate-600">
-                                                    <input type="radio" name="hq12" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="groupTableBody" class="divide-y divide-slate-200">
+                                    <!-- Dynamic rendering -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Risk Level & Remarks -->
-                    <div id="riskLevelCard" class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
-                        <div>
-                            <span class="text-xs text-slate-500 font-bold uppercase block">Calculated Risk Profile</span>
-                            <h4 id="riskLevelText" class="text-base font-extrabold text-emerald-700 flex items-center gap-2">
-                                <i data-lucide="shield-check" class="w-5 h-5"></i> Low Risk / Standard Screening
-                            </h4>
-                        </div>
-                        <div id="riskLevelBadge" class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                            0 High Risk Flags
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Counselor Assessment Remarks / Action Plan</label>
-                        <textarea id="hCounselorRemarks" rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-                        <button type="submit" class="px-6 py-2.5 bg-indigo-700 text-white rounded-lg text-sm font-semibold hover:bg-indigo-800 shadow-md transition flex items-center gap-2">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Assessment
+            <!-- TAB: HEEADDSSS ASSESSMENT TOOL -->
+            <section id="tab-heeaddsss" class="space-y-6 hidden">
+                <!-- Navigation Sub-Toggle -->
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
+                    <div class="flex gap-2">
+                        <button onclick="window.toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                            <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New HEEADDSSS Form
+                        </button>
+                        <button onclick="window.toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                            <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Assessment Records History
                         </button>
                     </div>
-                </form>
-            </div>
+                    <span class="text-xs text-indigo-700 font-semibold hidden sm:inline"><i data-lucide="shield-alert" class="w-3.5 h-3.5 inline mr-1"></i> Adolescent Risk Screening</span>
+                </div>
 
-            <!-- SUB-SECTION B: HEEADDSSS RECORDS -->
-            <div id="heeaddsss-sub-records" class="space-y-4 hidden">
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4 no-print">
-                    <div class="flex items-center justify-between border-b pb-2">
-                        <h3 class="text-sm font-bold text-indigo-900 uppercase flex items-center gap-2">
-                            <i data-lucide="filter" class="w-4 h-4 text-indigo-600"></i> Filters
-                        </h3>
-                        <div class="text-xs text-slate-500 font-semibold" id="hRecordCountTag">0 Saved</div>
+                <!-- SUB-SECTION A: NEW HEEADDSSS ASSESSMENT FORM -->
+                <div id="heeaddsss-sub-form" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden no-print">
+                    <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-bold flex items-center gap-2">
+                                <i data-lucide="clipboard-check" class="w-5 h-5 text-indigo-300"></i> HEEADDSSS Assessment Form
+                            </h2>
+                        </div>
+                        <span class="text-xs bg-indigo-800 border border-indigo-700 text-indigo-200 px-3 py-1 rounded-full">Tagalog Standard</span>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
-                            <label class="block text-xs font-bold text-indigo-900 uppercase mb-1"><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> Month</label>
-                            <input type="month" id="hFilterMonth" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm">
+
+                    <form id="heeaddsssForm" onsubmit="window.handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                        <!-- Learner Info ... -->
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Learner Profile
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="hLearnerName" required placeholder="Dela Cruz, Juan A." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade & Section <span class="text-red-500">*</span></label>
+                                    <input type="text" id="hGradeSection" list="gradeSectionOptions" required placeholder="Select or type..." class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Assessment Date <span class="text-red-500">*</span></label>
+                                    <input type="date" id="hDate" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex <span class="text-red-500">*</span></label>
+                                    <select id="hSex" required class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <option value="" disabled selected>Select Sex</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Age</label>
+                                    <input type="number" id="hAge" placeholder="15" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Cell Phone / Landline</label>
+                                    <input type="text" id="hPhone" placeholder="0917-XXX-XXXX" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">E-mail / FB Account</label>
+                                    <input type="text" id="hContactSocial" placeholder="juan.delacruz@fb.com" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section</label>
-                            <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+
+                        <!-- Questions Table -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b pb-2">
+                                <h3 class="text-sm font-bold text-indigo-900 uppercase tracking-wide">Psychosocial Assessment Questions</h3>
+                            </div>
+                            <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                                <table class="w-full text-left text-xs sm:text-sm">
+                                    <thead class="bg-slate-100 text-slate-700 uppercase font-semibold border-b">
+                                        <tr>
+                                            <th class="p-3.5 w-12 text-center">#</th>
+                                            <th class="p-3.5">Mga Katanungan (Questions)</th>
+                                            <th class="p-3.5 w-48 text-center">Tugon</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 bg-white">
+                                        <!-- Q1 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">1</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Ikaw ba ay nakaranas ng pananakit o panananakot sa inyong bahay, paaralan o trabaho?
+                                                <span class="block text-xs text-red-500 font-normal mt-0.5">* High Risk Concern if Yes</span>
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq1" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q2 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">2</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                May mga pagkakataon ba na pinag-isipan mong maglayas o umalis ng inyong bahay?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq2" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q3 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">3</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Nakaranas ka ba ng bullying na pisikal o cyber bullying sa paaralan o sa trabaho?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq3" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q4 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">4</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                May pagkakataon ba na seryoso mong naisip na wakasan ang iyong buhay?
+                                                <span class="block text-xs text-red-600 font-bold mt-0.5">⚠️ CRITICAL: Suicide Risk Trigger</span>
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq4" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q5 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">5</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Naninigarilyo ka ba?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq5" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q6 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">6</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Umiinom ka ba ng alak?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq6" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q7 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">7</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Nakakita ka na ba ng mga ipinagbabawal na "gamot" o drugs?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq7" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q8 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">8</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Ikaw ba ay nakaranas ng magkarelasyon (boyfriend / girlfriend)?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq8" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q9 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">9</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Ikaw ba ay nakaranas ng makipag sex o makipagtalik?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq9" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q10 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">10</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Nakaranas ka ba na ikaw ay pinilit makipag sex?
+                                                <span class="block text-xs text-red-600 font-bold mt-0.5">⚠️ CRITICAL: Abuse / Coercion Concern</span>
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq10" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q11 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">11</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Ikaw ba ay nakaranas nang mabuntis, o makabuntis?
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq11" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Q12 -->
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-3.5 font-bold text-center text-slate-500">12</td>
+                                            <td class="p-3.5 font-medium text-slate-800">
+                                                Gusto mo bang mag pa counsel o komunsulta para matulungan ka?
+                                                <span class="block text-xs text-emerald-600 font-semibold mt-0.5">💬 Voluntary Seeking Help</span>
+                                            </td>
+                                            <td class="p-3.5 text-center">
+                                                <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                    </label>
+                                                    <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-emerald-600 has-[:checked]:text-white text-slate-600">
+                                                        <input type="radio" name="hq12" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+
+                        <!-- Risk Level & Remarks -->
+                        <div id="riskLevelCard" class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <div>
+                                <span class="text-xs text-slate-500 font-bold uppercase block">Calculated Risk Profile</span>
+                                <h4 id="riskLevelText" class="text-base font-extrabold text-emerald-700 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-5 h-5"></i> Low Risk / Standard Screening
+                                </h4>
+                            </div>
+                            <div id="riskLevelBadge" class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                0 High Risk Flags
+                            </div>
+                        </div>
+
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Risk Flag</label>
-                            <select id="hFilterRisk" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-                                <option value="ALL">All Levels</option>
-                                <option value="HIGH RISK">Critical High Risk</option>
-                                <option value="MODERATE RISK">Moderate Risk</option>
-                                <option value="LOW RISK">Low Risk</option>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Counselor Assessment Remarks / Action Plan</label>
+                            <textarea id="hCounselorRemarks" rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                            <button type="submit" class="px-6 py-2.5 bg-indigo-700 text-white rounded-lg text-sm font-semibold hover:bg-indigo-800 shadow-md transition flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i> Save Assessment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SUB-SECTION B: HEEADDSSS RECORDS -->
+                <div id="heeaddsss-sub-records" class="space-y-4 hidden">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-4 no-print">
+                        <div class="flex items-center justify-between border-b pb-2">
+                            <h3 class="text-sm font-bold text-indigo-900 uppercase flex items-center gap-2">
+                                <i data-lucide="filter" class="w-4 h-4 text-indigo-600"></i> Filters
+                            </h3>
+                            <div class="text-xs text-slate-500 font-semibold" id="hRecordCountTag">0 Saved</div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                            <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
+                                <label class="block text-xs font-bold text-indigo-900 uppercase mb-1"><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> Month</label>
+                                <input type="month" id="hFilterMonth" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section</label>
+                                <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Risk Flag</label>
+                                <select id="hFilterRisk" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                                    <option value="ALL">All Levels</option>
+                                    <option value="HIGH RISK">Critical High Risk</option>
+                                    <option value="MODERATE RISK">Moderate Risk</option>
+                                    <option value="LOW RISK">Low Risk</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Search</label>
+                                <input type="text" id="hSearchInput" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm text-slate-600">
+                                <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
+                                    <tr>
+                                        <th class="p-3.5">Date</th>
+                                        <th class="p-3.5">Learner</th>
+                                        <th class="p-3.5">Grade</th>
+                                        <th class="p-3.5">Sex/Age</th>
+                                        <th class="p-3.5">Risk Flag</th>
+                                        <th class="p-3.5 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="heeaddsssTableBody" class="divide-y divide-slate-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: HISTORY LOG & QUICK SEARCH -->
+            <section id="tab-history" class="space-y-6 hidden">
+                
+                <!-- DATA BACKUP BANNER -->
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
+                    <div>
+                        <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4"></i> Data Backup & Export</h4>
+                        <p class="text-xs text-emerald-700 mt-1">Export your data to a beautifully formatted PDF document, or download a raw JSON file for safe-keeping.</p>
+                    </div>
+                    <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
+                        <button onclick="window.exportAllToPDF()" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-indigo-700 transition flex items-center gap-2 whitespace-nowrap">
+                            <i data-lucide="file-text" class="w-4 h-4"></i> Export All to PDF
+                        </button>
+                        <button onclick="window.downloadBackup()" class="px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition flex items-center gap-2 whitespace-nowrap">
+                            <i data-lucide="database" class="w-4 h-4"></i> Backup System Data (.json)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search & Quick Filters -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="relative w-full sm:w-96">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="searchInput" oninput="window.filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <select id="filterReason" onchange="window.filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
+                            <option value="ALL">All Reasons</option>
+                            <option value="Academic Performance / Failures">Academic Failures</option>
+                            <option value="Absenteeism / Tardiness">Absenteeism</option>
+                            <option value="Behavioral / Conduct Issues">Behavioral</option>
+                            <option value="Bullying / Peer Conflicts">Bullying</option>
+                            <option value="Emotional / Anxiety / Mental Health">Emotional/Mental Health</option>
+                            <option value="Family / Personal Problems">Family Issues</option>
+                            <option value="Career / Educational Guidance">Career Guidance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Log Entries List -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 font-semibold text-slate-700 flex justify-between items-center">
+                        <span>Saved Counseling Records</span>
+                        <span id="recordCountTag" class="text-xs bg-slate-200 px-2.5 py-1 rounded-full text-slate-600">0 Items</span>
+                    </div>
+                    <div id="logsContainer" class="divide-y divide-slate-200">
+                        <!-- Dynamic rendering -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: ADVANCED REPORTING & MONTHLY ANALYTICS -->
+            <section id="tab-reports" class="space-y-6 hidden">
+                <!-- Counselor Multi-Filter Header -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 no-print space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-3 gap-2">
+                        <div class="flex items-center gap-2 text-indigo-800">
+                            <i data-lucide="filter" class="w-5 h-5"></i>
+                            <h2 class="font-bold text-lg">Counselor Monthly Reports & Filtering</h2>
+                        </div>
+                        <!-- MONTHLY REACH CALCULATOR BUTTON -->
+                        <button onclick="window.calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
+                            <i data-lucide="users" class="w-4 h-4"></i> Calculate Month Reach Summary
+                        </button>
+                    </div>
+
+                    <!-- Filters Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- MONTH QUICK FILTER -->
+                        <div class="bg-indigo-50/70 p-2.5 rounded-lg border border-indigo-100">
+                            <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i> Filter by Month
+                            </label>
+                            <input type="month" id="reportMonth" onchange="window.handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
+                        </div>
+
+                        <!-- Filter: Learner Name -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Learner Name</label>
+                            <input type="text" id="reportLearnerName" oninput="window.generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- Filter: Reason for Visit -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Reason for Visit</label>
+                            <select id="reportReason" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                                <option value="ALL">All Reasons</option>
+                                <option value="Academic Performance / Failures">Academic Failures</option>
+                                <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
+                                <option value="Behavioral / Conduct Issues">Behavioral / Conduct</option>
+                                <option value="Bullying / Peer Conflicts">Bullying / Peer Conflicts</option>
+                                <option value="Emotional / Anxiety / Mental Health">Emotional / Mental Health</option>
+                                <option value="Family / Personal Problems">Family Problems</option>
+                                <option value="Career / Educational Guidance">Career Guidance</option>
+                                <option value="Disciplinary Referral">Disciplinary Referral</option>
+                                <option value="Routine Check-in / Walk-in">Routine Check-in</option>
                             </select>
                         </div>
+
+                        <!-- Filter: Grade & Section Dropdown/Auto-suggest -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Search</label>
-                            <input type="text" id="hSearchInput" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Grade & Section</label>
+                            <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="window.generateReport()" placeholder="Select or type..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
+                        </div>
+
+                        <!-- Filter: Sex -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex</label>
+                            <select id="reportSex" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                                <option value="ALL">All</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <!-- Filter: Custom Date From -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date From</label>
+                            <input type="date" id="reportDateFrom" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- Filter: Custom Date To -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date To</label>
+                            <input type="date" id="reportDateTo" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- Reset Filters Button -->
+                        <div class="flex items-end">
+                            <button onclick="window.resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <!-- Summary Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 no-print">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+                        <p class="text-xs text-indigo-600 font-semibold uppercase">Learners Talked To</p>
+                        <p class="text-2xl font-bold text-indigo-900" id="reportMatchCount">0</p>
+                    </div>
+                    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4">
+                        <p class="text-xs text-sky-600 font-semibold uppercase">Unique Learners</p>
+                        <p class="text-2xl font-bold text-sky-900" id="reportUniqueLearners">0</p>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-100 rounded-xl p-4">
+                        <p class="text-xs text-amber-600 font-semibold uppercase">Pending Follow-ups</p>
+                        <p class="text-2xl font-bold text-amber-900" id="reportFollowUpCount">0</p>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4">
+                        <p class="text-xs text-emerald-600 font-semibold uppercase">Top Identified Concern</p>
+                        <p class="text-xs font-bold text-emerald-900 truncate mt-1" id="reportTopReason">-</p>
+                    </div>
+                </div>
+
+                <!-- VISUAL ANALYTICS CHARTS SECTION -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Reason for Visit Bar Chart -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div class="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 class="font-bold text-slate-800 text-sm uppercase flex items-center gap-2">
+                                <i data-lucide="bar-chart-2" class="w-4 h-4 text-indigo-600"></i> Reasons for Counseling Breakdown
+                            </h3>
+                            <span class="text-xs text-slate-400">Aggregated Concern Counts</span>
+                        </div>
+                        <div class="relative h-64 sm:h-72 w-full">
+                            <canvas id="reasonsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Gender Breakdown Donut Chart -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div class="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 class="font-bold text-slate-800 text-sm uppercase flex items-center gap-2">
+                                <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Demographics (Sex)
+                            </h3>
+                            <span class="text-xs text-slate-400">Distribution</span>
+                        </div>
+                        <div class="relative h-64 sm:h-72 w-full flex items-center justify-center">
+                            <canvas id="sexChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Results Table Container (Printable) -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden print-card">
+                    <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-base">CARE CENTER COUNSELING MONTHLY SUMMARY REPORT</h3>
+                            <p class="text-xs text-slate-500" id="reportFilterDescription">Showing all recorded counseling logs</p>
+                        </div>
+                        <button onclick="window.print()" class="no-print px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2 shadow">
+                            <i data-lucide="printer" class="w-4 h-4"></i> Print / Save as PDF
+                        </button>
+                    </div>
+
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs sm:text-sm text-slate-600">
-                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold border-b">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-50 text-slate-700 uppercase font-semibold border-b border-slate-200">
                                 <tr>
-                                    <th class="p-3.5">Date</th>
-                                    <th class="p-3.5">Learner</th>
-                                    <th class="p-3.5">Grade</th>
-                                    <th class="p-3.5">Sex/Age</th>
-                                    <th class="p-3.5">Risk Flag</th>
-                                    <th class="p-3.5 text-center">Actions</th>
+                                    <th class="p-3">Date & Time Slot</th>
+                                    <th class="p-3">Learner Name</th>
+                                    <th class="p-3">Grade & Sec</th>
+                                    <th class="p-3">Sex</th>
+                                    <th class="p-3">Reason for Counseling</th>
+                                    <th class="p-3">Follow-up / Appt</th>
+                                    <th class="p-3">Counselor</th>
                                 </tr>
                             </thead>
-                            <tbody id="heeaddsssTableBody" class="divide-y divide-slate-200"></tbody>
+                            <tbody id="reportTableBody" class="divide-y divide-slate-200">
+                                <!-- Dynamically filled -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TAB 3: HISTORY LOG & QUICK SEARCH -->
-        <section id="tab-history" class="space-y-6 hidden">
-            
-            <!-- DATA BACKUP BANNER -->
-            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
-                <div>
-                    <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4"></i> Data Backup & Export</h4>
-                    <p class="text-xs text-emerald-700 mt-1">Your data is stored securely offline on this device. Download a backup file regularly to ensure you never lose your records.</p>
-                </div>
-                <button onclick="window.downloadBackup()" class="px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition flex items-center gap-2 whitespace-nowrap">
-                    <i data-lucide="download" class="w-4 h-4"></i> Download Backup File
-                </button>
-            </div>
+        </main>
+    </div> <!-- END WRAPPER -->
 
-            <!-- Search & Quick Filters -->
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="relative w-full sm:w-96">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                    <input type="text" id="searchInput" oninput="window.filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <select id="filterReason" onchange="window.filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
-                        <option value="ALL">All Reasons</option>
-                        <option value="Academic Performance / Failures">Academic Failures</option>
-                        <option value="Absenteeism / Tardiness">Absenteeism</option>
-                        <option value="Behavioral / Conduct Issues">Behavioral</option>
-                        <option value="Bullying / Peer Conflicts">Bullying</option>
-                        <option value="Emotional / Anxiety / Mental Health">Emotional/Mental Health</option>
-                        <option value="Family / Personal Problems">Family Issues</option>
-                        <option value="Career / Educational Guidance">Career Guidance</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Log Entries List -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 font-semibold text-slate-700 flex justify-between items-center">
-                    <span>Saved Counseling Records</span>
-                    <span id="recordCountTag" class="text-xs bg-slate-200 px-2.5 py-1 rounded-full text-slate-600">0 Items</span>
-                </div>
-                <div id="logsContainer" class="divide-y divide-slate-200">
-                    <!-- Dynamic rendering -->
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 4: ADVANCED REPORTING & MONTHLY ANALYTICS -->
-        <section id="tab-reports" class="space-y-6 hidden">
-            <!-- Counselor Multi-Filter Header -->
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 no-print space-y-4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-3 gap-2">
-                    <div class="flex items-center gap-2 text-indigo-800">
-                        <i data-lucide="filter" class="w-5 h-5"></i>
-                        <h2 class="font-bold text-lg">Counselor Monthly Reports & Filtering</h2>
-                    </div>
-                    <!-- MONTHLY REACH CALCULATOR BUTTON -->
-                    <button onclick="window.calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
-                        <i data-lucide="users" class="w-4 h-4"></i> Calculate Month Reach Summary
-                    </button>
-                </div>
-
-                <!-- Filters Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- MONTH QUICK FILTER -->
-                    <div class="bg-indigo-50/70 p-2.5 rounded-lg border border-indigo-100">
-                        <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1">
-                            <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i> Filter by Month
-                        </label>
-                        <input type="month" id="reportMonth" onchange="window.handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
-                    </div>
-
-                    <!-- Filter: Learner Name -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Learner Name</label>
-                        <input type="text" id="reportLearnerName" oninput="window.generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                    </div>
-
-                    <!-- Filter: Reason for Visit -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Reason for Visit</label>
-                        <select id="reportReason" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                            <option value="ALL">All Reasons</option>
-                            <option value="Academic Performance / Failures">Academic Failures</option>
-                            <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
-                            <option value="Behavioral / Conduct Issues">Behavioral / Conduct</option>
-                            <option value="Bullying / Peer Conflicts">Bullying / Peer Conflicts</option>
-                            <option value="Emotional / Anxiety / Mental Health">Emotional / Mental Health</option>
-                            <option value="Family / Personal Problems">Family Problems</option>
-                            <option value="Career / Educational Guidance">Career Guidance</option>
-                            <option value="Disciplinary Referral">Disciplinary Referral</option>
-                            <option value="Routine Check-in / Walk-in">Routine Check-in</option>
-                        </select>
-                    </div>
-
-                    <!-- Filter: Grade & Section Dropdown/Auto-suggest -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Grade & Section</label>
-                        <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="window.generateReport()" placeholder="Select or type..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
-                    </div>
-
-                    <!-- Filter: Sex -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex</label>
-                        <select id="reportSex" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-                            <option value="ALL">All</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-
-                    <!-- Filter: Custom Date From -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date From</label>
-                        <input type="date" id="reportDateFrom" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                    </div>
-
-                    <!-- Filter: Custom Date To -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date To</label>
-                        <input type="date" id="reportDateTo" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
-                    </div>
-
-                    <!-- Reset Filters Button -->
-                    <div class="flex items-end">
-                        <button onclick="window.resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
-                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Summary Stats Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 no-print">
-                <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4">
-                    <p class="text-xs text-indigo-600 font-semibold uppercase">Learners Talked To</p>
-                    <p class="text-2xl font-bold text-indigo-900" id="reportMatchCount">0</p>
-                </div>
-                <div class="bg-sky-50 border border-sky-100 rounded-xl p-4">
-                    <p class="text-xs text-sky-600 font-semibold uppercase">Unique Learners</p>
-                    <p class="text-2xl font-bold text-sky-900" id="reportUniqueLearners">0</p>
-                </div>
-                <div class="bg-amber-50 border border-amber-100 rounded-xl p-4">
-                    <p class="text-xs text-amber-600 font-semibold uppercase">Pending Follow-ups</p>
-                    <p class="text-2xl font-bold text-amber-900" id="reportFollowUpCount">0</p>
-                </div>
-                <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4">
-                    <p class="text-xs text-emerald-600 font-semibold uppercase">Top Identified Concern</p>
-                    <p class="text-xs font-bold text-emerald-900 truncate mt-1" id="reportTopReason">-</p>
-                </div>
-            </div>
-
-            <!-- VISUAL ANALYTICS CHARTS SECTION -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Reason for Visit Bar Chart -->
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                    <div class="flex justify-between items-center mb-4 border-b pb-2">
-                        <h3 class="font-bold text-slate-800 text-sm uppercase flex items-center gap-2">
-                            <i data-lucide="bar-chart-2" class="w-4 h-4 text-indigo-600"></i> Reasons for Counseling Breakdown
-                        </h3>
-                        <span class="text-xs text-slate-400">Aggregated Concern Counts</span>
-                    </div>
-                    <div class="relative h-64 sm:h-72 w-full">
-                        <canvas id="reasonsChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Gender Breakdown Donut Chart -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                    <div class="flex justify-between items-center mb-4 border-b pb-2">
-                        <h3 class="font-bold text-slate-800 text-sm uppercase flex items-center gap-2">
-                            <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Demographics (Sex)
-                        </h3>
-                        <span class="text-xs text-slate-400">Distribution</span>
-                    </div>
-                    <div class="relative h-64 sm:h-72 w-full flex items-center justify-center">
-                        <canvas id="sexChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Report Results Table Container (Printable) -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden print-card">
-                <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h3 class="font-bold text-slate-800 text-base">CARE CENTER COUNSELING MONTHLY SUMMARY REPORT</h3>
-                        <p class="text-xs text-slate-500" id="reportFilterDescription">Showing all recorded counseling logs</p>
-                    </div>
-                    <button onclick="window.print()" class="no-print px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2 shadow">
-                        <i data-lucide="printer" class="w-4 h-4"></i> Print / Save as PDF
-                    </button>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-slate-600">
-                        <thead class="bg-slate-50 text-slate-700 uppercase font-semibold border-b border-slate-200">
-                            <tr>
-                                <th class="p-3">Date & Time Slot</th>
-                                <th class="p-3">Learner Name</th>
-                                <th class="p-3">Grade & Sec</th>
-                                <th class="p-3">Sex</th>
-                                <th class="p-3">Reason for Counseling</th>
-                                <th class="p-3">Follow-up / Appt</th>
-                                <th class="p-3">Counselor</th>
-                            </tr>
-                        </thead>
-                        <tbody id="reportTableBody" class="divide-y divide-slate-200">
-                            <!-- Dynamically filled -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-    </main>
+    <!-- BULK EXPORT / PRINT CONTAINER (HIDDEN UNLESS EXPORTING) -->
+    <div id="bulkPrintContainer" class="hidden p-8 bg-white text-slate-800 print-card">
+        <!-- Rendered dynamically -->
+    </div>
 
     <!-- LOG DETAILS & PRINT MODAL (MULTI-PAGE LINKED SESSIONS SUPPORT) -->
     <div id="viewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
@@ -1339,6 +1355,164 @@
             dlAnchorElem.click();
             dlAnchorElem.remove();
             showToast('Backup File Downloaded.');
+        };
+
+        // ================= EXPORT ALL TO PDF =================
+        window.exportAllToPDF = function() {
+            const bulkContainer = document.getElementById('bulkPrintContainer');
+            let html = `
+                <div class="text-center mb-8 border-b pb-4 page-break-after flex flex-col justify-center items-center" style="height: 90vh;">
+                    <h1 class="text-4xl font-extrabold text-indigo-900 uppercase tracking-widest">Master Backup Archive</h1>
+                    <h2 class="text-2xl font-bold text-slate-700 mt-4">Care Center Counseling Office</h2>
+                    <p class="text-slate-500 mt-2">Generated on: ${new Date().toLocaleString()}</p>
+                    <p class="text-slate-500 mt-6 max-w-md text-center">This document contains all recorded Individual Counseling Logs, Group Guidance Case Notes, and HEEADDSSS Assessments.</p>
+                </div>
+            `;
+
+            // Individual Logs
+            if (logsData.length > 0) {
+                html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">I. Individual Counseling Notes</h2></div>`;
+                logsData.forEach((log, i) => {
+                    const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set') ? `${log.timeStarted} - ${log.timeEnded || 'Ongoing'}` : 'Time Not Set';
+                    const reflectionBlock = log.counselorReflection ? `
+                        <div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 mt-4">
+                            <h6 class="font-bold text-xs text-indigo-900 uppercase">Counselor Reflection / Clinical Observation</h6>
+                            <p class="text-slate-800 text-xs whitespace-pre-wrap mt-0.5">${escapeHtml(log.counselorReflection)}</p>
+                        </div>` : '';
+                    html += `
+                        <div class="mb-8 page-break-after">
+                            <div class="text-center border-b pb-4 mb-6">
+                                <h2 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">CARE CENTER COUNSELING OFFICE</h2>
+                                <p class="text-xs text-slate-500">Official Individual Counseling Summary Sheet</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs mb-6">
+                                <div><span class="block text-slate-400 font-semibold uppercase">Learner Name</span><span class="font-bold text-slate-800 text-sm">${escapeHtml(log.learnerName)}</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Grade & Section</span><span class="font-semibold text-slate-700">${escapeHtml(log.gradeSection)}</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Sex / Age</span><span class="text-slate-700">${escapeHtml(log.sex)} / ${escapeHtml(log.age)} yrs</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Date & Time Slot</span><span class="font-semibold text-indigo-700">${log.sessionDate}</span><span class="block text-[11px] text-slate-500 font-medium">Time: ${timeSlotDisplay}</span></div>
+                                <div class="col-span-2 sm:col-span-4 border-t pt-2 border-slate-200"><span class="block text-slate-400 font-semibold uppercase">Reason for Counseling</span><span class="font-bold text-indigo-800">${escapeHtml(log.reasonForVisit)}</span></div>
+                            </div>
+                            <div class="space-y-4 text-sm">
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">1. Presenting Concern</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.presentingConcern)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">2. Session Summary / Discussion</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.sessionSummary)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">3. Interventions & Strategies Used</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.interventions)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">4. Learner Response & Observation</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.learnerResponse)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">5. Agreement / Action Plan</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(log.actionPlan)}</p></div>
+                            </div>
+                            ${reflectionBlock}
+                            <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs flex justify-between items-center mt-4">
+                                <div><span class="font-bold text-amber-900">Follow-up Requirement:</span> ${log.followUpRequired}</div>
+                                ${log.followUpRequired === 'Yes' ? `<div class="font-bold text-amber-800">Next Appt: ${log.followUpDate} @ ${log.followUpTime}</div>` : ''}
+                            </div>
+                            <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
+                                <div><div class="border-b border-slate-400 mb-1"></div><p class="font-semibold text-slate-700">${escapeHtml(log.counselorName) || 'Guidance Counselor'}</p><p class="text-slate-500">Care Center Staff</p></div>
+                                <div><div class="border-b border-slate-400 mb-1"></div><p class="font-semibold text-slate-700">${escapeHtml(log.learnerName)}</p><p class="text-slate-500">Acknowledged</p></div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // Group Logs
+            if (groupGuidanceData.length > 0) {
+                html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">II. Group Guidance Case Notes</h2></div>`;
+                groupGuidanceData.forEach(g => {
+                    html += `
+                        <div class="mb-8 page-break-after">
+                            <div class="text-center border-b pb-4 mb-6">
+                                <h2 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">GROUP GUIDANCE CASE NOTE</h2>
+                                <p class="text-xs text-slate-500 font-semibold mt-1">Care Center Counseling Office</p>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs mb-6">
+                                <div><span class="block text-slate-400 font-semibold uppercase">Date</span><span class="font-bold text-slate-800 text-sm">${g.date}</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Time</span><span class="font-bold text-slate-800 text-sm">${g.time}</span></div>
+                                <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Grade/Section</span><span class="font-bold text-slate-800 text-sm">${escapeHtml(g.gradeSection)}</span></div>
+                                
+                                <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Topic</span><span class="font-bold text-indigo-700 text-sm">${escapeHtml(g.topic)}</span></div>
+                                <div class="col-span-2 flex gap-4">
+                                    <div><span class="block text-slate-400 font-semibold uppercase">Male</span><span class="font-bold text-slate-700 text-sm">${g.male}</span></div>
+                                    <div><span class="block text-slate-400 font-semibold uppercase">Female</span><span class="font-bold text-slate-700 text-sm">${g.female}</span></div>
+                                    <div><span class="block text-slate-400 font-semibold uppercase text-emerald-600">Total</span><span class="font-extrabold text-emerald-700 text-lg">${g.total}</span></div>
+                                </div>
+                            </div>
+                            <div class="space-y-4 text-sm">
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Purpose</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.purpose)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Summary of Session</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.summary)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Observations</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.observations)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Student Responses/Participation</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.responses)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Assessment</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.assessment)}</p></div>
+                                <div class="border-l-4 border-indigo-500 pl-3"><h6 class="font-bold text-xs text-slate-500 uppercase">Recommendations/Follow-Up</h6><p class="text-slate-800 whitespace-pre-wrap">${escapeHtml(g.recommendations)}</p></div>
+                            </div>
+                            <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
+                                <div><div class="border-b border-slate-400 mb-1"></div><p class="font-semibold text-slate-700">${escapeHtml(g.preparedBy) || 'Guidance Counselor'}</p><p class="text-slate-500">Prepared By</p></div>
+                            </div>
+                        </div>
+                    `;
+                    if(g.attendanceData) {
+                        html += `
+                            <div class="page-break-after text-center pt-8">
+                                <h2 class="text-lg font-bold text-indigo-900 uppercase border-b pb-2 mb-4">Documentation / Attendance: ${escapeHtml(g.topic)}</h2>
+                                <img src="${g.attendanceData}" alt="Documentation" class="max-w-full h-auto mx-auto rounded border border-slate-300 shadow-sm" />
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            // HEEADDSSS Logs
+            if (heeaddsssData.length > 0) {
+                html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">III. HEEADDSSS Assessments</h2></div>`;
+                heeaddsssData.forEach(r => {
+                     let answersRows = r.answers.map(a => `
+                        <tr class="border-b"><td class="p-2 font-medium">${a.question}</td><td class="p-2 text-center font-bold ${a.answer === 'Oo' ? 'text-red-600' : 'text-slate-600'}">${a.answer}</td></tr>
+                    `).join('');
+                    html += `
+                        <div class="mb-8 page-break-after">
+                            <div class="text-center border-b pb-4 mb-6">
+                                <h2 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">CARE CENTER COUNSELING OFFICE</h2>
+                                <p class="text-xs text-slate-500">Adolescent Psychosocial Risk Assessment</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs mb-6">
+                                <div><span class="block text-slate-400 font-semibold uppercase">Learner Name</span><span class="font-bold text-slate-800 text-sm">${escapeHtml(r.learnerName)}</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Grade & Section</span><span class="font-semibold text-slate-700">${escapeHtml(r.gradeSection)}</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Sex / Age</span><span class="text-slate-700">${escapeHtml(r.sex)} / ${escapeHtml(r.age)} yrs</span></div>
+                                <div><span class="block text-slate-400 font-semibold uppercase">Assessment Date</span><span class="font-semibold text-indigo-700">${r.assessmentDate}</span></div>
+                                <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Phone / Landline</span><span class="text-slate-700">${escapeHtml(r.phone)}</span></div>
+                                <div class="col-span-2"><span class="block text-slate-400 font-semibold uppercase">Email / FB Account</span><span class="text-slate-700">${escapeHtml(r.contactSocial)}</span></div>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="font-bold text-xs uppercase text-slate-500 mb-2">Psychosocial Responses</h4>
+                                <table class="w-full text-xs text-slate-700 border border-slate-200">
+                                    <thead class="bg-slate-100 font-bold"><tr><th class="p-2 text-left">Questions</th><th class="p-2 w-20 text-center">Response</th></tr></thead>
+                                    <tbody>${answersRows}</tbody>
+                                </table>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+                                <h4 class="font-bold text-xs uppercase text-slate-500 mb-1">Counselor Assessment Remarks</h4>
+                                <p class="text-slate-800 text-xs whitespace-pre-wrap">${escapeHtml(r.counselorRemarks) || 'No additional remarks.'}</p>
+                            </div>
+                            <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
+                                <div><div class="border-b border-slate-400 mb-1"></div><p class="font-semibold text-slate-700">Guidance Counselor / Nurse</p><p class="text-slate-500">Care Center Staff</p></div>
+                                <div><div class="border-b border-slate-400 mb-1"></div><p class="font-semibold text-slate-700">${escapeHtml(r.learnerName)}</p><p class="text-slate-500">Acknowledged</p></div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            bulkContainer.innerHTML = html;
+            
+            // Hide main UI, Show Bulk Print Container
+            document.getElementById('mainContentWrapper').classList.add('no-print');
+            bulkContainer.classList.remove('hidden');
+            bulkContainer.classList.add('print-only'); 
+            
+            window.print();
+            
+            // Cleanup and revert back to normal view
+            document.getElementById('mainContentWrapper').classList.remove('no-print');
+            bulkContainer.classList.add('hidden');
+            bulkContainer.innerHTML = '';
         };
 
         // ================= UI NAVIGATION =================

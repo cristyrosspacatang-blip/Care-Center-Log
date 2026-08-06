@@ -110,22 +110,22 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
-                    <button onclick="window.switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('planner')" id="btn-tab-planner" class="px-3 py-2 bg-white text-indigo-700 font-medium text-xs sm:text-sm rounded-lg shadow-sm hover:bg-indigo-50 transition flex items-center gap-1.5">
                         <i data-lucide="calendar" class="w-4 h-4"></i> Planner
                     </button>
-                    <button onclick="window.switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('new-log')" id="btn-tab-new" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                         <i data-lucide="user" class="w-4 h-4"></i> Individual
                     </button>
-                    <button onclick="window.switchTab('group-guidance')" id="btn-tab-group" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('group-guidance')" id="btn-tab-group" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                         <i data-lucide="users" class="w-4 h-4"></i> Group Guidance
                     </button>
-                    <button onclick="window.switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('heeaddsss')" id="btn-tab-heeaddsss" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                         <i data-lucide="clipboard-check" class="w-4 h-4"></i> Testing
                     </button>
-                    <button onclick="window.switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('history')" id="btn-tab-history" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                         <i data-lucide="folder-clock" class="w-4 h-4"></i> History
                     </button>
-                    <button onclick="window.switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
+                    <button onclick="switchTab('reports')" id="btn-tab-reports" class="px-3 py-2 bg-indigo-800 text-white font-medium text-xs sm:text-sm rounded-lg hover:bg-indigo-900 transition flex items-center gap-1.5">
                         <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Analytics
                     </button>
                 </div>
@@ -146,10 +146,10 @@
                                 <h2 class="text-lg font-bold text-slate-800" id="calendarMonthTitle">Appointments & Follow-up Calendar</h2>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="window.prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                                <button onclick="prevCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                                 </button>
-                                <button onclick="window.nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                                <button onclick="nextCalendarMonth()" class="p-2 border border-slate-300 rounded-lg hover:bg-slate-100 transition">
                                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                                 </button>
                             </div>
@@ -174,7 +174,7 @@
                             <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full" id="todoCountTag">0 Tasks</span>
                         </div>
 
-                        <form onsubmit="window.handleAddTodo(event)" class="flex gap-2">
+                        <form onsubmit="handleAddTodo(event)" class="flex gap-2">
                             <input type="text" id="newTodoInput" required placeholder="Add new task/reminder..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-indigo-500">
                             <button type="submit" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
                                 <i data-lucide="plus" class="w-4 h-4"></i> Add
@@ -208,7 +208,7 @@
                         <span class="text-xs bg-slate-700 px-2.5 py-1 rounded-full text-slate-300">Confidential Record</span>
                     </div>
 
-                    <form id="counselingForm" onsubmit="window.handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
+                    <form id="counselingForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
                         
                         <!-- DRAFT NOTICE -->
                         <div id="draftNotice" class="hidden bg-amber-50 border border-amber-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -216,8 +216,8 @@
                                 <i data-lucide="file-edit" class="w-5 h-5"></i> You have an unsaved draft of counseling notes.
                             </span>
                             <div class="flex gap-2 w-full sm:w-auto">
-                                <button type="button" onclick="window.loadDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-amber-700 transition">Resume Draft</button>
-                                <button type="button" onclick="window.discardDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg shadow-sm hover:bg-slate-300 transition">Discard</button>
+                                <button type="button" onclick="loadDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-amber-700 transition">Resume Draft</button>
+                                <button type="button" onclick="discardDraft()" class="flex-1 sm:flex-none px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg shadow-sm hover:bg-slate-300 transition">Discard</button>
                             </div>
                         </div>
 
@@ -229,7 +229,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <div class="sm:col-span-2">
                                     <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Full Name <span class="text-red-500">*</span></label>
-                                    <input type="text" id="learnerName" oninput="window.checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
+                                    <input type="text" id="learnerName" oninput="checkPreviousSessions(this.value)" required placeholder="e.g. Dela Cruz, Juan A." class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">
                                     <div id="previousSessionsNotification" class="mt-2 hidden"></div>
                                 </div>
                                 <div>
@@ -259,7 +259,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Reason for Counseling <span class="text-red-500">*</span></label>
-                                    <select id="reasonForVisit" required onchange="window.toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                    <select id="reasonForVisit" required onchange="toggleCustomReason(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                                         <option value="" disabled selected>Select Reason...</option>
                                         <option value="Academic Performance / Failures">Academic Performance / Failures</option>
                                         <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
@@ -333,7 +333,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Follow-up Required?</label>
-                                    <select id="followUpRequired" onchange="window.toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                                    <select id="followUpRequired" onchange="toggleFollowUpFields(this.value)" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No">No / Resolved</option>
                                         <option value="Referred to Outside Agency">Referred to Outside Agency</option>
@@ -349,35 +349,35 @@
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Counselor / Designated Person</label>
-                                <input type="text" id="counselorName" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm font-semibold">
-                            </div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Counselor / Designated Person</label>
+                            <input type="text" id="counselorName" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm font-semibold">
                         </div>
+                    </div>
 
-                        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3 flex-wrap">
-                            <button type="button" onclick="window.resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
-                                Clear Form
-                            </button>
-                            <button type="button" onclick="window.saveDraft()" class="px-5 py-2.5 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 shadow-md transition flex items-center gap-2">
-                                <i data-lucide="save" class="w-4 h-4"></i> Save as Draft
-                            </button>
-                            <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
-                                <i data-lucide="check-circle" class="w-4 h-4"></i> Save Record
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
+                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3 flex-wrap">
+                        <button type="button" onclick="window.resetForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                            Clear Form
+                        </button>
+                        <button type="button" onclick="window.saveDraft()" class="px-5 py-2.5 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 shadow-md transition flex items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i> Save as Draft
+                        </button>
+                        <button type="submit" id="counselingSubmitBtn" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Record
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
 
             <!-- TAB: GROUP GUIDANCE -->
             <section id="tab-group-guidance" class="space-y-6 hidden">
                 <!-- Navigation Sub-Toggle -->
                 <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
                     <div class="flex gap-2">
-                        <button onclick="window.toggleGroupSubTab('form')" id="btn-group-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                        <button onclick="toggleGroupSubTab('form')" id="btn-group-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
                             <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New Group Session
                         </button>
-                        <button onclick="window.toggleGroupSubTab('records')" id="btn-group-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                        <button onclick="toggleGroupSubTab('records')" id="btn-group-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
                             <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Session History
                         </button>
                     </div>
@@ -392,7 +392,7 @@
                         </h2>
                     </div>
                     
-                    <form id="groupGuidanceForm" onsubmit="window.handleGroupSubmit(event)" class="p-6 sm:p-8 space-y-6">
+                    <form id="groupGuidanceForm" onsubmit="handleGroupSubmit(event)" class="p-6 sm:p-8 space-y-6">
                         <!-- Row 1 -->
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
@@ -414,11 +414,11 @@
                             <div class="sm:col-span-4"><h4 class="text-xs font-bold text-slate-500 uppercase">Number of Participants</h4></div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Male</label>
-                                <input type="number" id="gMale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                                <input type="number" id="gMale" min="0" value="0" oninput="calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Female</label>
-                                <input type="number" id="gFemale" min="0" value="0" oninput="window.calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
+                                <input type="number" id="gFemale" min="0" value="0" oninput="calculateGroupTotal()" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Total</label>
@@ -459,15 +459,43 @@
                         </div>
 
                         <!-- Documentation & Prepared By -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Upload Attendance Sheet (Image/PDF)</label>
+                            <input type="file" id="gAttendanceFile" accept="image/*, application/pdf" onchange="window.handleGroupAttendanceUpload(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            <p class="text-[10px] text-slate-400 mt-1">Image will be compressed safely.<span id="gDocStatus" class="hidden text-emerald-600 font-bold ml-1">(Existing attachment kept)</span></p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Prepared By <span class="text-red-500">*</span></label>
+                            <input type="text" id="gPreparedBy" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-800">
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                        <button type="button" onclick="window.resetGroupForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                            Clear Form
+                        </button>
+                        <button type="submit" id="groupSubmitBtn" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-md transition flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Group Session
+                        </button>
+                    </div>
+                </form>
+            </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Upload Attendance Sheet (Image/PDF)</label>
-                                <input type="file" id="gAttendanceFile" accept="image/*, application/pdf" onchange="window.handleGroupAttendanceUpload(event)" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Prepared By <span class="text-red-500">*</span></label>
-                                <input type="text" id="gPreparedBy" required value="CRISTY ROSS PACATANG-CAINGLET, Guidance Counselor II" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-800">
-                            </div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Counselor Assessment Remarks / Action Plan</label>
+                        <textarea id="hCounselorRemarks" rows="3" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"></textarea>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                        <button type="button" onclick="window.resetHeeaddsssForm()" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                            Clear Assessment
+                        </button>
+                        <button type="submit" id="heeaddsssSubmitBtn" class="px-6 py-2.5 bg-indigo-700 text-white rounded-lg text-sm font-semibold hover:bg-indigo-800 shadow-md transition flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Save Assessment
+                        </button>
+                    </div>
+                </form>
+            </div>
                         </div>
 
                         <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
@@ -483,7 +511,7 @@
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
                         <div class="relative w-full sm:w-96">
                             <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                            <input type="text" id="gSearchInput" oninput="window.filterGroupRecords()" placeholder="Search Topic or Grade/Section..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="gSearchInput" oninput="filterGroupRecords()" placeholder="Search Topic or Grade/Section..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div class="text-xs text-slate-500 font-semibold" id="gRecordCountTag">
                             0 Sessions Saved
@@ -517,10 +545,10 @@
                 <!-- Navigation Sub-Toggle -->
                 <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
                     <div class="flex gap-2">
-                        <button onclick="window.toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                        <button onclick="toggleHeeaddsssSubTab('form')" id="btn-heeaddsss-form" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg transition shadow-sm">
                             <i data-lucide="plus" class="w-3.5 h-3.5 inline mr-1"></i> New HEEADDSSS Form
                         </button>
-                        <button onclick="window.toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
+                        <button onclick="toggleHeeaddsssSubTab('records')" id="btn-heeaddsss-records" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition">
                             <i data-lucide="list" class="w-3.5 h-3.5 inline mr-1"></i> Assessment Records History
                         </button>
                     </div>
@@ -538,8 +566,7 @@
                         <span class="text-xs bg-indigo-800 border border-indigo-700 text-indigo-200 px-3 py-1 rounded-full">Tagalog Standard</span>
                     </div>
 
-                    <form id="heeaddsssForm" onsubmit="window.handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
-                        <!-- Learner Info ... -->
+                    <form id="heeaddsssForm" onsubmit="handleHeeaddsssSubmit(event)" class="p-6 sm:p-8 space-y-8">
                         <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
                             <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                                 <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i> Learner Profile
@@ -605,10 +632,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq1" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq1" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq1" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -622,10 +649,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq2" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq2" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq2" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -639,10 +666,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq3" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq3" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq3" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -657,10 +684,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq4" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq4" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq4" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -674,10 +701,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq5" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq5" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq5" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -691,10 +718,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq6" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq6" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq6" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -708,10 +735,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq7" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq7" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq7" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -725,10 +752,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq8" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq8" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq8" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -742,10 +769,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq9" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-indigo-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq9" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq9" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -760,10 +787,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq10" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-red-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq10" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq10" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -777,10 +804,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq11" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-amber-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq11" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq11" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -795,10 +822,10 @@
                                             <td class="p-3.5 text-center">
                                                 <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 gap-1">
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-slate-700 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Hindi
+                                                        <input type="radio" name="hq12" value="Hindi" checked class="hidden" onchange="updateHeeaddsssRiskScore()"> Hindi
                                                     </label>
                                                     <label class="px-3 py-1.5 rounded cursor-pointer text-xs font-bold transition select-none has-[:checked]:bg-emerald-600 has-[:checked]:text-white text-slate-600">
-                                                        <input type="radio" name="hq12" value="Oo" class="hidden" onchange="window.updateHeeaddsssRiskScore()"> Oo
+                                                        <input type="radio" name="hq12" value="Oo" class="hidden" onchange="updateHeeaddsssRiskScore()"> Oo
                                                     </label>
                                                 </div>
                                             </td>
@@ -846,15 +873,15 @@
                         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                             <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
                                 <label class="block text-xs font-bold text-indigo-900 uppercase mb-1"><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> Month</label>
-                                <input type="month" id="hFilterMonth" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm">
+                                <input type="month" id="hFilterMonth" onchange="filterHeeaddsssRecords()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Grade/Section</label>
-                                <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                                <input type="text" id="hFilterGrade" list="gradeSectionOptions" oninput="filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Risk Flag</label>
-                                <select id="hFilterRisk" onchange="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                                <select id="hFilterRisk" onchange="filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
                                     <option value="ALL">All Levels</option>
                                     <option value="HIGH RISK">Critical High Risk</option>
                                     <option value="MODERATE RISK">Moderate Risk</option>
@@ -863,7 +890,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Learner Search</label>
-                                <input type="text" id="hSearchInput" oninput="window.filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                                <input type="text" id="hSearchInput" oninput="filterHeeaddsssRecords()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                             </div>
                         </div>
                     </div>
@@ -889,32 +916,38 @@
             </section>
 
             <!-- TAB 3: HISTORY LOG & QUICK SEARCH -->
-            <section id="tab-history" class="space-y-6 hidden">
-                
-                <!-- DATA BACKUP BANNER -->
-                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
-                    <div>
-                        <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4"></i> Data Backup & Export</h4>
-                        <p class="text-xs text-emerald-700 mt-1">Export your data to a beautifully formatted PDF document, or download a raw JSON file for safe-keeping.</p>
-                    </div>
-                    <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
-                        <button onclick="window.exportAllToPDF()" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-indigo-700 transition flex items-center gap-2 whitespace-nowrap">
-                            <i data-lucide="file-text" class="w-4 h-4"></i> Export All to PDF
-                        </button>
-                        <button onclick="window.downloadBackup()" class="px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition flex items-center gap-2 whitespace-nowrap">
-                            <i data-lucide="database" class="w-4 h-4"></i> Backup System Data (.json)
-                        </button>
+        <section id="tab-history" class="space-y-6 hidden">
+            
+            <!-- DATA BACKUP BANNER -->
+            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 no-print">
+                <div class="flex-1">
+                    <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4"></i> Data Backup & Export</h4>
+                    <p class="text-xs text-emerald-700 mt-1">Export your data to a beautifully formatted PDF document, or download a raw JSON file. Select a date range below to filter the export.</p>
+                    <div class="flex gap-2 mt-3 items-center">
+                        <span class="text-xs font-bold text-emerald-800">Filter Export by Date:</span>
+                        <input type="date" id="exportDateFrom" class="px-2 py-1.5 border border-emerald-300 rounded-md text-xs focus:ring-emerald-500 bg-white shadow-sm">
+                        <span class="text-xs text-emerald-700 font-bold">to</span>
+                        <input type="date" id="exportDateTo" class="px-2 py-1.5 border border-emerald-300 rounded-md text-xs focus:ring-emerald-500 bg-white shadow-sm">
                     </div>
                 </div>
+                <div class="flex gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 items-end">
+                    <button onclick="window.exportAllToPDF()" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-indigo-700 transition flex items-center gap-2 whitespace-nowrap">
+                        <i data-lucide="file-text" class="w-4 h-4"></i> Export to PDF
+                    </button>
+                    <button onclick="window.downloadBackup()" class="px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition flex items-center gap-2 whitespace-nowrap">
+                        <i data-lucide="database" class="w-4 h-4"></i> Backup System Data (.json)
+                    </button>
+                </div>
+            </div>
 
-                <!-- Search & Quick Filters -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <!-- Search & Quick Filters -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div class="relative w-full sm:w-96">
                         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-                        <input type="text" id="searchInput" oninput="window.filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="searchInput" oninput="filterLogs()" placeholder="Search Learner, Grade, or Reason..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <select id="filterReason" onchange="window.filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
+                        <select id="filterReason" onchange="filterLogs()" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
                             <option value="ALL">All Reasons</option>
                             <option value="Academic Performance / Failures">Academic Failures</option>
                             <option value="Absenteeism / Tardiness">Absenteeism</option>
@@ -948,8 +981,7 @@
                             <i data-lucide="filter" class="w-5 h-5"></i>
                             <h2 class="font-bold text-lg">Counselor Monthly Reports & Filtering</h2>
                         </div>
-                        <!-- MONTHLY REACH CALCULATOR BUTTON -->
-                        <button onclick="window.calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
+                        <button onclick="calculateAndShowMonthlyReach()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1.5 self-start sm:self-auto">
                             <i data-lucide="users" class="w-4 h-4"></i> Calculate Month Reach Summary
                         </button>
                     </div>
@@ -961,19 +993,19 @@
                             <label class="block text-xs font-bold text-indigo-900 uppercase mb-1 flex items-center gap-1">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i> Filter by Month
                             </label>
-                            <input type="month" id="reportMonth" onchange="window.handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
+                            <input type="month" id="reportMonth" onchange="handleMonthFilterChange()" class="w-full px-3 py-1.5 border border-indigo-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500 font-semibold">
                         </div>
 
                         <!-- Filter: Learner Name -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Learner Name</label>
-                            <input type="text" id="reportLearnerName" oninput="window.generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="reportLearnerName" oninput="generateReport()" placeholder="Enter student name..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <!-- Filter: Reason for Visit -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Reason for Visit</label>
-                            <select id="reportReason" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                            <select id="reportReason" onchange="generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                                 <option value="ALL">All Reasons</option>
                                 <option value="Academic Performance / Failures">Academic Failures</option>
                                 <option value="Absenteeism / Tardiness">Absenteeism / Tardiness</option>
@@ -990,13 +1022,13 @@
                         <!-- Filter: Grade & Section Dropdown/Auto-suggest -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Filter by Grade & Section</label>
-                            <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="window.generateReport()" placeholder="Select or type..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <input type="text" id="reportGrade" list="gradeSectionOptions" oninput="generateReport()" placeholder="Select or type..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 bg-white">
                         </div>
 
                         <!-- Filter: Sex -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Sex</label>
-                            <select id="reportSex" onchange="window.generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                            <select id="reportSex" onchange="generateReport()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-indigo-500">
                                 <option value="ALL">All</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -1006,18 +1038,18 @@
                         <!-- Filter: Custom Date From -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date From</label>
-                            <input type="date" id="reportDateFrom" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            <input type="date" id="reportDateFrom" onchange="clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <!-- Filter: Custom Date To -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Date To</label>
-                            <input type="date" id="reportDateTo" onchange="window.clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            <input type="date" id="reportDateTo" onchange="clearMonthAndGenerate()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <!-- Reset Filters Button -->
                         <div class="flex items-end">
-                            <button onclick="window.resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
+                            <button onclick="resetReportFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 transition flex items-center justify-center gap-1.5">
                                 <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
                             </button>
                         </div>
@@ -1117,29 +1149,23 @@
     <!-- LOG DETAILS & PRINT MODAL (MULTI-PAGE LINKED SESSIONS SUPPORT) -->
     <div id="viewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full my-8 overflow-hidden print-card max-h-[90vh] flex flex-col">
-            
             <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center no-print flex-shrink-0">
                 <h3 class="font-bold text-lg flex items-center gap-2" id="modalTitle">
                     <i data-lucide="file-check" class="w-5 h-5 text-emerald-400"></i> Learner Record Preview
                 </h3>
-                <button onclick="window.closeModal()" class="text-slate-400 hover:text-white transition">
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
-
             <!-- Printable Form Content -->
             <div id="modalPrintArea" class="p-8 space-y-6 text-slate-800 overflow-y-auto flex-1">
                 <div class="text-center border-b pb-4">
                     <h2 class="text-xl font-bold text-indigo-900 uppercase tracking-wide">CARE CENTER COUNSELING OFFICE</h2>
                     <p class="text-xs text-slate-500" id="modalHeaderSubtitle">Official Cumulative Individual Counseling Case History Sheet</p>
                 </div>
-
-                <!-- Record Body -->
                 <div id="modalBody" class="space-y-6 text-sm">
                     <!-- Populated dynamically -->
                 </div>
-
-                <!-- Signatures -->
                 <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
                     <div>
                         <div class="border-b border-slate-400 mb-1"></div>
@@ -1153,9 +1179,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print flex-shrink-0">
-                <button onclick="window.closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                <button onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
                 <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 flex items-center gap-2 shadow">
@@ -1172,22 +1197,18 @@
                 <h3 class="font-bold text-lg flex items-center gap-2">
                     <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i> Group Guidance Record Preview
                 </h3>
-                <button onclick="window.closeGroupModal()" class="text-indigo-300 hover:text-white transition">
+                <button onclick="closeGroupModal()" class="text-indigo-300 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
-
             <div class="p-8 space-y-6 text-slate-800 overflow-y-auto flex-1">
                 <div class="text-center border-b pb-4">
                     <h2 class="text-xl font-bold text-indigo-900 uppercase">GROUP GUIDANCE CASE NOTE</h2>
                     <p class="text-xs text-slate-500 font-semibold mt-1">Care Center Counseling Office</p>
                 </div>
-
                 <div id="groupModalBody" class="space-y-6">
                     <!-- Populated dynamically -->
                 </div>
-
-                <!-- Signatures -->
                 <div class="pt-12 grid grid-cols-2 gap-8 text-center text-xs">
                     <div>
                         <div class="border-b border-slate-400 mb-1"></div>
@@ -1195,16 +1216,14 @@
                         <p class="text-slate-500">Guidance Counselor II</p>
                     </div>
                 </div>
-
-                <!-- Attached Documentation (Prints on Next Page automatically) -->
+                <!-- Attached Documentation -->
                 <div id="groupDocumentationSection" class="hidden page-break-before pt-8 text-center">
                     <h2 class="text-lg font-bold text-indigo-900 uppercase border-b pb-2 mb-4">Official Documentation / Attendance Sheet</h2>
                     <img id="groupDocumentationImage" src="" alt="Documentation" class="max-w-full h-auto mx-auto rounded border border-slate-300 shadow-sm" />
                 </div>
             </div>
-
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print flex-shrink-0">
-                <button onclick="window.closeGroupModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                <button onclick="closeGroupModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
                 <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 flex items-center gap-2 shadow">
@@ -1217,29 +1236,25 @@
     <!-- MONTHLY REACH SUMMARY MODAL -->
     <div id="reachModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full my-8 overflow-hidden print-card">
-            
             <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center no-print">
                 <h3 class="font-bold text-lg flex items-center gap-2">
                     <i data-lucide="bar-chart-2" class="w-5 h-5 text-emerald-400"></i> Monthly Learners Reached Breakdown
                 </h3>
-                <button onclick="window.closeReachModal()" class="text-slate-400 hover:text-white transition">
+                <button onclick="closeReachModal()" class="text-slate-400 hover:text-white transition">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
-
             <div class="p-8 space-y-6 text-slate-800">
                 <div class="text-center border-b pb-4">
                     <h2 class="text-xl font-bold text-indigo-900 uppercase">CARE CENTER ACCOMPLISHMENT SUMMARY</h2>
                     <p class="text-xs text-slate-500 font-semibold mt-1" id="reachModalMonthTitle">Monthly Breakdown</p>
                 </div>
-
                 <div id="reachModalBody" class="space-y-6">
                     <!-- Populated dynamically -->
                 </div>
             </div>
-
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end gap-3 no-print">
-                <button onclick="window.closeReachModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
+                <button onclick="closeReachModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 text-sm hover:bg-slate-100">
                     Close
                 </button>
                 <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 flex items-center gap-2 shadow">
@@ -1263,6 +1278,11 @@
         let todosData = [];
         let groupGuidanceData = [];
         let currentAttendanceBase64 = null;
+
+        // Active Editing States
+        let editingCounselingId = null;
+        let editingGroupId = null;
+        let editingHeeaddsssId = null;
 
         const HEEADDSSS_QUESTIONS = [
             "1. Ikaw ba ay nakaranas ng pananakit o panananakot sa inyong bahay, paaralan o trabaho?",
@@ -1337,12 +1357,32 @@
             window.checkDraft();
         });
 
+        // --- FILTER HELPERS FOR EXPORT ---
+        function getFilteredExportData() {
+            const fromDate = document.getElementById('exportDateFrom')?.value;
+            const toDate = document.getElementById('exportDateTo')?.value;
+
+            const filterFn = (dateStr) => {
+                if (!dateStr) return true; // Include if date missing
+                if (fromDate && dateStr < fromDate) return false;
+                if (toDate && dateStr > toDate) return false;
+                return true;
+            };
+
+            return {
+                logs: logsData.filter(l => filterFn(l.sessionDate)),
+                groups: groupGuidanceData.filter(g => filterFn(g.date)),
+                heeaddsss: heeaddsssData.filter(h => filterFn(h.assessmentDate))
+            };
+        }
+
         // ================= DOWNLOAD BACKUP DATA (OFFLINE EXPORT) =================
         window.downloadBackup = function() {
+            const dataToExport = getFilteredExportData();
             const backup = {
-                counselingLogs: logsData,
-                heeaddsssLogs: heeaddsssData,
-                groupGuidanceLogs: groupGuidanceData,
+                counselingLogs: dataToExport.logs,
+                heeaddsssLogs: dataToExport.heeaddsss,
+                groupGuidanceLogs: dataToExport.groups,
                 todos: todosData,
                 exportDate: new Date().toISOString()
             };
@@ -1351,7 +1391,7 @@
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href", dataStr);
             dlAnchorElem.setAttribute("download", "care_center_backup_" + new Date().toISOString().split('T')[0] + ".json");
-            document.body.appendChild(dlAnchorElem); // required for firefox
+            document.body.appendChild(dlAnchorElem);
             dlAnchorElem.click();
             dlAnchorElem.remove();
             showToast('Backup File Downloaded.');
@@ -1359,20 +1399,29 @@
 
         // ================= EXPORT ALL TO PDF =================
         window.exportAllToPDF = function() {
+            const dataToExport = getFilteredExportData();
             const bulkContainer = document.getElementById('bulkPrintContainer');
+
+            let dateRangeText = "All Records";
+            const fromDate = document.getElementById('exportDateFrom')?.value;
+            const toDate = document.getElementById('exportDateTo')?.value;
+            if (fromDate || toDate) {
+                dateRangeText = `Filtered Date Range: ${fromDate || 'Beginning'} to ${toDate || 'Present'}`;
+            }
+
             let html = `
                 <div class="text-center mb-8 border-b pb-4 page-break-after flex flex-col justify-center items-center" style="height: 90vh;">
                     <h1 class="text-4xl font-extrabold text-indigo-900 uppercase tracking-widest">Master Backup Archive</h1>
                     <h2 class="text-2xl font-bold text-slate-700 mt-4">Care Center Counseling Office</h2>
                     <p class="text-slate-500 mt-2">Generated on: ${new Date().toLocaleString()}</p>
-                    <p class="text-slate-500 mt-6 max-w-md text-center">This document contains all recorded Individual Counseling Logs, Group Guidance Case Notes, and HEEADDSSS Assessments.</p>
+                    <p class="text-indigo-700 font-bold mt-2">${dateRangeText}</p>
+                    <p class="text-slate-500 mt-6 max-w-md text-center">This document contains selected Individual Counseling Logs, Group Guidance Case Notes, and HEEADDSSS Assessments.</p>
                 </div>
             `;
 
-            // Individual Logs
-            if (logsData.length > 0) {
+            if (dataToExport.logs.length > 0) {
                 html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">I. Individual Counseling Notes</h2></div>`;
-                logsData.forEach((log, i) => {
+                dataToExport.logs.forEach((log, i) => {
                     const timeSlotDisplay = (log.timeStarted && log.timeStarted !== 'Not Set') ? `${log.timeStarted} - ${log.timeEnded || 'Ongoing'}` : 'Time Not Set';
                     const reflectionBlock = log.counselorReflection ? `
                         <div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 mt-4">
@@ -1413,10 +1462,9 @@
                 });
             }
 
-            // Group Logs
-            if (groupGuidanceData.length > 0) {
+            if (dataToExport.groups.length > 0) {
                 html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">II. Group Guidance Case Notes</h2></div>`;
-                groupGuidanceData.forEach(g => {
+                dataToExport.groups.forEach(g => {
                     html += `
                         <div class="mb-8 page-break-after">
                             <div class="text-center border-b pb-4 mb-6">
@@ -1459,10 +1507,9 @@
                 });
             }
 
-            // HEEADDSSS Logs
-            if (heeaddsssData.length > 0) {
+            if (dataToExport.heeaddsss.length > 0) {
                 html += `<div class="page-break-before pt-8"><h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-900 pb-2 mb-6">III. HEEADDSSS Assessments</h2></div>`;
-                heeaddsssData.forEach(r => {
+                dataToExport.heeaddsss.forEach(r => {
                      let answersRows = r.answers.map(a => `
                         <tr class="border-b"><td class="p-2 font-medium">${a.question}</td><td class="p-2 text-center font-bold ${a.answer === 'Oo' ? 'text-red-600' : 'text-slate-600'}">${a.answer}</td></tr>
                     `).join('');
@@ -1502,14 +1549,12 @@
 
             bulkContainer.innerHTML = html;
             
-            // Hide main UI, Show Bulk Print Container
             document.getElementById('mainContentWrapper').classList.add('no-print');
             bulkContainer.classList.remove('hidden');
             bulkContainer.classList.add('print-only'); 
             
             window.print();
             
-            // Cleanup and revert back to normal view
             document.getElementById('mainContentWrapper').classList.remove('no-print');
             bulkContainer.classList.add('hidden');
             bulkContainer.innerHTML = '';
@@ -1664,6 +1709,116 @@
             lucide.createIcons();
         }
 
+        // ================= EDIT INDIVIDUAL LOG LOGIC =================
+        window.editLog = function(id) {
+            const log = logsData.find(l => l.id === id);
+            if(!log) return;
+            editingCounselingId = id;
+            
+            document.getElementById('learnerName').value = log.learnerName || '';
+            document.getElementById('gradeSection').value = log.gradeSection || '';
+            document.getElementById('sex').value = log.sex || '';
+            document.getElementById('age').value = log.age || '';
+            document.getElementById('lrn').value = log.lrn || '';
+            document.getElementById('sessionDate').value = log.sessionDate || '';
+            document.getElementById('timeStarted').value = log.timeStarted || '';
+            document.getElementById('timeEnded').value = log.timeEnded || '';
+            
+            document.getElementById('reasonForVisit').value = log.reasonForVisit || '';
+            window.toggleCustomReason(log.reasonForVisit || '');
+            document.getElementById('customReason').value = log.customReason || '';
+            
+            document.getElementById('presentingConcern').value = log.presentingConcern || '';
+            document.getElementById('sessionSummary').value = log.sessionSummary || '';
+            document.getElementById('interventions').value = log.interventions || '';
+            document.getElementById('learnerResponse').value = log.learnerResponse || '';
+            document.getElementById('actionPlan').value = log.actionPlan || '';
+            document.getElementById('counselorReflection').value = log.counselorReflection || '';
+            
+            document.getElementById('followUpRequired').value = log.followUpRequired || 'Yes';
+            window.toggleFollowUpFields(log.followUpRequired || 'Yes');
+            document.getElementById('followUpDate').value = log.followUpDate || '';
+            document.getElementById('followUpTime').value = log.followUpTime || '';
+            if(log.counselorName) document.getElementById('counselorName').value = log.counselorName;
+
+            document.getElementById('counselingSubmitBtn').innerHTML = `<i data-lucide="edit-2" class="w-4 h-4"></i> Update Record`;
+            window.switchTab('new-log');
+            window.scrollTo(0,0);
+            lucide.createIcons();
+        };
+
+        // ================= EDIT GROUP LOG LOGIC =================
+        window.editGroupLog = function(id) {
+            const g = groupGuidanceData.find(item => item.id === id);
+            if(!g) return;
+            editingGroupId = id;
+
+            document.getElementById('gDate').value = g.date || '';
+            document.getElementById('gTime').value = g.time || '';
+            document.getElementById('gGradeSection').value = g.gradeSection || '';
+            document.getElementById('gMale').value = g.male || 0;
+            document.getElementById('gFemale').value = g.female || 0;
+            document.getElementById('gTotal').value = g.total || 0;
+            document.getElementById('gTopic').value = g.topic || '';
+            document.getElementById('gPurpose').value = g.purpose || '';
+            document.getElementById('gSummary').value = g.summary || '';
+            document.getElementById('gObservations').value = g.observations || '';
+            document.getElementById('gResponses').value = g.responses || '';
+            document.getElementById('gAssessment').value = g.assessment || '';
+            document.getElementById('gRecommendations').value = g.recommendations || '';
+            document.getElementById('gPreparedBy').value = g.preparedBy || '';
+
+            currentAttendanceBase64 = g.attendanceData || null;
+            if(currentAttendanceBase64) {
+                document.getElementById('gDocStatus').classList.remove('hidden');
+            } else {
+                document.getElementById('gDocStatus').classList.add('hidden');
+            }
+
+            document.getElementById('groupSubmitBtn').innerHTML = `<i data-lucide="edit-2" class="w-4 h-4"></i> Update Group Session`;
+            window.switchTab('group-guidance');
+            window.toggleGroupSubTab('form');
+            window.scrollTo(0,0);
+            lucide.createIcons();
+        };
+
+        // ================= EDIT HEEADDSSS LOGIC =================
+        window.editHeeaddsss = function(id) {
+            const r = heeaddsssData.find(item => item.id === id);
+            if(!r) return;
+            editingHeeaddsssId = id;
+
+            document.getElementById('hLearnerName').value = r.learnerName || '';
+            document.getElementById('hGradeSection').value = r.gradeSection || '';
+            document.getElementById('hDate').value = r.assessmentDate || '';
+            document.getElementById('hSex').value = r.sex || '';
+            document.getElementById('hAge').value = r.age || '';
+            document.getElementById('hPhone').value = r.phone || '';
+            document.getElementById('hContactSocial').value = r.contactSocial || '';
+            document.getElementById('hCounselorRemarks').value = r.counselorRemarks || '';
+
+            // Reset radios to 'Hindi' first to clear out previous form state
+            for(let i=1; i<=12; i++) {
+                const hindiRadio = document.querySelector(`input[name="hq${i}"][value="Hindi"]`);
+                if(hindiRadio) hindiRadio.checked = true;
+            }
+
+            // Apply saved answers
+            if(r.answers) {
+                r.answers.forEach(ans => {
+                    const radio = document.querySelector(`input[name="hq${ans.qIndex}"][value="${ans.answer}"]`);
+                    if (radio) radio.checked = true;
+                });
+            }
+
+            window.updateHeeaddsssRiskScore();
+            document.getElementById('heeaddsssSubmitBtn').innerHTML = `<i data-lucide="edit-2" class="w-4 h-4"></i> Update Assessment`;
+            window.switchTab('heeaddsss');
+            window.toggleHeeaddsssSubTab('form');
+            window.scrollTo(0,0);
+            lucide.createIcons();
+        };
+
         // ================= GROUP GUIDANCE LOGIC =================
         window.toggleGroupSubTab = function(sub) {
             if (sub === 'form') {
@@ -1689,15 +1844,17 @@
         window.handleGroupAttendanceUpload = function(event) {
             const file = event.target.files[0];
             if (!file) {
-                currentAttendanceBase64 = null;
+                // If editing and they cancel file picker, keep old doc
+                if(!editingGroupId) currentAttendanceBase64 = null;
                 return;
             }
+            document.getElementById('gDocStatus').classList.add('hidden'); // hide kept status if uploading new
 
             if (file.type === 'application/pdf') {
                 if (file.size > 800000) {
                     alert("This PDF is too large to save offline. Please convert it to an image (JPG/PNG) to allow compression, or use a smaller file.");
                     event.target.value = '';
-                    currentAttendanceBase64 = null;
+                    if(!editingGroupId) currentAttendanceBase64 = null;
                     return;
                 }
                 const reader = new FileReader();
@@ -1730,7 +1887,7 @@
             const femaleCount = parseInt(document.getElementById('gFemale').value) || 0;
 
             const newGroupRecord = {
-                id: 'GROUP-' + Date.now(),
+                id: editingGroupId ? editingGroupId : 'GROUP-' + Date.now(),
                 date: document.getElementById('gDate').value,
                 time: document.getElementById('gTime').value,
                 gradeSection: document.getElementById('gGradeSection').value.trim(),
@@ -1746,18 +1903,32 @@
                 recommendations: document.getElementById('gRecommendations').value.trim(),
                 preparedBy: document.getElementById('gPreparedBy').value.trim(),
                 attendanceData: currentAttendanceBase64,
-                createdAt: new Date().toISOString()
+                createdAt: editingGroupId ? (groupGuidanceData.find(g => g.id === editingGroupId)?.createdAt || new Date().toISOString()) : new Date().toISOString()
             };
 
-            // Save Locally immediately (No Cloud Sync Required)
-            groupGuidanceData.unshift(newGroupRecord);
+            if (editingGroupId) {
+                const idx = groupGuidanceData.findIndex(g => g.id === editingGroupId);
+                if (idx !== -1) groupGuidanceData[idx] = newGroupRecord;
+                editingGroupId = null;
+                showToast('Group Guidance Updated Successfully!');
+            } else {
+                groupGuidanceData.unshift(newGroupRecord);
+                showToast('Group Guidance Session Saved Successfully!');
+            }
             localStorage.setItem('care_center_group_logs', JSON.stringify(groupGuidanceData));
             
-            showToast('Group Guidance Session Saved Successfully!');
+            window.resetGroupForm();
+            window.toggleGroupSubTab('records');
+        };
+
+        window.resetGroupForm = function() {
+            editingGroupId = null;
             document.getElementById('groupGuidanceForm').reset();
             document.getElementById('gDate').valueAsDate = new Date();
             currentAttendanceBase64 = null;
-            window.toggleGroupSubTab('records');
+            document.getElementById('gDocStatus').classList.add('hidden');
+            document.getElementById('groupSubmitBtn').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> Save Group Session`;
+            lucide.createIcons();
         };
 
         window.filterGroupRecords = function() {
@@ -1789,7 +1960,8 @@
                     <td class="p-3.5 text-center font-bold text-slate-600">${g.total} <span class="text-[10px] font-normal">(${g.male}M/${g.female}F)</span></td>
                     <td class="p-3.5 text-center">${hasDoc}</td>
                     <td class="p-3.5 text-center flex justify-center gap-2">
-                        <button type="button" onclick="window.viewGroupDetail('${g.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Detail"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        <button type="button" onclick="window.viewGroupDetail('${g.id}')" class="px-2.5 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="View Detail"><i data-lucide="eye" class="w-3.5 h-3.5"></i></button>
+                        <button type="button" onclick="window.editGroupLog('${g.id}')" class="px-2.5 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="Edit"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
                         <button type="button" onclick="window.deleteGroupLog('${g.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </td>
                 `;
@@ -1946,7 +2118,7 @@
             const flagStatus = criticalTrigger ? 'HIGH RISK' : (answers.filter(a => a.answer === 'Oo').length >= 3 ? 'MODERATE RISK' : 'LOW RISK');
 
             const newRecord = {
-                id: 'HEEADDSSS-' + Date.now(),
+                id: editingHeeaddsssId ? editingHeeaddsssId : 'HEEADDSSS-' + Date.now(),
                 learnerName: document.getElementById('hLearnerName').value.trim(),
                 gradeSection: document.getElementById('hGradeSection').value.trim(),
                 assessmentDate: document.getElementById('hDate').value,
@@ -1957,17 +2129,35 @@
                 answers: answers,
                 flagStatus: flagStatus,
                 counselorRemarks: document.getElementById('hCounselorRemarks').value.trim(),
-                createdAt: new Date().toISOString()
+                createdAt: editingHeeaddsssId ? (heeaddsssData.find(h => h.id === editingHeeaddsssId)?.createdAt || new Date().toISOString()) : new Date().toISOString()
             };
 
-            // Save Offline
-            heeaddsssData.unshift(newRecord);
-            localStorage.setItem('care_center_heeaddsss_logs', JSON.stringify(heeaddsssData));
+            if (editingHeeaddsssId) {
+                const idx = heeaddsssData.findIndex(h => h.id === editingHeeaddsssId);
+                if (idx !== -1) heeaddsssData[idx] = newRecord;
+                editingHeeaddsssId = null;
+                showToast('HEEADDSSS Assessment Updated!');
+            } else {
+                heeaddsssData.unshift(newRecord);
+                showToast('HEEADDSSS Assessment Saved Successfully!');
+            }
 
-            showToast('HEEADDSSS Assessment Saved Successfully!');
-            document.getElementById('heeaddsssForm').reset();
-            window.updateHeeaddsssRiskScore();
+            localStorage.setItem('care_center_heeaddsss_logs', JSON.stringify(heeaddsssData));
+            
+            window.resetHeeaddsssForm();
             window.toggleHeeaddsssSubTab('records');
+        };
+
+        window.resetHeeaddsssForm = function() {
+            editingHeeaddsssId = null;
+            document.getElementById('heeaddsssForm').reset();
+            for(let i=1; i<=12; i++) {
+                const hindiRadio = document.querySelector(`input[name="hq${i}"][value="Hindi"]`);
+                if(hindiRadio) hindiRadio.checked = true;
+            }
+            window.updateHeeaddsssRiskScore();
+            document.getElementById('heeaddsssSubmitBtn').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> Save Assessment`;
+            lucide.createIcons();
         };
 
         window.filterHeeaddsssRecords = function() {
@@ -2023,7 +2213,8 @@
                     <td class="p-3.5 text-slate-500">${escapeHtml(r.phone)}</td>
                     <td class="p-3.5">${flagBadge}</td>
                     <td class="p-3.5 text-center flex justify-center gap-2">
-                        <button type="button" onclick="window.viewHeeaddsssDetail('${r.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="View Full Assessment"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        <button type="button" onclick="window.viewHeeaddsssDetail('${r.id}')" class="px-2.5 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="View Full Assessment"><i data-lucide="eye" class="w-3.5 h-3.5"></i></button>
+                        <button type="button" onclick="window.editHeeaddsss('${r.id}')" class="px-2.5 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="Edit"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
                         <button type="button" onclick="window.deleteHeeaddsss('${r.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </td>
                 `;
@@ -2127,7 +2318,7 @@
 
             const reasonSelect = document.getElementById('reasonForVisit').value;
             const newLog = {
-                id: 'LOG-' + Date.now(),
+                id: editingCounselingId ? editingCounselingId : 'LOG-' + Date.now(),
                 learnerName: document.getElementById('learnerName').value.trim(),
                 gradeSection: document.getElementById('gradeSection').value.trim(),
                 sex: document.getElementById('sex').value,
@@ -2147,30 +2338,39 @@
                 followUpDate: document.getElementById('followUpDate').value || 'Not Set',
                 followUpTime: document.getElementById('followUpTime').value || 'Not Set',
                 counselorName: document.getElementById('counselorName').value.trim(),
-                createdAt: new Date().toISOString()
+                createdAt: editingCounselingId ? (logsData.find(l => l.id === editingCounselingId)?.createdAt || new Date().toISOString()) : new Date().toISOString()
             };
 
-            // Save Offline
-            logsData.unshift(newLog);
+            if (editingCounselingId) {
+                const idx = logsData.findIndex(l => l.id === editingCounselingId);
+                if (idx !== -1) logsData[idx] = newLog;
+                showToast('Counseling Log Updated Successfully!');
+            } else {
+                logsData.unshift(newLog);
+                showToast('Counseling Log Saved Successfully!');
+            }
+
             localStorage.setItem('care_center_counseling_logs', JSON.stringify(logsData));
-
             localStorage.removeItem('counseling_draft');
-            window.checkDraft();
-
-            showToast('Counseling Log Saved Successfully!');
+            
             window.resetForm();
             window.switchTab('history');
+            renderCalendar();
         };
 
         window.resetForm = function() {
+            editingCounselingId = null;
             document.getElementById('counselingForm').reset();
             document.getElementById('sessionDate').valueAsDate = new Date();
             document.getElementById('timeStarted').value = '';
             document.getElementById('timeEnded').value = '';
             document.getElementById('counselorReflection').value = '';
             document.getElementById('previousSessionsNotification').classList.add('hidden');
+            document.getElementById('counselingSubmitBtn').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> Save Record`;
             window.toggleCustomReason('');
             window.toggleFollowUpFields('Yes');
+            window.checkDraft();
+            lucide.createIcons();
         };
 
         // ================= DRAFT LOGIC =================
@@ -2300,8 +2500,9 @@
                     </div>
                     <div class="flex items-center gap-3 self-start md:self-center">
                         ${followUpBadge}
-                        <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(log.learnerName)}')" class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1"><i data-lucide="layers" class="w-3.5 h-3.5"></i> Linked Case History</button>
-                        <button type="button" onclick="window.deleteLog('${log.id}')" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete Log"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                        <button type="button" onclick="window.viewLearnerCaseHistory('${escapeHtml(log.learnerName)}')" class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="Linked History"><i data-lucide="layers" class="w-3.5 h-3.5"></i> Linked</button>
+                        <button type="button" onclick="window.editLog('${log.id}')" class="px-2.5 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-bold transition flex items-center gap-1" title="Edit"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i> Edit</button>
+                        <button type="button" onclick="window.deleteLog('${log.id}')" class="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </div>
                 `;
                 container.appendChild(card);
